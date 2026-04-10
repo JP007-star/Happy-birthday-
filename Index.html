@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Nandini 🌙</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=Quicksand:wght@300;400&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:#0a0612; font-family:'Quicksand',sans-serif; color:#f5e6d0; overflow-x:hidden; }
+
+/* ── PETALS ── */
+.petal {
+  position:fixed; pointer-events:none; z-index:10;
+  animation:petalFall linear infinite; opacity:0;
+}
+@keyframes petalFall {
+  0%   { transform:translateY(-80px) rotate(0deg) translateX(0); opacity:0; }
+  8%   { opacity:.8; }
+  92%  { opacity:.5; }
+  100% { transform:translateY(105vh) rotate(400deg) translateX(50px); opacity:0; }
+}
+
+/* ══════════════════════════════
+   SECTION 1 — HERO (NIGHT SKY)
+══════════════════════════════ */
+#hero {
+  position:relative; min-height:100vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  overflow:hidden;
+  background: radial-gradient(ellipse at 50% 0%, #1a0a2e 0%, #0a0612 60%);
+}
+
+/* star field */
+#starCanvas { position:absolute; inset:0; width:100%; height:100%; }
+
+/* shooting stars */
+.shoot {
+  position:absolute; top:0; left:0;
+  width:2px; height:2px; border-radius:50%;
+  background:#fff;
+  filter:drop-shadow(0 0 4px #fff);
+  animation:shoot linear infinite;
+  opacity:0;
+}
+@keyframes shoot {
+  0%   { transform:translate(var(--sx),var(--sy)) rotate(var(--ang)); opacity:0; }
+  5%   { opacity:1; }
+  30%  { opacity:0; }
+  100% { transform:translate(calc(var(--sx) + var(--dx)), calc(var(--sy) + var(--dy))) rotate(var(--ang)); opacity:0; }
+}
+
+/* moon */
+.moon-ring {
+  position:relative; width:180px; height:180px;
+  margin-bottom:2.5rem;
+  animation:moonFloat 5s ease-in-out infinite;
+}
+@keyframes moonFloat {
+  0%,100% { transform:translateY(0) rotate(-2deg); }
+  50%     { transform:translateY(-18px) rotate(2deg); }
+}
+.moon-glow {
+  position:absolute; inset:-30px; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,210,100,.22) 0%, transparent 70%);
+  animation:glowPulse 3s ease-in-out infinite;
+}
+@keyframes glowPulse {
+  0%,100% { transform:scale(1); opacity:.7; }
+  50%     { transform:scale(1.15); opacity:1; }
+}
+.moon-body {
+  width:180px; height:180px; border-radius:50%;
+  background:linear-gradient(135deg,#ffe9a0 0%,#f5c96a 45%,#e0a040 100%);
+  box-shadow:0 0 50px rgba(255,200,80,.35), 0 0 100px rgba(255,180,60,.12),
+             inset -10px -10px 28px rgba(0,0,0,.18);
+  display:flex; align-items:center; justify-content:center;
+  font-size:5rem; position:relative; overflow:hidden;
+}
+.moon-body::after {
+  content:''; position:absolute;
+  top:10%; left:14%; width:36%; height:30%;
+  background:rgba(255,255,255,.18); border-radius:50%;
+  transform:rotate(-30deg);
+}
+
+.name-tag {
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:.8rem; letter-spacing:.45em; text-transform:uppercase;
+  color:#d4a96a; margin-bottom:.6rem;
+  opacity:0; animation:fadeUp .9s ease forwards .3s;
+}
+.hero-name {
+  font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:clamp(4rem,12vw,8rem); line-height:1;
+  background:linear-gradient(135deg,#ffe9a0,#f5b96a,#e87060);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  opacity:0; animation:fadeUp .9s ease forwards .6s;
+}
+.hero-hb {
+  font-size:clamp(.85rem,2vw,1rem); letter-spacing:.3em; text-transform:uppercase;
+  color:rgba(245,210,160,.55); margin-top:.6rem;
+  opacity:0; animation:fadeUp .9s ease forwards .9s;
+}
+.moon-quote {
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:clamp(1rem,2.5vw,1.25rem); color:rgba(255,230,180,.7);
+  margin-top:2rem; letter-spacing:.04em; text-align:center;
+  opacity:0; animation:fadeUp .9s ease forwards 1.3s;
+}
+.scroll-hint {
+  margin-top:3rem; font-size:.68rem; letter-spacing:.3em; text-transform:uppercase;
+  color:rgba(212,169,106,.5);
+  opacity:0; animation:fadeUp .9s ease forwards 1.8s, bob 2s ease-in-out infinite 2.5s;
+}
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)} }
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(24px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ══════════════════════════════
+   SECTION 2 — SUNSET
+══════════════════════════════ */
+#sunset {
+  position:relative; min-height:100vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.sunset-bg {
+  position:absolute; inset:0;
+  background:linear-gradient(180deg,
+    #1a0a2e 0%,
+    #3d1a4a 8%,
+    #7a2a3a 22%,
+    #c04830 38%,
+    #e8783a 52%,
+    #f5b06a 64%,
+    #fdd9a0 76%,
+    #fdf0d0 88%,
+    #fdf8f4 100%);
+}
+/* sun disk */
+.sun {
+  position:absolute; bottom:38%; left:50%; transform:translateX(-50%);
+  width:90px; height:90px; border-radius:50%;
+  background:radial-gradient(circle,#fff7cc 0%,#ffdb70 40%,#f5a030 100%);
+  box-shadow:0 0 60px rgba(255,200,80,.6), 0 0 120px rgba(255,150,50,.3);
+  animation:sunPulse 4s ease-in-out infinite;
+}
+@keyframes sunPulse {
+  0%,100%{box-shadow:0 0 60px rgba(255,200,80,.6),0 0 120px rgba(255,150,50,.3)}
+  50%    {box-shadow:0 0 80px rgba(255,200,80,.8),0 0 160px rgba(255,150,50,.4)}
+}
+/* horizon water shimmer */
+.horizon {
+  position:absolute; bottom:0; left:0; right:0; height:40%;
+  background:linear-gradient(180deg,rgba(245,160,80,.25) 0%,rgba(200,100,50,.18) 40%,rgba(80,40,80,.3) 100%);
+}
+.shimmer-line {
+  position:absolute; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent 10%,rgba(255,220,120,.6) 50%,transparent 90%);
+  animation:shimmer 3s ease-in-out infinite;
+}
+.shimmer-line:nth-child(1) { bottom:70%; animation-delay:0s; }
+.shimmer-line:nth-child(2) { bottom:60%; animation-delay:.6s; width:60%; left:20%; }
+.shimmer-line:nth-child(3) { bottom:50%; animation-delay:1.2s; }
+.shimmer-line:nth-child(4) { bottom:40%; animation-delay:.3s; width:70%; left:15%; }
+@keyframes shimmer {
+  0%,100%{opacity:.3; transform:scaleX(.9)}
+  50%    {opacity:1;  transform:scaleX(1.05)}
+}
+/* birds */
+.bird {
+  position:absolute; font-size:1.1rem;
+  animation:birdFly linear infinite;
+  opacity:.75;
+}
+@keyframes birdFly {
+  0%   { transform:translate(0,0) scaleX(1); }
+  100% { transform:translate(110vw,-30px) scaleX(1); }
+}
+
+.sunset-content {
+  position:relative; z-index:2; text-align:center; padding:2rem 1rem;
+}
+.s-label {
+  font-size:.7rem; letter-spacing:.4em; text-transform:uppercase;
+  color:rgba(80,30,20,.6); margin-bottom:.8rem;
+}
+.s-title {
+  font-family:'Cormorant Garamond',serif; font-weight:300; font-style:italic;
+  font-size:clamp(2.2rem,7vw,4.2rem); color:#3d1020; line-height:1.1;
+}
+.s-body {
+  font-size:clamp(.9rem,2vw,1.05rem); color:rgba(60,20,10,.65);
+  max-width:380px; margin:.9rem auto 0; line-height:1.9;
+}
+
+/* ══════════════════════════════
+   SECTION 3 — COSMOS STATS
+══════════════════════════════ */
+#stats {
+  background:linear-gradient(180deg,#0a0612 0%,#130820 100%);
+  padding:5rem 1rem; text-align:center; position:relative; overflow:hidden;
+}
+#stats::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse at 50% 50%, rgba(180,100,220,.1) 0%, transparent 70%);
+  pointer-events:none;
+}
+.st-label { font-size:.68rem; letter-spacing:.4em; text-transform:uppercase; color:#7a5a8a; margin-bottom:.8rem; }
+.st-title {
+  font-family:'Cormorant Garamond',serif; font-weight:300; font-style:italic;
+  font-size:clamp(2rem,5vw,3rem); color:#f0d8f8; margin-bottom:3rem;
+}
+.stats-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:1.4rem; max-width:780px; margin:0 auto 2rem;
+}
+.stat-card {
+  background:rgba(255,255,255,.04); border:1px solid rgba(180,120,240,.18);
+  border-radius:22px; padding:2rem 1.2rem;
+  transition:transform .4s ease, box-shadow .4s ease;
+  position:relative; overflow:hidden;
+}
+.stat-card::before {
+  content:''; position:absolute; inset:0; border-radius:22px;
+  background:radial-gradient(circle at 50% 0%, rgba(212,160,240,.1) 0%, transparent 60%);
+}
+.stat-card:hover { transform:translateY(-8px); box-shadow:0 24px 50px rgba(180,80,240,.15); }
+.stat-num {
+  font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:clamp(2.4rem,6vw,3.5rem); line-height:1;
+  background:linear-gradient(135deg,#ffe9a0,#d4a0e8);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  display:block; margin-bottom:.4rem;
+  animation:countUp .05s ease forwards;
+}
+.stat-icon { font-size:1.6rem; display:block; margin-bottom:.6rem; }
+.stat-desc { font-size:.8rem; letter-spacing:.12em; color:rgba(220,190,240,.5); text-transform:uppercase; }
+.stat-sub { font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:.88rem; color:rgba(212,160,240,.6); margin-top:.3rem; display:block; }
+
+.countdown-box {
+  background:rgba(255,255,255,.04); border:1px solid rgba(212,169,106,.25);
+  border-radius:24px; padding:2rem 2rem; max-width:460px; margin:0 auto;
+}
+.cd-title { font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:1rem; color:#d4a96a; margin-bottom:1.4rem; letter-spacing:.05em; }
+.cd-clock {
+  display:flex; align-items:center; justify-content:center; gap:.5rem;
+  margin-bottom:1rem;
+}
+.cd-unit { display:flex; flex-direction:column; align-items:center; }
+.cd-val {
+  font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:clamp(2.8rem,9vw,4.5rem); line-height:1;
+  background:linear-gradient(135deg,#ffe9a0,#f5b96a,#e87060);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  min-width:2ch; text-align:center;
+  transition: all .3s ease;
+}
+.cd-lbl { font-size:.6rem; letter-spacing:.3em; text-transform:uppercase;
+  color:rgba(212,169,106,.4); margin-top:.2rem; }
+.cd-colon {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,7vw,3.5rem); color:rgba(212,169,106,.5);
+  line-height:1; padding-bottom:.6rem;
+  animation:blinkColon 1s step-end infinite;
+}
+@keyframes blinkColon { 0%,100%{opacity:1} 50%{opacity:.15} }
+.cd-sub { font-size:.7rem; letter-spacing:.25em; text-transform:uppercase;
+  color:rgba(212,169,106,.35); }
+.cd-done { font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:1.4rem; color:#d4a0e8; margin-top:.5rem; }
+
+/* ══════════════════════════════
+   SECTION 4 — WISHES
+══════════════════════════════ */
+#wishes {
+  background:linear-gradient(160deg,#0d0818 0%,#1a0e26 100%);
+  padding:5rem 1rem; text-align:center;
+}
+.w-label { font-size:.68rem; letter-spacing:.4em; text-transform:uppercase; color:#7a5a8a; margin-bottom:.8rem; }
+.w-title {
+  font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:clamp(2rem,5vw,3rem); color:#f0d8f8; margin-bottom:2.5rem;
+}
+.w-title em { font-style:italic; color:#d4a0e8; }
+.cards {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1.2rem; max-width:720px; margin:0 auto;
+}
+.card {
+  background:rgba(255,255,255,.05); border:1px solid rgba(212,160,240,.14);
+  border-radius:20px; padding:1.8rem 1.4rem;
+  transition:transform .35s ease, box-shadow .35s ease, background .35s ease;
+  cursor:default;
+}
+.card:hover {
+  transform:translateY(-8px) scale(1.03);
+  background:rgba(255,255,255,.09);
+  box-shadow:0 20px 50px rgba(180,80,200,.15);
+}
+.card-icon { font-size:2rem; margin-bottom:.7rem; display:block;
+  animation:iconBreathe 4s ease-in-out infinite; }
+.card:nth-child(2) .card-icon { animation-delay:.8s; }
+.card:nth-child(3) .card-icon { animation-delay:1.6s; }
+.card:nth-child(4) .card-icon { animation-delay:.4s; }
+.card:nth-child(5) .card-icon { animation-delay:1.2s; }
+.card:nth-child(6) .card-icon { animation-delay:2s; }
+@keyframes iconBreathe {
+  0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
+.card-text {
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:1rem; color:rgba(240,216,248,.75); line-height:1.7;
+}
+
+/* ══════════════════════════════
+   SECTION 4 — NOTE
+══════════════════════════════ */
+#note {
+  background:linear-gradient(160deg,#1a0e26 0%,#2a0e1a 100%);
+  padding:5rem 1rem; text-align:center;
+}
+.n-label { font-size:.68rem; letter-spacing:.4em; text-transform:uppercase; color:#8a5a7a; margin-bottom:.8rem; }
+.n-title {
+  font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:clamp(2rem,5vw,3rem); color:#f5dde8; margin-bottom:2rem;
+}
+.note-card {
+  background:rgba(255,255,255,.06); border:1px solid rgba(212,169,106,.2);
+  border-radius:24px; padding:2.5rem 2rem; max-width:480px; margin:0 auto;
+  position:relative; box-shadow:0 8px 40px rgba(0,0,0,.3);
+}
+.note-card::before {
+  content:'❝'; position:absolute; top:-.5rem; left:1.5rem;
+  font-family:'Cormorant Garamond',serif; font-size:5rem; color:rgba(212,169,106,.2); line-height:1;
+}
+.note-body {
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:1.15rem; color:rgba(245,221,232,.8); line-height:2;
+}
+.note-sign {
+  margin-top:1.5rem; font-size:.72rem; letter-spacing:.22em;
+  color:#8a6a8a; text-transform:uppercase;
+}
+
+/* ══════════════════════════════
+   SECTION 5 — CAKE
+══════════════════════════════ */
+#cake {
+  background:#0a0612; padding:5rem 1rem; text-align:center;
+}
+.c-label { font-size:.68rem; letter-spacing:.4em; text-transform:uppercase; color:#7a5a8a; margin-bottom:.8rem; }
+.c-title {
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
+  font-size:clamp(2rem,5vw,3rem); color:#f0d8f8; margin-bottom:2rem;
+}
+.cake-wrap { position:relative; display:inline-block; margin:1rem 0 2rem; }
+.cake-emoji {
+  font-size:7rem; display:block;
+  animation:cakeFloat 3s ease-in-out infinite;
+  filter:drop-shadow(0 0 30px rgba(255,180,100,.4));
+}
+@keyframes cakeFloat {
+  0%,100%{transform:translateY(0) rotate(-3deg)}
+  50%    {transform:translateY(-16px) rotate(3deg)}
+}
+.sp-ring { position:absolute; inset:-25px; pointer-events:none; }
+.sp {
+  position:absolute; animation:spOrbit ease-in-out infinite;
+}
+.sp:nth-child(1){top:-5px;left:50%;font-size:1.4rem;animation-duration:2.8s;animation-delay:0s}
+.sp:nth-child(2){top:20%;right:-8px;font-size:1.1rem;animation-duration:3.2s;animation-delay:.5s}
+.sp:nth-child(3){bottom:-5px;left:50%;font-size:1.4rem;animation-duration:2.6s;animation-delay:1s}
+.sp:nth-child(4){top:20%;left:-8px;font-size:1.1rem;animation-duration:3s;animation-delay:1.5s}
+.sp:nth-child(5){top:50%;right:-12px;font-size:1rem;animation-duration:2.4s;animation-delay:.8s}
+.sp:nth-child(6){top:50%;left:-12px;font-size:1rem;animation-duration:3.4s;animation-delay:1.3s}
+@keyframes spOrbit {
+  0%,100%{transform:scale(1) rotate(0deg);opacity:.7}
+  50%    {transform:scale(1.3) rotate(25deg);opacity:1}
+}
+.c-msg {
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:clamp(1.1rem,3vw,1.4rem); color:rgba(240,216,248,.7);
+  max-width:360px; margin:0 auto; line-height:1.9;
+}
+
+/* footer */
+footer {
+  background:#060410; text-align:center; padding:2rem 1rem;
+  border-top:1px solid rgba(212,169,106,.1);
+}
+.f-name {
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:1.5rem; color:#d4a96a; display:block; margin-bottom:.3rem;
+}
+footer p { font-size:.72rem; letter-spacing:.18em; color:rgba(245,230,200,.3); }
+
+/* ══════════════════════════════
+   REVEAL GATE
+══════════════════════════════ */
+#reveal-gate {
+  background:linear-gradient(160deg,#0d0818 0%,#1a0826 100%);
+  padding:6rem 1rem; text-align:center; min-height:80vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+}
+.rg-label { font-size:.68rem; letter-spacing:.4em; text-transform:uppercase; color:#7a5a8a; margin-bottom:.8rem; }
+.rg-title {
+  font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:clamp(2.2rem,6vw,3.8rem); color:#f0d8f8; line-height:1.15; margin-bottom:2.5rem;
+}
+.rg-title em { font-style:italic; color:#d4a0e8; }
+
+#revealBtn {
+  position:relative; border:none; background:none; cursor:pointer;
+  padding:0; outline:none;
+}
+.btn-inner {
+  display:block;
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:1.3rem; letter-spacing:.12em;
+  color:#0a0612;
+  background:linear-gradient(135deg,#ffe9a0,#f5b96a,#e87060);
+  padding:1rem 3rem; border-radius:50px;
+  position:relative; z-index:1;
+  transition:transform .3s ease, box-shadow .3s ease;
+  box-shadow:0 8px 30px rgba(245,185,106,.3);
+}
+#revealBtn:hover .btn-inner {
+  transform:scale(1.06);
+  box-shadow:0 14px 45px rgba(245,185,106,.5);
+}
+.btn-glow {
+  position:absolute; inset:-6px; border-radius:56px;
+  background:linear-gradient(135deg,rgba(255,233,160,.4),rgba(232,112,96,.4));
+  filter:blur(12px); z-index:0;
+  animation:btnGlowPulse 2.5s ease-in-out infinite;
+}
+@keyframes btnGlowPulse {
+  0%,100%{opacity:.6;transform:scale(1)}
+  50%    {opacity:1; transform:scale(1.08)}
+}
+
+/* ══════════════════════════════
+   FINALE
+══════════════════════════════ */
+#finale {
+  position:relative; min-height:100vh;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+  background:radial-gradient(ellipse at 50% 30%, #2a0a3e 0%, #0a0612 70%);
+}
+#confettiCanvas {
+  position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1;
+}
+.finale-inner {
+  position:relative; z-index:2; text-align:center; padding:4rem 1.5rem;
+}
+.cake-wrap { position:relative; display:inline-block; margin:0 0 2rem; }
+.cake-emoji {
+  font-size:7rem; display:block;
+  animation:cakeFloat 3s ease-in-out infinite;
+  filter:drop-shadow(0 0 40px rgba(255,180,100,.5));
+}
+@keyframes cakeFloat {
+  0%,100%{transform:translateY(0) rotate(-3deg)}
+  50%    {transform:translateY(-18px) rotate(3deg)}
+}
+.sp-ring { position:absolute; inset:-25px; pointer-events:none; }
+.sp { position:absolute; animation:spOrbit ease-in-out infinite; }
+.sp:nth-child(1){top:-5px;left:50%;font-size:1.5rem;animation-duration:2.8s;animation-delay:0s}
+.sp:nth-child(2){top:18%;right:-8px;font-size:1.1rem;animation-duration:3.2s;animation-delay:.5s}
+.sp:nth-child(3){bottom:-5px;left:50%;font-size:1.5rem;animation-duration:2.6s;animation-delay:1s}
+.sp:nth-child(4){top:18%;left:-8px;font-size:1.1rem;animation-duration:3s;animation-delay:1.5s}
+.sp:nth-child(5){top:52%;right:-14px;font-size:1rem;animation-duration:2.4s;animation-delay:.8s}
+.sp:nth-child(6){top:52%;left:-14px;font-size:1rem;animation-duration:3.4s;animation-delay:1.3s}
+@keyframes spOrbit {
+  0%,100%{transform:scale(1) rotate(0deg);opacity:.7}
+  50%    {transform:scale(1.35) rotate(25deg);opacity:1}
+}
+
+.fin-tag {
+  font-size:.72rem; letter-spacing:.4em; text-transform:uppercase;
+  color:#8a6a9a; margin-bottom:.5rem;
+}
+.fin-hb {
+  font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:clamp(3rem,10vw,7rem); line-height:1.0;
+  color:rgba(240,216,248,.9);
+  opacity:0; animation:none;
+}
+.fin-hb em { font-style:italic; color:#d4a0e8; }
+.fin-name {
+  font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:clamp(3.5rem,12vw,9rem); line-height:.95;
+  background:linear-gradient(135deg,#ffe9a0,#f5b96a,#e87060,#d4a0e8);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  opacity:0; animation:none;
+}
+.fin-sub {
+  font-size:clamp(.82rem,2vw,.95rem); letter-spacing:.12em;
+  color:rgba(220,190,240,.45); margin-top:1rem;
+  opacity:0; animation:none;
+}
+.fin-divider {
+  width:60px; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(212,169,106,.6),transparent);
+  margin:1.6rem auto;
+  opacity:0;
+}
+.fin-quote {
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:clamp(1rem,2.5vw,1.25rem); color:rgba(255,230,180,.55);
+  line-height:1.9; opacity:0;
+}
+
+/* finale entry animations */
+.fin-show { animation:finFadeUp .9s ease forwards !important; }
+@keyframes finFadeUp {
+  from{opacity:0;transform:translateY(30px)}
+  to  {opacity:1;transform:translateY(0)}
+}
+
+/* ── reveal ── */
+.reveal { opacity:0; transform:translateY(35px); transition:opacity 1s ease, transform 1s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:#0a0612}
+::-webkit-scrollbar-thumb{background:#4a2a5a;border-radius:2px}
+</style>
+</head>
+<body>
+
+<!-- petals container -->
+<div id="petals"></div>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <canvas id="starCanvas"></canvas>
+
+  <div class="moon-ring" style="opacity:0;animation:fadeUp .9s ease forwards .1s">
+    <div class="moon-glow"></div>
+    <div class="moon-body">🌙</div>
+  </div>
+
+  <p class="name-tag">✦ &nbsp; for you &nbsp; ✦</p>
+  <h1 class="hero-name">Nandini</h1>
+  <p class="moon-quote">"Like the moon, you light up the darkest skies."</p>
+  <p class="scroll-hint">↓ &nbsp; scroll &nbsp; ↓</p>
+</section>
+
+<!-- ══ SUNSET ══ -->
+<section id="sunset">
+  <div class="sunset-bg"></div>
+  <div class="sun"></div>
+  <div class="horizon">
+    <div class="shimmer-line"></div>
+    <div class="shimmer-line"></div>
+    <div class="shimmer-line"></div>
+    <div class="shimmer-line"></div>
+  </div>
+  <!-- birds -->
+  <div class="bird" style="top:30%;left:-5%;font-size:1rem;animation:birdFly 14s linear infinite;animation-delay:0s">🕊️</div>
+  <div class="bird" style="top:35%;left:-5%;font-size:.8rem;animation:birdFly 17s linear infinite;animation-delay:3s">🕊️</div>
+  <div class="bird" style="top:28%;left:-5%;font-size:1.2rem;animation:birdFly 19s linear infinite;animation-delay:6s">🕊️</div>
+
+  <div class="sunset-content reveal">
+    <p class="s-label">✦ your element ✦</p>
+    <h2 class="s-title">Born where the sun<br>meets the sea</h2>
+    <p class="s-body">Every golden hour exists to remind the world of someone like you.</p>
+  </div>
+</section>
+
+<!-- ══ STATS ══ -->
+<section id="stats" class="reveal">
+  <p class="st-label">✦ written in the stars ✦</p>
+  <h2 class="st-title">The universe counted<br>every moment of <em>you</em></h2>
+
+  <div class="stats-grid" id="statsGrid"></div>
+
+  <div class="countdown-box">
+    <p class="cd-title">🌙 &nbsp; Her birthday begins in &nbsp; 🌙</p>
+    <div class="cd-clock">
+      <div class="cd-unit"><span class="cd-val" id="cdH">00</span><span class="cd-lbl">hours</span></div>
+      <span class="cd-colon">:</span>
+      <div class="cd-unit"><span class="cd-val" id="cdM">00</span><span class="cd-lbl">mins</span></div>
+      <span class="cd-colon">:</span>
+      <div class="cd-unit"><span class="cd-val" id="cdS">00</span><span class="cd-lbl">secs</span></div>
+    </div>
+    <p class="cd-sub" id="cdSubText">until midnight · May 18, 2026 🌸</p>
+  </div>
+</section>
+
+<!-- ══ WISHES ══ -->
+<section id="wishes" class="reveal">
+  <p class="w-label">✦ birthday wishes ✦</p>
+  <h2 class="w-title">Everything <em>beautiful</em><br>is yours</h2>
+  <div class="cards">
+    <div class="card"><span class="card-icon">🌙</span><p class="card-text">May every night sky hold a moon just for you.</p></div>
+    <div class="card"><span class="card-icon">🌅</span><p class="card-text">May every sunset remind you how rare you are.</p></div>
+    <div class="card"><span class="card-icon">🌸</span><p class="card-text">May softness and joy follow wherever you go.</p></div>
+    <div class="card"><span class="card-icon">💫</span><p class="card-text">May your dreams feel as close as starlight.</p></div>
+    <div class="card"><span class="card-icon">🕯️</span><p class="card-text">May your inner light never, ever dim.</p></div>
+    <div class="card"><span class="card-icon">🦋</span><p class="card-text">May this year carry you into everything you deserve.</p></div>
+  </div>
+</section>
+
+<!-- ══ NOTE ══ -->
+<section id="note" class="reveal">
+  <p class="n-label">✦ from the heart ✦</p>
+  <h2 class="n-title">A quiet little note 🌙</h2>
+  <div class="note-card">
+    <p class="note-body">
+      Nandini — you have this rare, quiet magic.<br><br>
+      The way you find beauty in small things, in moonlight, in golden skies —
+      it makes the world lovelier just by you noticing it. 🌷<br><br>
+      Today the universe celebrates <em>you.</em>
+    </p>
+    <p class="note-sign">— with warmth &amp; a little starlight ✦</p>
+  </div>
+</section>
+
+<!-- ══ REVEAL GATE ══ -->
+<section id="reveal-gate" class="reveal">
+  <p class="rg-label">✦ one last thing ✦</p>
+  <h2 class="rg-title">Are you ready,<br><em>Nandini?</em></h2>
+  <button id="revealBtn" onclick="triggerBirthday()">
+    <span class="btn-inner">✨ &nbsp; Open &nbsp; ✨</span>
+    <div class="btn-glow"></div>
+  </button>
+</section>
+
+<!-- ══ BIRTHDAY FINALE ══ -->
+<section id="finale" style="display:none;">
+  <canvas id="confettiCanvas"></canvas>
+  <div class="finale-inner">
+    <div class="cake-wrap">
+      <span class="cake-emoji">🎂</span>
+      <div class="sp-ring">
+        <span class="sp">✨</span><span class="sp">🌸</span>
+        <span class="sp">💫</span><span class="sp">🌙</span>
+        <span class="sp">🌟</span><span class="sp">🌺</span>
+      </div>
+    </div>
+    <p class="fin-tag">✦ &nbsp; May 18, 2000 &nbsp; ✦</p>
+    <h1 class="fin-hb">Happy<br><em>Birthday</em></h1>
+    <h2 class="fin-name">Nandini</h2>
+    <p class="fin-sub">26 years of magic &nbsp;·&nbsp; may this one be the most beautiful yet 🌙</p>
+    <div class="fin-divider"></div>
+    <p class="fin-quote">"The moon shines a little brighter<br>on the day you were born."</p>
+  </div>
+</section>
+
+<footer>
+  <span class="f-name">Happy Birthday, Nandini ✨</span>
+  <p>made with moonlight &amp; a little sunset gold 🌙🌅</p>
+</footer>
+
+<script>
+/* ── STARS ── */
+const canvas = document.getElementById('starCanvas');
+const ctx = canvas.getContext('2d');
+let W, H, stars=[], t=0;
+
+function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
+resize(); window.addEventListener('resize', resize);
+
+function mkStars(){
+  stars=Array.from({length:180},()=>({
+    x:Math.random()*W, y:Math.random()*H,
+    r:Math.random()*1.5+.3,
+    phase:Math.random()*Math.PI*2,
+    speed:Math.random()*.018+.005,
+    hue: Math.random()<.3 ? 'rgba(255,200,120,' : 'rgba(220,200,255,'
+  }));
+}
+mkStars();
+
+function drawStars(ts){
+  ctx.clearRect(0,0,W,H);
+  stars.forEach(s=>{
+    const o=.25+.6*Math.abs(Math.sin(s.phase+ts*.001*s.speed*60));
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=s.hue+o+')';
+    ctx.fill();
+  });
+  requestAnimationFrame(drawStars);
+}
+requestAnimationFrame(drawStars);
+
+/* ── SHOOTING STARS ── */
+function mkShoot(){
+  const el=document.createElement('div');
+  el.className='shoot';
+  const sx=Math.random()*80, sy=Math.random()*40;
+  const dx=Math.random()*300+200, dy=Math.random()*200+100;
+  const ang=-30+Math.random()*20;
+  el.style.cssText=`
+    --sx:${sx}vw; --sy:${sy}vh;
+    --dx:${dx}px; --dy:${dy}px;
+    --ang:${ang}deg;
+    animation-duration:${Math.random()*2+1.5}s;
+    animation-delay:${Math.random()*8}s;
+    width:${Math.random()*80+60}px;
+    background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.9));
+    border-radius:2px; height:1px;
+  `;
+  document.getElementById('hero').appendChild(el);
+}
+for(let i=0;i<8;i++) mkShoot();
+setInterval(mkShoot,5000);
+
+/* ── PETALS ── */
+const petals=['🌸','🌺','🌼','🌷','💮'];
+function spawnPetal(){
+  const p=document.createElement('div');
+  p.className='petal';
+  p.textContent=petals[Math.floor(Math.random()*petals.length)];
+  p.style.cssText=`
+    left:${Math.random()*100}vw;
+    font-size:${Math.random()*.7+.8}rem;
+    animation-duration:${Math.random()*9+8}s;
+    animation-delay:${Math.random()*3}s;
+  `;
+  document.getElementById('petals').appendChild(p);
+  setTimeout(()=>p.remove(),20000);
+}
+setInterval(spawnPetal,1400);
+for(let i=0;i<6;i++) setTimeout(spawnPetal,i*300);
+
+/* ── BIRTHDAY REVEAL ── */
+function triggerBirthday(){
+  const gate = document.getElementById('reveal-gate');
+  const finale = document.getElementById('finale');
+
+  // fade out gate
+  gate.style.transition = 'opacity .6s ease';
+  gate.style.opacity = '0';
+  setTimeout(()=>{
+    gate.style.display = 'none';
+    finale.style.display = 'flex';
+    // scroll into view
+    finale.scrollIntoView({behavior:'smooth'});
+    // stagger text animations
+    const els = [
+      {el:'.fin-hb',   delay:400},
+      {el:'.fin-name', delay:900},
+      {el:'.fin-sub',  delay:1400},
+      {el:'.fin-divider', delay:1700},
+      {el:'.fin-quote',delay:2000},
+    ];
+    els.forEach(({el,delay})=>{
+      setTimeout(()=>{
+        document.querySelector(el).classList.add('fin-show');
+      }, delay);
+    });
+    // start confetti
+    startConfetti();
+  }, 650);
+}
+
+/* ── CONFETTI ── */
+function startConfetti(){
+  const cc = document.getElementById('confettiCanvas');
+  const cx = cc.getContext('2d');
+  cc.width = window.innerWidth; cc.height = window.innerHeight;
+  window.addEventListener('resize',()=>{ cc.width=window.innerWidth; cc.height=window.innerHeight; });
+
+  const colors = ['#ffe9a0','#f5b96a','#e87060','#d4a0e8','#f0d8f8','#a0d8ef','#c8f5c8','#ffb3c6'];
+  const shapes = ['circle','rect','star'];
+  let particles = [];
+
+  function mkParticle(x,y){
+    return {
+      x, y,
+      vx: (Math.random()-0.5)*8,
+      vy: -(Math.random()*12+4),
+      gravity: 0.28,
+      color: colors[Math.floor(Math.random()*colors.length)],
+      shape: shapes[Math.floor(Math.random()*shapes.length)],
+      size: Math.random()*8+4,
+      rot: Math.random()*360,
+      rotV: (Math.random()-0.5)*8,
+      alpha: 1,
+      fade: Math.random()*.012+.006
+    };
+  }
+
+  // burst on open
+  for(let i=0;i<180;i++){
+    particles.push(mkParticle(
+      cc.width/2 + (Math.random()-0.5)*200,
+      cc.height/2
+    ));
+  }
+
+  // continuous drizzle
+  let drizzle = setInterval(()=>{
+    for(let i=0;i<6;i++){
+      particles.push(mkParticle(Math.random()*cc.width, -10));
+      particles[particles.length-1].vy = Math.random()*2+1;
+      particles[particles.length-1].gravity = 0.15;
+    }
+  }, 120);
+  setTimeout(()=>clearInterval(drizzle), 8000);
+
+  function drawStar(cx2, cy2, r, color, alpha){
+    cx.save(); cx.globalAlpha=alpha; cx.fillStyle=color;
+    cx.translate(cx2,cy2); cx.beginPath();
+    for(let i=0;i<5;i++){
+      cx.lineTo(Math.cos((18+i*72)*Math.PI/180)*r, -Math.sin((18+i*72)*Math.PI/180)*r);
+      cx.lineTo(Math.cos((54+i*72)*Math.PI/180)*r*.4, -Math.sin((54+i*72)*Math.PI/180)*r*.4);
+    }
+    cx.closePath(); cx.fill(); cx.restore();
+  }
+
+  function loop(){
+    cx.clearRect(0,0,cc.width,cc.height);
+    particles = particles.filter(p=>p.alpha>0);
+    particles.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.vy+=p.gravity;
+      p.vx*=0.99; p.rot+=p.rotV; p.alpha-=p.fade;
+      if(p.y > cc.height) p.alpha=0;
+      cx.save(); cx.globalAlpha=Math.max(0,p.alpha);
+      cx.translate(p.x,p.y); cx.rotate(p.rot*Math.PI/180);
+      cx.fillStyle=p.color;
+      if(p.shape==='circle'){
+        cx.beginPath(); cx.arc(0,0,p.size/2,0,Math.PI*2); cx.fill();
+      } else if(p.shape==='rect'){
+        cx.fillRect(-p.size/2,-p.size/4,p.size,p.size/2);
+      }
+      cx.restore();
+      if(p.shape==='star') drawStar(p.x,p.y,p.size/2,p.color,Math.max(0,p.alpha));
+    });
+    if(particles.length>0 || Date.now()<window._confettiEnd) requestAnimationFrame(loop);
+  }
+  window._confettiEnd = Date.now() + 9000;
+  loop();
+}
+
+/* ── DATE CALCULATIONS ── */
+(function(){
+  const dob = new Date('2000-05-18T00:00:00');
+  const now = new Date();
+  const msDay = 86400000;
+  const totalMs = now - dob;
+  const totalDays   = Math.floor(totalMs / msDay);
+  const weeks       = Math.floor(totalDays / 7);
+  const years       = Math.floor(totalDays / 365.25);
+  const moonCycles  = Math.floor(totalDays / 29.53);
+  const heartbeats  = Math.floor((totalMs/1000) * 70 / 60);
+  const sunsets     = totalDays;
+  const fmt = n => n.toLocaleString('en-IN');
+
+  const stats = [
+    { icon:'🌍', num: fmt(years),      desc:'years of magic',      sub:'since May 18, 2000' },
+    { icon:'📅', num: fmt(totalDays),  desc:'days on this earth',   sub:'& every one mattered' },
+    { icon:'🌙', num: fmt(moonCycles), desc:'full moon cycles',     sub:'she watched them all' },
+    { icon:'🌅', num: fmt(sunsets),    desc:'sunsets witnessed',    sub:'each one for her' },
+    { icon:'💓', num: fmt(heartbeats), desc:'heartbeats',           sub:'& counting' },
+    { icon:'🌸', num: fmt(weeks),      desc:'weeks of blooming',    sub:'unstoppable' },
+  ];
+
+  const grid = document.getElementById('statsGrid');
+  stats.forEach((s,i) => {
+    const el = document.createElement('div');
+    el.className = 'stat-card';
+    el.innerHTML = `
+      <span class="stat-icon">${s.icon}</span>
+      <span class="stat-num">${s.num}</span>
+      <span class="stat-desc">${s.desc}</span>
+      <span class="stat-sub">${s.sub}</span>`;
+    grid.appendChild(el);
+  });
+})();
+
+/* ── LIVE COUNTDOWN TIMER to May 18 2026 midnight ── */
+(function(){
+  const target = new Date('2026-05-18T00:00:00');
+  const hEl = document.getElementById('cdH');
+  const mEl = document.getElementById('cdM');
+  const sEl = document.getElementById('cdS');
+  const subEl = document.getElementById('cdSubText');
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function tick(){
+    const now = new Date();
+    const diff = target - now;
+
+    if(diff <= 0){
+      // It's her birthday!
+      hEl.textContent = '00'; mEl.textContent = '00'; sEl.textContent = '00';
+      subEl.innerHTML = '🎉 It\'s Nandini\'s Birthday! 🌙🎂';
+      subEl.style.color = '#d4a0e8';
+      subEl.style.fontSize = '1rem';
+      return;
+    }
+
+    const totalSecs = Math.floor(diff / 1000);
+    const h = Math.floor(totalSecs / 3600);
+    const m = Math.floor((totalSecs % 3600) / 60);
+    const s = totalSecs % 60;
+
+    // show days too if > 24h
+    if(h >= 24){
+      const days = Math.floor(h / 24);
+      const remH = h % 24;
+      hEl.textContent = pad(remH);
+      mEl.textContent = pad(m);
+      sEl.textContent = pad(s);
+      subEl.textContent = `${days} day${days>1?'s':''} + hours · until midnight May 18 🌸`;
+    } else {
+      hEl.textContent = pad(h);
+      mEl.textContent = pad(m);
+      sEl.textContent = pad(s);
+    }
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
+
+
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
