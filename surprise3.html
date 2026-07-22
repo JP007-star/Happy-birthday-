@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surprise for You 💜</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=Quicksand:wght@300;400&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background: linear-gradient(180deg, #1a0a2e 0%, #2a1040 30%, #3d1a4a 60%, #c04830 85%, #fdd9a0 100%);
+  min-height:100vh;
+  font-family:'Quicksand',sans-serif;
+  color:#f5e6d0;
+  overflow-x:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:2rem 1rem;
+  position:relative;
+}
+
+/* Sun glow */
+.sun-glow {
+  position:fixed;
+  bottom:10%;
+  left:50%;
+  transform:translateX(-50%);
+  width:300px;
+  height:300px;
+  background:radial-gradient(circle,rgba(255,220,120,.3) 0%,transparent 70%);
+  animation:glowPulse 4s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes glowPulse {
+  0%,100%{opacity:.7;transform:translateX(-50%) scale(1)}
+  50%{opacity:1;transform:translateX(-50%) scale(1.2)}
+}
+
+/* Back button */
+.back-btn {
+  position:fixed;
+  top:1.5rem;
+  left:1.5rem;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,233,160,.2);
+  color:#f5e6d0;
+  padding:0.6rem 1.2rem;
+  border-radius:25px;
+  cursor:pointer;
+  font-family:'Quicksand',sans-serif;
+  font-size:0.8rem;
+  letter-spacing:0.1em;
+  text-decoration:none;
+  transition:all .3s ease;
+  z-index:100;
+}
+.back-btn:hover {
+  background:rgba(255,233,160,.15);
+  transform:translateX(-3px);
+}
+
+/* Title */
+.title {
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:clamp(1rem,3vw,1.4rem);
+  color:rgba(255,230,180,.6);
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  margin-bottom:.5rem;
+  opacity:0;
+  animation:fadeIn 1s ease forwards .3s;
+}
+
+.subtitle {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.8rem,6vw,3rem);
+  font-weight:300;
+  color:#ffe9a0;
+  text-align:center;
+  margin-bottom:2.5rem;
+  opacity:0;
+  animation:fadeIn 1s ease forwards .6s;
+}
+
+/* Poem card */
+.poem-card {
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,233,160,.15);
+  border-radius:20px;
+  padding:2.5rem 2rem;
+  max-width:520px;
+  width:100%;
+  position:relative;
+  box-shadow:0 15px50px rgba(0,0,0,.3);
+  opacity:0;
+  animation:fadeIn 1s ease forwards .9s;
+}
+.poem-card::before {
+  content:'🌅';
+  position:absolute;
+  top:-1.5rem;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:2.5rem;
+}
+
+.poem-line {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.1rem,3vw,1.4rem);
+  line-height:2.2;
+  text-align:center;
+  color:rgba(245,230,200,.85);
+}
+.poem-line .emoji {
+  display:inline;
+  font-size:1.2em;
+}
+.poem-line:nth-child(odd) {
+  color:rgba(255,220,180,.9);
+}
+.poem-line:nth-child(even) {
+  color:rgba(200,180,220,.9);
+  font-style:italic;
+}
+
+.signature {
+  margin-top:2rem;
+  text-align:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;
+  color:#2a1a0a;
+  opacity:0;
+  animation:fadeIn 1s ease forwards 1.5s;
+}
+.signature span {
+  display:block;
+  font-size:1.8rem;
+  margin-bottom:.3rem;
+  color:#1a0f05;
+}
+
+.forgive-btn {
+  margin-top:2rem;
+  background:linear-gradient(135deg,#3d2510,#2a1a0a);
+  border:1px solid #5a3d20;
+  color:#e8d4b8;
+  padding:0.8rem 2rem;
+  border-radius:30px;
+  cursor:pointer;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:1.1rem;
+  transition:all .3s ease;
+  opacity:0;
+  animation:fadeIn 1s ease forwards 1.8s;
+}
+.forgive-btn:hover {
+  background:linear-gradient(135deg,#5a3d20,#3d2510);
+  transform:scale(1.05);
+  box-shadow:0 8px25px rgba(0,0,0,.4);
+}
+
+@keyframes fadeIn {
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Stars */
+.star {
+  position:fixed;
+  width:2px;
+  height:2px;
+  background:#fff;
+  border-radius:50%;
+  animation:twinkle 3s ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%,100%{opacity:.3}
+  50%{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-btn">← Back</a>
+
+<div class="sun-glow"></div>
+
+<p class="title">✦ Surprise 3 ✦</p>
+<h1 class="subtitle">For You 🌸</h1>
+
+<div class="poem-card">
+  <p class="poem-line"><span class="emoji">🌅</span> Suryasthamayam cheekatini thechinatlu,</p>
+  <p class="poem-line"><span class="emoji">💔</span> Naa tappu nee manasulo vadachi undi.</p>
+  <p class="poem-line"><span class="emoji">🌄</span> Kaani prathi suryasthamayam tharuvatha suryodayam vachinatle,</p>
+  <p class="poem-line"><span class="emoji">🤍</span> Naa "Sorry" tharuvatha malli mana navvulu poolu chai pooyalani korukuntunnanu. <span class="emoji">🌸</span></p>
+  <p class="poem-line"><span class="emoji">🙏</span> Kshaminchu...</p>
+  <p class="poem-line"><span class="emoji">✨</span> Endukante nee chirunavve naa prathi udayam. <span class="emoji">☀️😊</span></p>
+
+  <p class="signature">
+    <span>— JP</span>
+    My first Telugu poem for you 💖
+  </p>
+</div>
+
+<button class="forgive-btn" onclick="alert('❤️ Thank you! Means everything to me...')">🙏 Kshaminchu (Forgive Me)</button>
+
+<script>
+// Create twinkling stars
+for(let i=0;i<30;i++){
+  const star=document.createElement('div');
+  star.className='star';
+  star.style.left=Math.random()*100+'vw';
+  star.style.top=Math.random()*60+'vh';
+  star.style.animationDelay=Math.random()*3+'s';
+  document.body.appendChild(star);
+}
+</script>
+</body>
+</html>
