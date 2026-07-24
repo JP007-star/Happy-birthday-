@@ -14,7 +14,6 @@ body {
   font-family:'Quicksand',sans-serif;
   color:#f5e6d0;
   overflow-x:hidden;
-  position:relative;
 }
 
 /* Cosmic background */
@@ -43,59 +42,36 @@ body {
   50%{opacity:1}
 }
 
-/* Vintage paper map */
-.map-container {
+/* Horizontal scroll container */
+.map-wrapper {
   position:relative;
   z-index:10;
-  max-width:900px;
-  margin:0 auto;
-  padding:3rem 1rem;
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding:2rem 0;
 }
 
-/* Vintage paper effect */
-.vintage-paper {
-  background:
-    linear-gradient(180deg, rgba(45,35,25,.95) 0%, rgba(55,40,28,.95) 100%);
-  border-radius:8px;
-  padding:3rem 2rem;
+.map-container {
+  display:flex;
+  min-width:1400px;
+  padding:2rem 4rem;
   position:relative;
-  box-shadow:
-    0 4px20px rgba(0,0,0,.5),
-    inset 0 0 60px rgba(0,0,0,.3);
-  border:1px solid rgba(180,150,100,.2);
 }
 
-/* Paper texture */
-.vintage-paper::before {
-  content:'';
+/* Title at start */
+.map-title-section {
   position:absolute;
-  inset:0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity:.03;
-  pointer-events:none;
-  border-radius:8px;
-}
-
-/* Aged stains */
-.vintage-paper::after {
-  content:'';
-  position:absolute;
-  top:10%;
-  right:8%;
-  width:80px;
-  height:80px;
-  background:radial-gradient(ellipse,rgba(139,100,60,.08) 0%,transparent 70%);
-  border-radius:50%;
-  transform:rotate(-20deg);
+  top:2rem;
+  left:4rem;
+  z-index:20;
 }
 
 .map-title {
   font-family:'Special Elite', cursive;
-  font-size:clamp(1.8rem,5vw,2.8rem);
+  font-size:2rem;
   color:#d4c4a4;
-  text-align:center;
-  margin-bottom:.5rem;
   text-shadow:2px 2px 4px rgba(0,0,0,.5);
+  white-space:nowrap;
 }
 
 .map-subtitle {
@@ -103,165 +79,320 @@ body {
   font-style:italic;
   font-size:1.1rem;
   color:rgba(200,180,140,.7);
-  text-align:center;
-  margin-bottom:3rem;
-  letter-spacing:.1em;
+  margin-top:.5rem;
 }
 
-/* Road/path */
+/* Mountains layer */
+.mountains {
+  position:absolute;
+  bottom:150px;
+  left:0;
+  right:0;
+  height:200px;
+  pointer-events:none;
+}
+
+.mountain {
+  position:absolute;
+  bottom:0;
+  width:0;
+  height:0;
+  border-left:80px solid transparent;
+  border-right:80px solid transparent;
+  border-bottom:120px solid rgba(60,40,80,.4);
+}
+
+.mountain::before {
+  content:'';
+  position:absolute;
+  top:30px;
+  left:-40px;
+  width:0;
+  height:0;
+  border-left:30px solid transparent;
+  border-right:30px solid transparent;
+  border-bottom:40px solid rgba(80,60,100,.5);
+}
+
+.mountain:nth-child(1) { left:5%; }
+.mountain:nth-child(2) { left:15%; border-bottom-width:150px; border-left-width:100px; border-right-width:100px; }
+.mountain:nth-child(3) { left:30%; }
+.mountain:nth-child(4) { left:50%; border-bottom-width:180px; border-left-width:120px; border-right-width:120px; }
+.mountain:nth-child(5) { left:70%; border-bottom-width:140px; }
+.mountain:nth-child(6) { left:85%; border-bottom-width:160px; }
+
+/* Snow caps */
+.mountain::after {
+  content:'';
+  position:absolute;
+  top:0;
+  left:-20px;
+  width:0;
+  height:0;
+  border-left:20px solid transparent;
+  border-right:20px solid transparent;
+  border-bottom:30px solid rgba(255,255,255,.2);
+}
+
+/* River */
+.river {
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  height:80px;
+  background:linear-gradient(90deg,
+    rgba(60,100,140,.3) 0%,
+    rgba(80,120,160,.4) 20%,
+    rgba(60,100,140,.3) 40%,
+    rgba(80,120,160,.4) 60%,
+    rgba(60,100,140,.3) 100%);
+  border-top:2px solid rgba(100,150,200,.3);
+}
+
+.river-wave {
+  position:absolute;
+  top:20px;
+  width:100%;
+  height:10px;
+  background:repeating-linear-gradient(90deg,
+    transparent 0px,
+    rgba(150,200,255,.1) 20px,
+    transparent 40px);
+  animation:riverFlow 4s linear infinite;
+}
+
+@keyframes riverFlow {
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-40px)}
+}
+
+/* Road */
 .road {
-  position:relative;
-  padding-left:60px;
+  position:absolute;
+  bottom:80px;
+  left:0;
+  right:0;
+  height:60px;
+  background:linear-gradient(90deg,
+    rgba(80,60,40,.8) 0%,
+    rgba(100,80,50,.9) 10%,
+    rgba(80,60,40,.8) 20%,
+    rgba(100,80,50,.9) 30%,
+    rgba(80,60,40,.8) 100%);
+  border-top:3px solid rgba(180,150,100,.4);
 }
 
 .road::before {
   content:'';
   position:absolute;
-  left:20px;
-  top:0;
-  bottom:0;
-  width:4px;
-  background:linear-gradient(180deg,
-    rgba(139,119,80,.6) 0%,
-    rgba(100,80,50,.8) 50%,
-    rgba(139,119,80,.6) 100%);
-  border-radius:2px;
-  box-shadow:2px 0 8px rgba(0,0,0,.3);
+  top:50%;
+  left:0;
+  right:0;
+  height:2px;
+  background:repeating-linear-gradient(90deg,
+    rgba(200,180,140,.5) 0px,
+    rgba(200,180,140,.5) 30px,
+    transparent 30px,
+    transparent 60px);
+  transform:translateY(-50%);
 }
 
-/* Dotted line on road */
-.road::after {
-  content:'';
+/* Stop markers on road */
+.stops-container {
   position:absolute;
-  left:22px;
-  top:20px;
-  bottom:20px;
-  width:0;
-  border-left:2px dashed rgba(200,180,140,.4);
+  bottom:140px;
+  left:0;
+  right:0;
+  display:flex;
+  justify-content:space-around;
+  padding:0 5%;
 }
 
-/* Stop markers */
 .stop {
   position:relative;
-  margin-bottom:2.5rem;
-  padding:1.5rem;
-  padding-left:2rem;
-  background:rgba(0,0,0,.2);
-  border-radius:4px;
-  border-left:3px solid rgba(180,150,100,.4);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-decoration:none;
+  cursor:pointer;
+  transition:transform .3s ease;
 }
 
-.stop::before {
-  content:'';
-  position:absolute;
-  left:-38px;
-  top:50%;
-  transform:translateY(-50%);
-  width:16px;
-  height:16px;
-  background:radial-gradient(circle, #d4a96a 0%, #8b6914 100%);
+.stop:hover {
+  transform:scale(1.05);
+}
+
+.stop-marker {
+  width:60px;
+  height:60px;
   border-radius:50%;
-  border:2px solid #5a4a2a;
-  box-shadow:0 0 10px rgba(212,169,106,.5);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.5rem;
+  border:3px solid;
+  position:relative;
+  transition:all .3s ease;
 }
 
-.stop-number {
+/* Revealed stops */
+.stop.revealed .stop-marker {
+  background:linear-gradient(135deg,rgba(212,169,106,.3),rgba(180,140,80,.3));
+  border-color:#d4a96a;
+  box-shadow:0 0 20px rgba(212,169,106,.4);
+  animation:glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%,100%{box-shadow:0 0 20px rgba(212,169,106,.4)}
+  50%{box-shadow:0 0 35px rgba(212,169,106,.7)}
+}
+
+/* Coming soon stops */
+.stop.coming .stop-marker {
+  background:rgba(100,80,100,.2);
+  border-color:rgba(150,130,170,.4);
+}
+
+.stop.coming .stop-marker::after {
+  content:'?';
+  position:absolute;
+  top:-5px;
+  right:-5px;
+  width:20px;
+  height:20px;
+  background:rgba(150,130,170,.5);
+  border-radius:50%;
+  font-size:.7rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Stop label */
+.stop-label {
+  margin-top:.8rem;
+  text-align:center;
+}
+
+.stop-chapter {
   font-family:'Special Elite', cursive;
-  font-size:.8rem;
-  color:rgba(180,150,100,.8);
+  font-size:.7rem;
+  color:rgba(180,150,100,.7);
   margin-bottom:.3rem;
 }
 
 .stop-title {
   font-family:'Cormorant Garamond',serif;
-  font-size:1.4rem;
+  font-size:1.1rem;
   color:#e8dcc8;
-  margin-bottom:.5rem;
+  max-width:120px;
 }
 
 .stop-desc {
   font-family:'Cormorant Garamond',serif;
   font-style:italic;
-  font-size:1rem;
+  font-size:.8rem;
   color:rgba(200,180,140,.7);
-  line-height:1.6;
+  margin-top:.3rem;
+  max-width:120px;
 }
 
-.stop-link {
-  display:inline-block;
-  margin-top:1rem;
-  padding:.6rem 1.5rem;
-  background:linear-gradient(135deg,rgba(139,100,40,.4),rgba(100,70,30,.5));
-  border:1px solid rgba(180,150,100,.3);
-  border-radius:4px;
-  color:#d4b896;
-  text-decoration:none;
-  font-family:'Quicksand',sans-serif;
-  font-size:.85rem;
-  letter-spacing:.1em;
-  transition:all .3s ease;
-}
-
-.stop-link:hover {
-  background:linear-gradient(135deg,rgba(139,100,40,.6),rgba(100,70,30,.7));
-  transform:translateX(5px);
-  box-shadow:3px 3px 10px rgba(0,0,0,.3);
-}
-
-/* Current location marker */
-.stop.current {
-  border-left-color: #d4a96a;
-  background:rgba(212,169,106,.1);
-}
-
-.stop.current::before {
-  background:radial-gradient(circle, #ffe9a0 0%, #d4a96a 100%);
-  box-shadow:0 0 15px rgba(255,233,160,.7);
-  animation:pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%,100%{box-shadow:0 0 15px rgba(255,233,160,.7)}
-  50%{box-shadow:0 0 25px rgba(255,233,160,1)}
-}
-
-/* Compass rose */
-.compass {
+/* Connection line */
+.stop-connector {
   position:absolute;
-  top:-30px;
-  right:30px;
-  width:60px;
-  height:60px;
-  opacity:.4;
-}
-
-.compass::before {
-  content:'✦';
-  position:absolute;
-  top:50%;
+  bottom:30px;
   left:50%;
-  transform:translate(-50%,-50%);
-  font-size:1.2rem;
-  color:#d4a96a;
+  transform:translateX(-50%);
+  width:2px;
+  height:30px;
+  background:linear-gradient(180deg,rgba(180,150,100,.5),transparent);
 }
 
-/* Decorative corners */
-.corner {
+/* Sun */
+.sun {
   position:absolute;
-  width:40px;
-  height:40px;
-  border:2px solid rgba(180,150,100,.3);
+  top:80px;
+  right:15%;
+  width:80px;
+  height:80px;
+  background:radial-gradient(circle,rgba(255,220,120,.8) 0%,rgba(255,180,80,.4) 50%,transparent 70%);
+  border-radius:50%;
+  animation:sunGlow 4s ease-in-out infinite;
 }
 
-.corner-tl { top:10px; left:10px; border-right:none; border-bottom:none; }
-.corner-tr { top:10px; right:10px; border-left:none; border-bottom:none; }
-.corner-bl { bottom:10px; left:10px; border-right:none; border-top:none; }
-.corner-br { bottom:10px; right:10px; border-left:none; border-top:none; }
+@keyframes sunGlow {
+  0%,100%{transform:scale(1);opacity:.8}
+  50%{transform:scale(1.1);opacity:1}
+}
+
+/* Moon */
+.moon {
+  position:absolute;
+  top:60px;
+  left:10%;
+  width:50px;
+  height:50px;
+  background:radial-gradient(circle,#ffe9a0 0%,#f5c96a 100%);
+  border-radius:50%;
+  box-shadow:0 0 30px rgba(255,233,160,.4);
+}
+
+/* Trees */
+.trees {
+  position:absolute;
+  bottom:145px;
+  left:0;
+  right:0;
+  height:40px;
+  pointer-events:none;
+}
+
+.tree {
+  position:absolute;
+  bottom:0;
+  font-size:1.5rem;
+}
+
+/* Clouds */
+.cloud {
+  position:absolute;
+  background:rgba(150,140,160,.2);
+  border-radius:50px;
+  animation:cloudFloat 20s ease-in-out infinite;
+}
+
+.cloud::before, .cloud::after {
+  content:'';
+  position:absolute;
+  background:inherit;
+  border-radius:50%;
+}
+
+.cloud:nth-child(1) { top:30%; left:10%; width:80px; height:30px; animation-delay:0s; }
+.cloud:nth-child(1)::before { width:40px; height:40px; top:-20px; left:10px; }
+.cloud:nth-child(1)::after { width:30px; height:30px; top:-15px; left:40px; }
+
+.cloud:nth-child(2) { top:20%; left:40%; width:100px; height:35px; animation-delay:-5s; }
+.cloud:nth-child(2)::before { width:50px; height:50px; top:-25px; left:20px; }
+.cloud:nth-child(2)::after { width:35px; height:35px; top:-18px; left:55px; }
+
+.cloud:nth-child(3) { top:35%; left:70%; width:70px; height:25px; animation-delay:-10s; }
+.cloud:nth-child(3)::before { width:35px; height:35px; top:-18px; left:8px; }
+.cloud:nth-child(3)::after { width:25px; height:25px; top:-12px; left:35px; }
+
+@keyframes cloudFloat {
+  0%,100%{transform:translateX(0)}
+  50%{transform:translateX(20px)}
+}
 
 /* Back button */
 .back-btn {
-  display:inline-block;
-  margin-bottom:2rem;
+  position:fixed;
+  top:1.5rem;
+  left:1.5rem;
+  z-index:100;
   padding:.6rem 1.2rem;
   background:rgba(255,255,255,.08);
   border:1px solid rgba(255,233,160,.2);
@@ -277,14 +408,39 @@ body {
   transform:translateX(-3px);
 }
 
-/* Footer note */
-.map-note {
-  text-align:center;
-  margin-top:2rem;
+/* Progress bar */
+.progress-bar {
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:4px;
+  background:rgba(100,80,100,.3);
+  z-index:100;
+}
+
+.progress-fill {
+  height:100%;
+  background:linear-gradient(90deg,#d4a96a,#d4e8a0);
+  width:33%;
+  transition:width .5s ease;
+}
+
+/* Scroll hint */
+.scroll-hint {
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  z-index:100;
   font-family:'Cormorant Garamond',serif;
   font-style:italic;
-  font-size:.9rem;
   color:rgba(180,150,100,.5);
+  animation:bob 2s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%,100%{transform:translateX(0)}
+  50%{transform:translateX(5px)}
 }
 </style>
 </head>
@@ -292,60 +448,134 @@ body {
 
 <div class="cosmic-bg"></div>
 
-<div class="map-container">
-  <a href="index.html" class="back-btn">← Back to Birthday</a>
+<a href="index.html" class="back-btn">← Back</a>
 
-  <div class="vintage-paper">
-    <div class="corner corner-tl"></div>
-    <div class="corner corner-tr"></div>
-    <div class="corner corner-bl"></div>
-    <div class="corner corner-br"></div>
+<div class="map-wrapper">
+  <div class="map-container">
+    <!-- Title -->
+    <div class="map-title-section">
+      <h1 class="map-title">🗺️ Your Surprise Journey</h1>
+      <p class="map-subtitle">Scroll along the road to discover your gifts ✨</p>
+    </div>
 
-    <h1 class="map-title">🗺️ Journey to Your Surprises</h1>
-    <p class="map-subtitle">A treasure map crafted with love 💫</p>
+    <!-- Sky elements -->
+    <div class="moon"></div>
+    <div class="sun"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
 
-    <div class="road">
-      <!-- Stop 1: Birthday Page -->
-      <div class="stop">
-        <p class="stop-number">✦ CHAPTER 01</p>
-        <h3 class="stop-title">The Beginning 🌙</h3>
-        <p class="stop-desc">Where stars dance and the moon welcomes you with a beautiful surprise...</p>
-        <a href="index.html" class="stop-link">EXPLORE →</a>
+    <!-- Mountains -->
+    <div class="mountains">
+      <div class="mountain"></div>
+      <div class="mountain"></div>
+      <div class="mountain"></div>
+      <div class="mountain"></div>
+      <div class="mountain"></div>
+      <div class="mountain"></div>
+    </div>
+
+    <!-- Trees -->
+    <div class="trees">
+      <span class="tree" style="left:8%">🌲</span>
+      <span class="tree" style="left:25%">🌳</span>
+      <span class="tree" style="left:45%">🌲</span>
+      <span class="tree" style="left:65%">🌳</span>
+      <span class="tree" style="left:82%">🌲</span>
+    </div>
+
+    <!-- Stops on road -->
+    <div class="stops-container">
+      <!-- Surprise 1: Birthday -->
+      <a href="index.html" class="stop revealed">
+        <div class="stop-marker">🎂</div>
+        <div class="stop-label">
+          <p class="stop-chapter">✦ CHAPTER 01</p>
+          <p class="stop-title">Birthday Surprise</p>
+          <p class="stop-desc">The beginning of your magical journey</p>
+        </div>
+      </a>
+
+      <!-- Surprise 2: PDF -->
+      <a href="surprise2.html" class="stop revealed">
+        <div class="stop-marker">📜</div>
+        <div class="stop-label">
+          <p class="stop-chapter">✦ CHAPTER 02</p>
+          <p class="stop-title">Special Gift</p>
+          <p class="stop-desc">A momento of your achievement</p>
+        </div>
+      </a>
+
+      <!-- Surprise 3: Poem -->
+      <a href="surprise3.html" class="stop revealed">
+        <div class="stop-marker">💜</div>
+        <div class="stop-label">
+          <p class="stop-chapter">✦ CHAPTER 03</p>
+          <p class="stop-title">Poem for You</p>
+          <p class="stop-desc">Words from my heart</p>
+        </div>
+      </a>
+
+      <!-- Coming Soon 1 -->
+      <div class="stop coming">
+        <div class="stop-marker">🎁</div>
+        <div class="stop-label">
+          <p class="stop-chapter">✦ CHAPTER 04</p>
+          <p class="stop-title">Coming Soon</p>
+          <p class="stop-desc">Something magical awaits...</p>
+        </div>
       </div>
 
-      <!-- Stop 2: PDF -->
-      <div class="stop">
-        <p class="stop-number">✦ CHAPTER 02</p>
-        <h3 class="stop-title">Your Special Gift 📜</h3>
-        <p class="stop-desc">A momento of achievement, sealed with love...</p>
-        <a href="surprise2.html" class="stop-link">OPEN →</a>
-      </div>
-
-      <!-- Stop 3: Poem -->
-      <div class="stop current">
-        <p class="stop-number">✦ CHAPTER 03</p>
-        <h3 class="stop-title">Words from the Heart 💜</h3>
-        <p class="stop-desc">My first Telugu poem, written just for you...</p>
-        <a href="surprise3.html" class="stop-link">READ →</a>
+      <!-- Coming Soon 2 -->
+      <div class="stop coming">
+        <div class="stop-marker">🌟</div>
+        <div class="stop-label">
+          <p class="stop-chapter">✦ CHAPTER 05</p>
+          <p class="stop-title">Coming Soon</p>
+          <p class="stop-desc">More love to share...</p>
+        </div>
       </div>
     </div>
 
-    <p class="map-note">"Every journey leads to something beautiful 🌸"</p>
+    <!-- Road -->
+    <div class="road"></div>
+
+    <!-- River -->
+    <div class="river">
+      <div class="river-wave"></div>
+    </div>
   </div>
 </div>
 
+<div class="progress-bar">
+  <div class="progress-fill"></div>
+</div>
+
+<p class="scroll-hint">Scroll →</p>
+
 <script>
 // Create twinkling stars
-for(let i=0;i<50;i++){
+for(let i=0;i<40;i++){
   const star=document.createElement('div');
   star.className='star';
   star.style.left=Math.random()*100+'vw';
-  star.style.top=Math.random()*100+'vh';
+  star.style.top=Math.random()*60+'vh';
   star.style.animationDelay=Math.random()*3+'s';
   star.style.width=Math.random()*2+1+'px';
   star.style.height=star.style.width;
   document.body.appendChild(star);
 }
+
+// Progress bar scroll
+const wrapper = document.querySelector('.map-wrapper');
+const progressFill = document.querySelector('.progress-fill');
+
+wrapper.addEventListener('scroll', () => {
+  const scrollLeft = wrapper.scrollLeft;
+  const maxScroll = wrapper.scrollWidth - wrapper.clientWidth;
+  const progress = (scrollLeft / maxScroll) * 100;
+  progressFill.style.width = Math.min(progress, 100) + '%';
+});
 </script>
 </body>
 </html>
