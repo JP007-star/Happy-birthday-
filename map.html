@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Journey to Your Surprises ✨</title>
+<title>Treasure Map - Your Journey ✨</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=Quicksand:wght@300;400&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -12,7 +12,7 @@ html { scroll-behavior:smooth; }
 body {
   background: linear-gradient(180deg, #0a0612 0%, #1a0a2e 50%, #120818 100%);
   min-height:100vh;
-  font-family:'Quicksand',sans-serif;
+  font-family:'Special Elite', cursive;
   color:#e8dcc4;
   overflow-x:hidden;
 }
@@ -44,58 +44,72 @@ body {
 .container {
   position:relative;
   z-index:1;
-  max-width:800px;
+  max-width:750px;
   margin:0 auto;
   padding:4rem 1rem 2rem;
 }
 
-/* Vintage paper map */
+/* Treasure map paper */
 .paper-map {
   position:relative;
   background:
     url('https://cdn.texturize.app/textures/paper-old-parchment/paper-old-parchment.png'),
-    linear-gradient(135deg, #d4c4a8 0%, #c9b896 30%, #bfae84 50%, #c4b492 70%, #d1c101 100%);
+    linear-gradient(135deg, #c9b896 0%, #bfae84 30%, #c4b08c 50%, #d4c4a0 70%, #c9b896 100%);
   background-blend-mode: overlay;
-  background-size: 400px 400px;
-  border-radius:6px;
-  box-shadow:0 0 80px rgba(0,0,0,0.6), inset 0 0 100px rgba(139,100,60,0.2);
-  padding:1.5rem;
-  min-height:550px;
+  background-size: 350px 350px;
+  border-radius:4px;
+  box-shadow:
+    0 0 60px rgba(0,0,0,0.5),
+    inset 0 0 80px rgba(139,100,60,0.15),
+    inset 0 0 20px rgba(100,70,40,0.1);
+  padding:1.2rem;
+  min-height:520px;
 }
 
-/* Dust/aging overlay */
+/* Heavy aging/burn effect */
 .paper-map::before {
   content:'';
   position:absolute;
   top:0;left:0;right:0;bottom:0;
   background:
-    radial-gradient(ellipse at 15% 25%, rgba(255,248,230,0.25) 0%, transparent 35%),
-    radial-gradient(ellipse at 75% 55%, rgba(180,150,120,0.2) 0%, transparent 30%),
-    radial-gradient(ellipse at 45% 85%, rgba(160,130,100,0.15) 0%, transparent 25%);
+    radial-gradient(ellipse at 10% 15%, rgba(255,248,230,0.3) 0%, transparent 30%),
+    radial-gradient(ellipse at 85% 25%, rgba(180,150,100,0.25) 0%, transparent 25%),
+    radial-gradient(ellipse at 70% 70%, rgba(160,130,90,0.2) 0%, transparent 30%),
+    radial-gradient(ellipse at 25% 80%, rgba(190,160,120,0.15) 0%, transparent 25%);
   pointer-events:none;
-  border-radius:6px;
+  border-radius:4px;
 }
 
-/* Aged spots */
+/* Burnt edges */
+.paper-map::after {
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;bottom:0;
+  box-shadow:inset 0 0 30px rgba(80,50,20,0.2);
+  border-radius:4px;
+  pointer-events:none;
+}
+
+/* Aged/dark spots */
 .paper-spot {
   position:absolute;
-  width:100px;
-  height:100px;
-  background:radial-gradient(circle, rgba(100,70,40,0.1) 0%, transparent 70%);
+  width:90px;
+  height:90px;
+  background:radial-gradient(circle, rgba(90,60,30,0.12) 0%, transparent 70%);
   border-radius:50%;
   pointer-events:none;
 }
-.paper-spot:nth-of-type(1) { top:8%; left:5%; }
-.paper-spot:nth-of-type(2) { top:35%; right:8%; }
-.paper-spot:nth-of-type(3) { bottom:20%; left:20%; }
+.paper-spot:nth-of-type(1) { top:5%; left:3%; }
+.paper-spot:nth-of-type(2) { top:30%; right:5%; }
+.paper-spot:nth-of-type(3) { bottom:15%; left:18%; }
 
-/* Rolled corner */
+/* Rolled corner - more pronounced */
 .rolled-corner {
   position:absolute;
-  bottom:-8px;
-  right:-8px;
-  width:55px;
-  height:55px;
+  bottom:-10px;
+  right:-10px;
+  width:65px;
+  height:65px;
   z-index:10;
 }
 .rolled-corner::before {
@@ -103,21 +117,21 @@ body {
   position:absolute;
   bottom:0;
   right:0;
-  width:45px;
-  height:45px;
-  background:linear-gradient(135deg, transparent 50%, #a89570 50%), linear-gradient(225deg, #b8a57a 0%, #c4b08c 50%, transparent 50%);
-  border-radius:0 0 0 6px;
-  box-shadow:-3px -3px 6px rgba(0,0,0,0.25);
+  width:52px;
+  height:52px;
+  background:linear-gradient(135deg, transparent 48%, #8a7a5a 48%, #8a7a5a 52%, transparent 52%), linear-gradient(225deg, #a08060 0%, #b8a068 50%, transparent 50%);
+  border-radius:0 0 0 8px;
+  box-shadow:-4px -4px 8px rgba(0,0,0,0.3);
 }
 .rolled-corner::after {
   content:'';
   position:absolute;
-  bottom:3px;
-  right:3px;
-  width:38px;
-  height:38px;
-  background:linear-gradient(135deg, transparent 47%, #a89570 47%, #a89570 53%, transparent 53%), linear-gradient(225deg, #c9b896 0%, #c9b896 47%, transparent 47%);
-  border-radius:0 0 0 4px;
+  bottom:4px;
+  right:4px;
+  width:42px;
+  height:42px;
+  background:linear-gradient(135deg, transparent 46%, #c9b896 46%, #c9b896 54%, transparent 54%), linear-gradient(225deg, #d4c4a0 0%, #d4c4a0 46%, transparent 46%);
+  border-radius:0 0 0 5px;
 }
 
 /* Back button */
@@ -127,52 +141,54 @@ body {
   left:1rem;
   z-index:100;
   padding:.5rem 1rem;
-  background:rgba(74,60,44,0.2);
-  border:2px solid rgba(232,220,196,0.35);
+  background:rgba(74,60,44,0.25);
+  border:2px solid rgba(232,220,196,0.4);
   color:#e8dcc4;
   border-radius:3px;
   text-decoration:none;
-  font-size:.75rem;
-  font-family:'Special Elite', cursive;
+  font-size:.7rem;
   cursor:pointer;
   transition:all .3s;
 }
-.back-btn:hover { background:rgba(232,220,196,0.25); border-color:rgba(232,220,196,0.6); }
+.back-btn:hover { background:rgba(232,220,196,0.3); border-color:rgba(232,220,196,0.7); }
 
 /* Header */
 header {
   text-align:center;
-  padding:.5rem;
+  padding:.3rem;
   position:relative;
   z-index:10;
+  border-bottom:2px solid rgba(74,60,44,0.2);
+  margin-bottom:.5rem;
 }
 header h1 {
-  font-family:'Special Elite', cursive;
-  font-size:clamp(1.6rem,4.5vw,2.2rem);
+  font-size:clamp(1.4rem,4vw,1.8rem);
   color:#2a1f15;
-  margin-bottom:.3rem;
+  margin-bottom:.2rem;
+  letter-spacing:.05em;
 }
 header p {
-  font-family:'Special Elite', cursive;
-  font-size:.95rem;
+  font-size:.85rem;
   color:rgba(42,31,21,0.7);
+  font-style:italic;
 }
 
-/* Compass */
+/* Large vintage compass rose */
 .compass {
   position:absolute;
-  top:1rem;
-  right:1rem;
-  width:55px;
-  height:55px;
-  opacity:0.65;
+  top:.8rem;
+  right:.8rem;
+  width:65px;
+  height:65px;
+  opacity:0.75;
 }
 .compass-ring {
   width:100%;
   height:100%;
-  border:2px solid rgba(74,60,44,0.55);
+  border:3px solid rgba(74,60,44,0.6);
   border-radius:50%;
   position:relative;
+  background:rgba(201,184,150,0.3);
 }
 .compass-ring::before {
   content:'';
@@ -180,62 +196,89 @@ header p {
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  border-width:0 5px 18px 5px;
+  border-width:0 6px 22px 6px;
   border-style:solid;
-  border-color:transparent transparent rgba(74,60,44,0.75) transparent;
+  border-color:transparent transparent rgba(74,60,44,0.85) transparent;
 }
 .compass-ring::after {
   content:'';
   position:absolute;
   top:50%;
   left:50%;
-  transform:translate(-50%,-42%);
-  border-width:18px 5px 0 5px;
+  transform:translate(-50%,-38%);
+  border-width:22px 6px 0 6px;
   border-style:solid;
-  border-color:rgba(74,60,44,0.45) transparent transparent transparent;
+  border-color:rgba(74,60,44,0.5) transparent transparent transparent;
 }
 .compass-n {
   position:absolute;
-  top:-2px;
+  top:-4px;
   left:50%;
   transform:translateX(-50%);
-  font-family:'Special Elite', cursive;
-  font-size:.65rem;
+  font-size:.7rem;
   font-weight:bold;
-  color:#4a3c2c;
+  color:#3a2a15;
 }
+.compass-s {
+  position:absolute;
+  bottom:-4px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:.6rem;
+  color:#4a3c2a;
+}
+.compass-e, .compass-w {
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:.55rem;
+  color:#4a3c2a;
+}
+.compass-e { right:-5px; }
+.compass-w { left:-5px; }
 
-/* Map frame */
+/* Map frame with inner border */
 .map-frame {
   position:relative;
-  border:3px dashed rgba(74,60,44,0.35);
-  border-radius:3px;
-  padding:.6rem;
-  margin-top:.5rem;
-  overflow:visible;
+  border:3px double rgba(74,60,44,0.4);
+  border-radius:2px;
+  padding:.5rem;
+  margin-top:.4rem;
 }
 
-/* Curved road SVG */
+/* Decorative corner X marks */
+.x-mark {
+  position:absolute;
+  font-size:1.2rem;
+  color:rgba(139,90,43,0.5);
+  font-weight:bold;
+}
+.x-mark-tl { top:5px; left:5px; }
+.x-mark-tr { top:5px; right:5px; }
+.x-mark-bl { bottom:5px; left:5px; }
+.x-mark-br { bottom:5px; right:5px; }
+
+/* Curved winding road with more character */
 .road-svg {
   position:absolute;
   bottom:0;
   left:0;
   width:100%;
-  height:250px;
+  height:220px;
   pointer-events:none;
 }
 .road-path {
   fill:none;
-  stroke:#5a4a3a;
-  stroke-width:38;
+  stroke:#6b5a45;
+  stroke-width:32;
   stroke-linecap:round;
   stroke-linejoin:round;
-  filter:drop-shadow(2px 2px 3px rgba(0,0,0,0.12));
+  filter:drop-shadow(1px 2px 2px rgba(0,0,0,0.15));
 }
 .road-path-inner {
   fill:none;
-  stroke:#6b5848;
-  stroke-width:28;
+  stroke:#7d6b55;
+  stroke-width:24;
   stroke-linecap:round;
   stroke-linejoin:round;
 }
@@ -243,89 +286,115 @@ header p {
   fill:none;
   stroke:#a08060;
   stroke-width:2;
-  stroke-dasharray:8 18;
+  stroke-dasharray:6 14;
   stroke-linecap:round;
-  opacity:0.65;
+  opacity:0.6;
 }
 
-/* Mountains */
+/* Dotted trail dots */
+.trail-dots {
+  fill:none;
+  stroke:#8b5a2b;
+  stroke-width:3;
+  stroke-dasharray:0 18;
+  stroke-linecap:round;
+}
+
+/* Mountains - more stylized */
 .mountains {
   position:absolute;
-  top:50px;
+  top:40px;
   left:0;
   right:0;
-  height:75px;
+  height:65px;
   display:flex;
   justify-content:space-around;
   align-items:flex-end;
-  opacity:0.3;
+  opacity:0.35;
 }
 .mt {
   width:0;
   height:0;
-  border-left:28px solid transparent;
-  border-right:28px solid transparent;
-  border-bottom:55px solid rgba(74,60,44,0.35);
+  border-left:25px solid transparent;
+  border-right:25px solid transparent;
+  border-bottom:50px solid rgba(74,60,44,0.4);
 }
-.mt:nth-child(2) { border-bottom-width:70px; }
-.mt:nth-child(3) { border-bottom-width:40px; }
-.mt:nth-child(4) { border-bottom-width:80px; }
-.mt:nth-child(5) { border-bottom-width:50px; }
-.mt:nth-child(6) { border-bottom-width:65px; }
+.mt:nth-child(2) { border-bottom-width:60px; }
+.mt:nth-child(3) { border-bottom-width:35px; }
+.mt:nth-child(4) { border-bottom-width:70px; }
+.mt:nth-child(5) { border-bottom-width:45px; }
+.mt:nth-child(6) { border-bottom-width:55px; }
 
-/* Trees */
+/* Trees - scattered pine */
 .tree-marks {
   position:absolute;
-  top:125px;
+  top:105px;
   left:0;
   right:0;
-  height:20px;
+  height:18px;
 }
 .tree-mark {
   position:absolute;
-  font-size:1.1rem;
-  opacity:0.4;
+  font-size:1rem;
+  opacity:0.45;
+  filter:grayscale(30%);
 }
 
-/* Waves */
-.waves {
+/* Waves/sea area */
+.sea-area {
   position:absolute;
-  bottom:40px;
-  left:5%;
-  width:55px;
-  height:20px;
-  opacity:0.3;
+  bottom:30px;
+  left:3%;
+  width:70px;
+  height:25px;
+  opacity:0.25;
+  background:linear-gradient(180deg, transparent 0%, rgba(60,100,140,0.1) 100%);
 }
-.wave {
+.wave-line {
   position:absolute;
-  width:20px;
-  height:9px;
-  border:2px solid rgba(60,100,140,0.5);
+  width:100%;
+  height:8px;
+  border:1px solid rgba(60,100,140,0.3);
   border-radius:50% 50% 0 0;
   border-bottom:none;
 }
-.wave:nth-child(1) { left:0; }
-.wave:nth-child(2) { left:14px; top:3px; }
-.wave:nth-child(3) { left:28px; }
+.wave-line:nth-child(1) { top:0; }
+.wave-line:nth-child(2) { top:8px; left:3px; }
+.wave-line:nth-child(3) { top:16px; left:6px; }
 
-/* Terrain labels */
+/* Terrain labels - treasure map style */
 .terrain {
   position:absolute;
-  font-family:'Special Elite', cursive;
-  font-size:.9rem;
-  color:rgba(74,60,44,0.5);
+  font-size:.85rem;
+  color:rgba(74,60,44,0.55);
   font-style:italic;
-  letter-spacing:.08em;
+  letter-spacing:.05em;
+  transform:rotate(-2deg);
+}
+.terrain::before {
+  content:'✦ ';
+  font-size:.7rem;
+  opacity:0.6;
+}
+
+/* X marks the spot */
+.x-spot {
+  position:absolute;
+  font-size:1.4rem;
+  color:rgba(139,60,20,0.6);
+  font-weight:bold;
+  transform:rotate(-5deg);
+  opacity:0.7;
 }
 
 /* Stops container */
 .stops-container {
   position:relative;
-  height:250px;
-  margin:0 .5rem;
+  height:220px;
+  margin:0 .3rem;
 }
 
-/* Stops */
+/* Stop markers - treasure chest style */
 .stop {
   position:absolute;
   display:flex;
@@ -335,19 +404,19 @@ header p {
   cursor:pointer;
   transition:transform .3s;
 }
-.stop:hover { transform:scale(1.08); }
+.stop:hover { transform:scale(1.1); }
 
 .stop-marker {
-  width:44px;
-  height:44px;
+  width:42px;
+  height:42px;
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:1.1rem;
   border:3px solid;
-  background:#f5efe4;
-  box-shadow:2px 2px 4px rgba(0,0,0,0.12);
+  background:#f0e6d2;
+  box-shadow:2px 2px 4px rgba(0,0,0,0.15);
   position:relative;
 }
 .stop-marker::after {
@@ -358,97 +427,102 @@ header p {
   transform:translateX(-50%);
   width:8px;
   height:4px;
-  background:rgba(0,0,0,0.12);
+  background:rgba(0,0,0,0.15);
   border-radius:50%;
 }
-.stop.revealed .stop-marker { border-color:#8b5a2b; }
+/* Revealed */
+.stop.revealed .stop-marker { border-color:#8b4513; }
 .stop.revealed .stop-marker::before {
   content:'';
   position:absolute;
-  inset:-4px;
-  border:2px dashed rgba(139,90,43,0.45);
+  inset:-5px;
+  border:2px dashed rgba(139,69,19,0.5);
   border-radius:50%;
+  animation:rotate-dash 20s linear infinite;
 }
+@keyframes rotate-dash {
+  to { transform: rotate(360deg); }
+}
+/* Coming soon */
 .stop.coming .stop-marker { border-color:#8a7a6a; background:#d4c4a8; }
 
-/* Stop labels */
+/* Stop labels - aged paper style */
 .stop-label {
   text-align:center;
-  margin-top:.5rem;
+  margin-top:.45rem;
   background:#f5efe4;
-  padding:.3rem .6rem;
-  border:1px solid rgba(74,60,44,0.22);
-  box-shadow:1px 2px 3px rgba(0,0,0,0.08);
+  padding:.25rem .5rem;
+  border:1px solid rgba(74,60,44,0.25);
+  box-shadow:1px 2px 3px rgba(0,0,0,0.1);
+  transform:rotate(1deg);
 }
 .stop-chapter {
-  font-family:'Special Elite', cursive;
-  font-size:.55rem;
-  color:rgba(74,60,44,0.6);
-  letter-spacing:.1em;
-  margin-bottom:.08rem;
+  font-size:.52rem;
+  color:rgba(74,60,44,0.65);
+  letter-spacing:.12em;
+  margin-bottom:.05rem;
 }
 .stop-title {
-  font-family:'Special Elite', cursive;
-  font-size:.85rem;
+  font-size:.8rem;
   color:#2a1f15;
   font-weight:600;
 }
 .stop-desc {
-  font-family:'Special Elite', cursive;
   font-style:italic;
-  font-size:.65rem;
+  font-size:.6rem;
   color:rgba(74,60,44,0.55);
-  margin-top:.08rem;
+  margin-top:.05rem;
 }
 
-/* Stop positions - aligned with road curve */
-.stop[data-chap="1"] { left:5%; bottom:68px; }
-.stop[data-chap="2"] { left:24%; bottom:98px; }
-.stop[data-chap="3"] { left:44%; bottom:82px; }
-.stop[data-chap="4"] { left:64%; bottom:108px; }
-.stop[data-chap="5"] { left:84%; bottom:72px; }
+/* Stop positions - following the curve */
+.stop[data-chap="1"] { left:4%; bottom:58px; }
+.stop[data-chap="2"] { left:22%; bottom:82px; }
+.stop[data-chap="3"] { left:42%; bottom:68px; }
+.stop[data-chap="4"] { left:60%; bottom:90px; }
+.stop[data-chap="5"] { left:80%; bottom:60px; }
 
-/* Legend */
-.legend {
-  text-align:center;
-  padding:.7rem;
-  font-family:'Special Elite', cursive;
-  font-style:italic;
-  color:rgba(42,31,21,0.5);
-  font-size:.85rem;
-  border-top:1px solid rgba(74,60,44,0.18);
-  margin-top:.5rem;
-}
-
-/* Corner flourishes */
-.flourish {
+/* Legend/Key section */
+.map-legend {
   position:absolute;
-  width:28px;
-  height:28px;
-  opacity:0.45;
+  bottom:.8rem;
+  left:.8rem;
+  font-size:.55rem;
+  color:rgba(74,60,44,0.55);
+  line-height:1.6;
 }
-.flourish-tl { top:4px; left:4px; border-top:2px solid rgba(74,60,44,0.5); border-left:2px solid rgba(74,60,44,0.5); }
-.flourish-tr { top:4px; right:4px; border-top:2px solid rgba(74,60,44,0.5); border-right:2px solid rgba(74,60,44,0.5); }
-.flourish-bl { bottom:4px; left:4px; border-bottom:2px solid rgba(74,60,44,0.5); border-left:2px solid rgba(74,60,44,0.5); }
-.flourish-br { bottom:4px; right:4px; border-bottom:2px solid rgba(74,60,44,0.5); border-right:2px solid rgba(74,60,44,0.5); }
+.map-legend-title {
+  font-size:.6rem;
+  font-weight:bold;
+  color:rgba(74,60,44,0.7);
+  margin-bottom:.2rem;
+  border-bottom:1px solid rgba(74,60,44,0.3);
+  display:inline-block;
+}
 
 /* Scale bar */
 .scale-bar {
   position:absolute;
-  bottom:1rem;
-  right:1rem;
+  bottom:.8rem;
+  right:.8rem;
   display:flex;
   align-items:center;
-  gap:.2rem;
-  font-family:'Special Elite', cursive;
-  font-size:.55rem;
+  gap:.15rem;
+  font-size:.5rem;
   color:rgba(74,60,44,0.5);
 }
 .scale-line {
-  width:28px;
+  width:25px;
   height:2px;
   background:rgba(74,60,44,0.45);
   border-top:1px solid rgba(74,60,44,0.45);
+}
+
+/* Decorative map border */
+.border-dots {
+  position:absolute;
+  top:5px;left:5px;right:5px;bottom:5px;
+  border:1px dotted rgba(74,60,44,0.2);
+  pointer-events:none;
 }
 </style>
 </head>
@@ -465,27 +539,33 @@ header p {
     <div class="paper-stop"></div>
 
     <header>
-      <h1>🗺️ Your Journey Awaits</h1>
-      <p>Follow the winding road to discover your treasures...</p>
+      <h1>🗺️ Treasure Map</h1>
+      <p>Follow the path to find your treasures...</p>
     </header>
 
     <div class="compass">
       <div class="compass-ring">
         <span class="compass-n">N</span>
+        <span class="compass-s">S</span>
+        <span class="compass-e">E</span>
+        <span class="compass-w">W</span>
       </div>
     </div>
 
     <div class="map-frame">
-      <div class="flourish flourish-tl"></div>
-      <div class="flourish flourish-tr"></div>
-      <div class="flourish flourish-bl"></div>
-      <div class="flourish flourish-br"></div>
+      <div class="border-dots"></div>
+      <div class="x-mark x-mark-tl">✕</div>
+      <div class="x-mark x-mark-tr">✕</div>
+      <div class="x-mark x-mark-bl">✕</div>
+      <div class="x-mark x-mark-br">✕</div>
 
-      <!-- Curved road -->
-      <svg class="road-svg" viewBox="0 0 800 250" preserveAspectRatio="none">
-        <path class="road-path" d="M 15,200 Q 70,175 110,150 Q 160,115 210,135 Q 270,155 315,120 Q 370,80 420,95 Q 485,110 535,85 Q 585,60 645,75 Q 705,90 750,70 Q 780,58 795,65" />
-        <path class="road-path-inner" d="M 15,200 Q 70,175 110,150 Q 160,115 210,135 Q 270,155 315,120 Q 370,80 420,95 Q 485,110 535,85 Q 585,60 645,75 Q 705,90 750,70 Q 780,58 795,65" />
-        <path class="road-dashes" d="M 15,200 Q 70,175 110,150 Q 160,115 210,135 Q 270,155 315,120 Q 370,80 420,95 Q 485,110 535,85 Q 585,60 645,75 Q 705,90 750,70 Q 780,58 795,65" />
+      <!-- Winding trail -->
+      <svg class="road-svg" viewBox="0 0 800 220" preserveAspectRatio="none">
+        <path class="road-path" d="M 10,175 Q 60,155 95,130 Q 140,100 185,115 Q 240,130 280,100 Q 330,65 380,78 Q 440,90 485,65 Q 540,40 595,55 Q 660,70 710,45 Q 760,25 790,40" />
+        <path class="road-path-inner" d="M 10,175 Q 60,155 95,130 Q 140,100 185,115 Q 240,130 280,100 Q 330,65 380,78 Q 440,90 485,65 Q 540,40 595,55 Q 660,70 710,45 Q 760,25 790,40" />
+        <path class="road-dashes" d="M 10,175 Q 60,155 95,130 Q 140,100 185,115 Q 240,130 280,100 Q 330,65 380,78 Q 440,90 485,65 Q 540,40 595,55 Q 660,70 710,45 Q 760,25 790,40" />
+        <!-- Trail dots -->
+        <path class="trail-dots" d="M 10,175 Q 60,155 95,130 Q 140,100 185,115 Q 240,130 280,100 Q 330,65 380,78 Q 440,90 485,65 Q 540,40 595,55 Q 660,70 710,45 Q 760,25 790,40" />
       </svg>
 
       <div class="mountains">
@@ -498,27 +578,32 @@ header p {
       </div>
 
       <div class="tree-marks">
-        <span class="tree-mark" style="left:5%">🌲</span>
-        <span class="tree-mark" style="left:18%">🌳</span>
-        <span class="tree-mark" style="left:42%">🌲</span>
-        <span class="tree-mark" style="left:62%">🌳</span>
-        <span class="tree-mark" style="left:82%">🌲</span>
+        <span class="tree-mark" style="left:4%">🌲</span>
+        <span class="tree-mark" style="left:15%">🌲</span>
+        <span class="tree-mark" style="left:38%">🌲</span>
+        <span class="tree-mark" style="left:55%">🌲</span>
+        <span class="tree-mark" style="left:75%">🌲</span>
+        <span class="tree-mark" style="left:90%">🌲</span>
       </div>
 
-      <div class="waves">
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
+      <div class="sea-area">
+        <div class="wave-line"></div>
+        <div class="wave-line"></div>
+        <div class="wave-line"></div>
       </div>
 
-      <div class="terrain" style="top:32px; left:8%;">forest</div>
-      <div class="terrain" style="top:42px; right:8%;">hills</div>
+      <div class="terrain" style="top:25px; left:6%;">Wild Forest</div>
+      <div class="terrain" style="top:35px; right:6%;">Rocky Hills</div>
+      <div class="terrain" style="top:70px; left:45%;">Dark Cave</div>
+
+      <div class="x-spot" style="top:20px; right:25%;">✕</div>
+      <div class="x-spot" style="bottom:40px; left:15%;">✕</div>
 
       <div class="stops-container">
         <a href="index.html" class="stop revealed" data-chap="1">
           <div class="stop-marker">🎂</div>
           <div class="stop-label">
-            <p class="stop-chapter">✦ CHAPTER 01</p>
+            <p class="stop-chapter">✦ CHAPTER I</p>
             <p class="stop-title">Birthday</p>
             <p class="stop-desc">The beginning</p>
           </div>
@@ -527,7 +612,7 @@ header p {
         <a href="surprise2.html" class="stop revealed" data-chap="2">
           <div class="stop-marker">📜</div>
           <div class="stop-label">
-            <p class="stop-chapter">✦ CHAPTER 02</p>
+            <p class="stop-chapter">✦ CHAPTER II</p>
             <p class="stop-title">Gift</p>
             <p class="stop-desc">Special momento</p>
           </div>
@@ -536,7 +621,7 @@ header p {
         <a href="surprise3.html" class="stop revealed" data-chap="3">
           <div class="stop-marker">💜</div>
           <div class="stop-label">
-            <p class="stop-chapter">✦ CHAPTER 03</p>
+            <p class="stop-chapter">✦ CHAPTER III</p>
             <p class="stop-title">Poem</p>
             <p class="stop-desc">From my heart</p>
           </div>
@@ -545,7 +630,7 @@ header p {
         <div class="stop coming" data-chap="4">
           <div class="stop-marker">🎁</div>
           <div class="stop-label">
-            <p class="stop-chapter">✦ CHAPTER 04</p>
+            <p class="stop-chapter">✦ CHAPTER IV</p>
             <p class="stop-title">Coming Soon</p>
             <p class="stop-desc">Magic awaits...</p>
           </div>
@@ -554,33 +639,40 @@ header p {
         <div class="stop coming" data-chap="5">
           <div class="stop-marker">🌟</div>
           <div class="stop-label">
-            <p class="stop-chapter">✦ CHAPTER 05</p>
+            <p class="stop-chapter">✦ CHAPTER V</p>
             <p class="stop-title">Coming Soon</p>
             <p class="stop-desc">More love...</p>
           </div>
         </div>
+      </div>
+
+      <div class="map-legend">
+        <div class="map-legend-title">── Key ──</div><br>
+        ✦ = Your Stops<br>
+        ✕ = Points of Interest<br>
+        ~~~~ = Winding Path
       </div>
     </div>
 
     <div class="scale-bar">
       <span>0</span>
       <div class="scale-line"></div>
-      <span>~1 mile~</span>
+      <span>~1 league~</span>
     </div>
 
     <div class="rolled-corner"></div>
 
-    <p class="legend">"Every winding road leads to something beautiful 🌸"</p>
+    <p style="text-align:center; padding:.6rem; font-style:italic; font-size:.8rem; color:rgba(42,31,21,0.5); border-top:1px solid rgba(74,60,44,0.15); margin-top:.4rem;">"The treasure is along the journey, not at the end ✨"</p>
   </div>
 </div>
 
 <script>
 // Generate stars
-for(let i=0;i<35;i++){
+for(let i=0;i<30;i++){
   const star=document.createElement('div');
   star.className='star';
   star.style.left=Math.random()*100+'vw';
-  star.style.top=Math.random()*55+'vh';
+  star.style.top=Math.random()*50+'vh';
   star.style.animationDelay=Math.random()*3+'s';
   star.style.width=(Math.random()*1.5+1)+'px';
   star.style.height=star.style.width;
