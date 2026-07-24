@@ -8,26 +8,16 @@
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
+
 body {
-  background: #0a0612;
+  background: linear-gradient(180deg, #0a0612 0%, #1a0a2e 50%, #120818 100%);
   min-height:100vh;
   font-family:'Quicksand',sans-serif;
-  color:#f5e6d0;
+  color:#e8dcc4;
   overflow-x:hidden;
 }
 
-/* Cosmic background */
-.cosmic-bg {
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(ellipse at 20% 20%, rgba(100,60,150,.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 80%, rgba(80,40,120,.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(60,30,100,.1) 0%, transparent 70%),
-    #0a0612;
-  z-index:0;
-}
-
+/* Stars */
 .star {
   position:fixed;
   width:2px;
@@ -35,547 +25,567 @@ body {
   background:#fff;
   border-radius:50%;
   animation:twinkle 3s ease-in-out infinite;
+}
+@keyframes twinkle { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+/* Cosmic glow */
+.cosmic-glow {
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(100,60,150,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(80,40,120,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(60,30,100,0.1) 0%, transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* Main container */
+.container {
+  position:relative;
   z-index:1;
-}
-@keyframes twinkle {
-  0%,100%{opacity:.3}
-  50%{opacity:1}
+  max-width:800px;
+  margin:0 auto;
+  padding:4rem 1rem 2rem;
 }
 
-/* Horizontal scroll container */
-.map-wrapper {
+/* Vintage paper map */
+.paper-map {
   position:relative;
+  background:
+    url('https://cdn.texturize.app/textures/paper-old-parchment/paper-old-parchment.png'),
+    linear-gradient(135deg, #d4c4a8 0%, #c9b896 30%, #bfae84 50%, #c4b492 70%, #d1c101 100%);
+  background-blend-mode: overlay;
+  background-size: 400px 400px;
+  border-radius:6px;
+  box-shadow:0 0 80px rgba(0,0,0,0.6), inset 0 0 100px rgba(139,100,60,0.2);
+  padding:1.5rem;
+  min-height:550px;
+}
+
+/* Dust/aging overlay */
+.paper-map::before {
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;bottom:0;
+  background:
+    radial-gradient(ellipse at 15% 25%, rgba(255,248,230,0.25) 0%, transparent 35%),
+    radial-gradient(ellipse at 75% 55%, rgba(180,150,120,0.2) 0%, transparent 30%),
+    radial-gradient(ellipse at 45% 85%, rgba(160,130,100,0.15) 0%, transparent 25%);
+  pointer-events:none;
+  border-radius:6px;
+}
+
+/* Aged spots */
+.paper-spot {
+  position:absolute;
+  width:100px;
+  height:100px;
+  background:radial-gradient(circle, rgba(100,70,40,0.1) 0%, transparent 70%);
+  border-radius:50%;
+  pointer-events:none;
+}
+.paper-spot:nth-of-type(1) { top:8%; left:5%; }
+.paper-spot:nth-of-type(2) { top:35%; right:8%; }
+.paper-spot:nth-of-type(3) { bottom:20%; left:20%; }
+
+/* Rolled corner */
+.rolled-corner {
+  position:absolute;
+  bottom:-8px;
+  right:-8px;
+  width:55px;
+  height:55px;
   z-index:10;
-  overflow-x:auto;
-  overflow-y:hidden;
-  padding:2rem 0;
 }
-
-.map-container {
-  display:flex;
-  min-width:1400px;
-  padding:2rem 4rem;
-  position:relative;
-}
-
-/* Title at start */
-.map-title-section {
-  position:absolute;
-  top:2rem;
-  left:4rem;
-  z-index:20;
-}
-
-.map-title {
-  font-family:'Special Elite', cursive;
-  font-size:2rem;
-  color:#d4c4a4;
-  text-shadow:2px 2px 4px rgba(0,0,0,.5);
-  white-space:nowrap;
-}
-
-.map-subtitle {
-  font-family:'Cormorant Garamond',serif;
-  font-style:italic;
-  font-size:1.1rem;
-  color:rgba(200,180,140,.7);
-  margin-top:.5rem;
-}
-
-/* Mountains layer */
-.mountains {
-  position:absolute;
-  bottom:150px;
-  left:0;
-  right:0;
-  height:200px;
-  pointer-events:none;
-}
-
-.mountain {
+.rolled-corner::before {
+  content:'';
   position:absolute;
   bottom:0;
-  width:0;
-  height:0;
-  border-left:80px solid transparent;
-  border-right:80px solid transparent;
-  border-bottom:120px solid rgba(60,40,80,.4);
+  right:0;
+  width:45px;
+  height:45px;
+  background:linear-gradient(135deg, transparent 50%, #a89570 50%), linear-gradient(225deg, #b8a57a 0%, #c4b08c 50%, transparent 50%);
+  border-radius:0 0 0 6px;
+  box-shadow:-3px -3px 6px rgba(0,0,0,0.25);
 }
-
-.mountain::before {
+.rolled-corner::after {
   content:'';
   position:absolute;
-  top:30px;
-  left:-40px;
-  width:0;
-  height:0;
-  border-left:30px solid transparent;
-  border-right:30px solid transparent;
-  border-bottom:40px solid rgba(80,60,100,.5);
-}
-
-.mountain:nth-child(1) { left:5%; }
-.mountain:nth-child(2) { left:15%; border-bottom-width:150px; border-left-width:100px; border-right-width:100px; }
-.mountain:nth-child(3) { left:30%; }
-.mountain:nth-child(4) { left:50%; border-bottom-width:180px; border-left-width:120px; border-right-width:120px; }
-.mountain:nth-child(5) { left:70%; border-bottom-width:140px; }
-.mountain:nth-child(6) { left:85%; border-bottom-width:160px; }
-
-/* Snow caps */
-.mountain::after {
-  content:'';
-  position:absolute;
-  top:0;
-  left:-20px;
-  width:0;
-  height:0;
-  border-left:20px solid transparent;
-  border-right:20px solid transparent;
-  border-bottom:30px solid rgba(255,255,255,.2);
-}
-
-/* River */
-.river {
-  position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
-  height:80px;
-  background:linear-gradient(90deg,
-    rgba(60,100,140,.3) 0%,
-    rgba(80,120,160,.4) 20%,
-    rgba(60,100,140,.3) 40%,
-    rgba(80,120,160,.4) 60%,
-    rgba(60,100,140,.3) 100%);
-  border-top:2px solid rgba(100,150,200,.3);
-}
-
-.river-wave {
-  position:absolute;
-  top:20px;
-  width:100%;
-  height:10px;
-  background:repeating-linear-gradient(90deg,
-    transparent 0px,
-    rgba(150,200,255,.1) 20px,
-    transparent 40px);
-  animation:riverFlow 4s linear infinite;
-}
-
-@keyframes riverFlow {
-  0%{transform:translateX(0)}
-  100%{transform:translateX(-40px)}
-}
-
-/* Road */
-.road {
-  position:absolute;
-  bottom:80px;
-  left:0;
-  right:0;
-  height:60px;
-  background:linear-gradient(90deg,
-    rgba(80,60,40,.8) 0%,
-    rgba(100,80,50,.9) 10%,
-    rgba(80,60,40,.8) 20%,
-    rgba(100,80,50,.9) 30%,
-    rgba(80,60,40,.8) 100%);
-  border-top:3px solid rgba(180,150,100,.4);
-}
-
-.road::before {
-  content:'';
-  position:absolute;
-  top:50%;
-  left:0;
-  right:0;
-  height:2px;
-  background:repeating-linear-gradient(90deg,
-    rgba(200,180,140,.5) 0px,
-    rgba(200,180,140,.5) 30px,
-    transparent 30px,
-    transparent 60px);
-  transform:translateY(-50%);
-}
-
-/* Stop markers on road */
-.stops-container {
-  position:absolute;
-  bottom:140px;
-  left:0;
-  right:0;
-  display:flex;
-  justify-content:space-around;
-  padding:0 5%;
-}
-
-.stop {
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-decoration:none;
-  cursor:pointer;
-  transition:transform .3s ease;
-}
-
-.stop:hover {
-  transform:scale(1.05);
-}
-
-.stop-marker {
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:1.5rem;
-  border:3px solid;
-  position:relative;
-  transition:all .3s ease;
-}
-
-/* Revealed stops */
-.stop.revealed .stop-marker {
-  background:linear-gradient(135deg,rgba(212,169,106,.3),rgba(180,140,80,.3));
-  border-color:#d4a96a;
-  box-shadow:0 0 20px rgba(212,169,106,.4);
-  animation:glow 2s ease-in-out infinite;
-}
-
-@keyframes glow {
-  0%,100%{box-shadow:0 0 20px rgba(212,169,106,.4)}
-  50%{box-shadow:0 0 35px rgba(212,169,106,.7)}
-}
-
-/* Coming soon stops */
-.stop.coming .stop-marker {
-  background:rgba(100,80,100,.2);
-  border-color:rgba(150,130,170,.4);
-}
-
-.stop.coming .stop-marker::after {
-  content:'?';
-  position:absolute;
-  top:-5px;
-  right:-5px;
-  width:20px;
-  height:20px;
-  background:rgba(150,130,170,.5);
-  border-radius:50%;
-  font-size:.7rem;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-/* Stop label */
-.stop-label {
-  margin-top:.8rem;
-  text-align:center;
-}
-
-.stop-chapter {
-  font-family:'Special Elite', cursive;
-  font-size:.7rem;
-  color:rgba(180,150,100,.7);
-  margin-bottom:.3rem;
-}
-
-.stop-title {
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.1rem;
-  color:#e8dcc8;
-  max-width:120px;
-}
-
-.stop-desc {
-  font-family:'Cormorant Garamond',serif;
-  font-style:italic;
-  font-size:.8rem;
-  color:rgba(200,180,140,.7);
-  margin-top:.3rem;
-  max-width:120px;
-}
-
-/* Connection line */
-.stop-connector {
-  position:absolute;
-  bottom:30px;
-  left:50%;
-  transform:translateX(-50%);
-  width:2px;
-  height:30px;
-  background:linear-gradient(180deg,rgba(180,150,100,.5),transparent);
-}
-
-/* Sun */
-.sun {
-  position:absolute;
-  top:80px;
-  right:15%;
-  width:80px;
-  height:80px;
-  background:radial-gradient(circle,rgba(255,220,120,.8) 0%,rgba(255,180,80,.4) 50%,transparent 70%);
-  border-radius:50%;
-  animation:sunGlow 4s ease-in-out infinite;
-}
-
-@keyframes sunGlow {
-  0%,100%{transform:scale(1);opacity:.8}
-  50%{transform:scale(1.1);opacity:1}
-}
-
-/* Moon */
-.moon {
-  position:absolute;
-  top:60px;
-  left:10%;
-  width:50px;
-  height:50px;
-  background:radial-gradient(circle,#ffe9a0 0%,#f5c96a 100%);
-  border-radius:50%;
-  box-shadow:0 0 30px rgba(255,233,160,.4);
-}
-
-/* Trees */
-.trees {
-  position:absolute;
-  bottom:145px;
-  left:0;
-  right:0;
-  height:40px;
-  pointer-events:none;
-}
-
-.tree {
-  position:absolute;
-  bottom:0;
-  font-size:1.5rem;
-}
-
-/* Clouds */
-.cloud {
-  position:absolute;
-  background:rgba(150,140,160,.2);
-  border-radius:50px;
-  animation:cloudFloat 20s ease-in-out infinite;
-}
-
-.cloud::before, .cloud::after {
-  content:'';
-  position:absolute;
-  background:inherit;
-  border-radius:50%;
-}
-
-.cloud:nth-child(1) { top:30%; left:10%; width:80px; height:30px; animation-delay:0s; }
-.cloud:nth-child(1)::before { width:40px; height:40px; top:-20px; left:10px; }
-.cloud:nth-child(1)::after { width:30px; height:30px; top:-15px; left:40px; }
-
-.cloud:nth-child(2) { top:20%; left:40%; width:100px; height:35px; animation-delay:-5s; }
-.cloud:nth-child(2)::before { width:50px; height:50px; top:-25px; left:20px; }
-.cloud:nth-child(2)::after { width:35px; height:35px; top:-18px; left:55px; }
-
-.cloud:nth-child(3) { top:35%; left:70%; width:70px; height:25px; animation-delay:-10s; }
-.cloud:nth-child(3)::before { width:35px; height:35px; top:-18px; left:8px; }
-.cloud:nth-child(3)::after { width:25px; height:25px; top:-12px; left:35px; }
-
-@keyframes cloudFloat {
-  0%,100%{transform:translateX(0)}
-  50%{transform:translateX(20px)}
+  bottom:3px;
+  right:3px;
+  width:38px;
+  height:38px;
+  background:linear-gradient(135deg, transparent 47%, #a89570 47%, #a89570 53%, transparent 53%), linear-gradient(225deg, #c9b896 0%, #c9b896 47%, transparent 47%);
+  border-radius:0 0 0 4px;
 }
 
 /* Back button */
 .back-btn {
   position:fixed;
-  top:1.5rem;
-  left:1.5rem;
+  top:1rem;
+  left:1rem;
   z-index:100;
-  padding:.6rem 1.2rem;
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,233,160,.2);
-  color:#f5e6d0;
-  border-radius:25px;
+  padding:.5rem 1rem;
+  background:rgba(74,60,44,0.2);
+  border:2px solid rgba(232,220,196,0.35);
+  color:#e8dcc4;
+  border-radius:3px;
   text-decoration:none;
-  font-size:.8rem;
-  letter-spacing:.1em;
-  transition:all .3s ease;
+  font-size:.75rem;
+  font-family:'Special Elite', cursive;
+  cursor:pointer;
+  transition:all .3s;
 }
-.back-btn:hover {
-  background:rgba(255,233,160,.15);
-  transform:translateX(-3px);
+.back-btn:hover { background:rgba(232,220,196,0.25); border-color:rgba(232,220,196,0.6); }
+
+/* Header */
+header {
+  text-align:center;
+  padding:.5rem;
+  position:relative;
+  z-index:10;
+}
+header h1 {
+  font-family:'Special Elite', cursive;
+  font-size:clamp(1.6rem,4.5vw,2.2rem);
+  color:#2a1f15;
+  margin-bottom:.3rem;
+}
+header p {
+  font-family:'Special Elite', cursive;
+  font-size:.95rem;
+  color:rgba(42,31,21,0.7);
 }
 
-/* Progress bar */
-.progress-bar {
-  position:fixed;
+/* Compass */
+.compass {
+  position:absolute;
+  top:1rem;
+  right:1rem;
+  width:55px;
+  height:55px;
+  opacity:0.65;
+}
+.compass-ring {
+  width:100%;
+  height:100%;
+  border:2px solid rgba(74,60,44,0.55);
+  border-radius:50%;
+  position:relative;
+}
+.compass-ring::before {
+  content:'';
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  border-width:0 5px 18px 5px;
+  border-style:solid;
+  border-color:transparent transparent rgba(74,60,44,0.75) transparent;
+}
+.compass-ring::after {
+  content:'';
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-42%);
+  border-width:18px 5px 0 5px;
+  border-style:solid;
+  border-color:rgba(74,60,44,0.45) transparent transparent transparent;
+}
+.compass-n {
+  position:absolute;
+  top:-2px;
+  left:50%;
+  transform:translateX(-50%);
+  font-family:'Special Elite', cursive;
+  font-size:.65rem;
+  font-weight:bold;
+  color:#4a3c2c;
+}
+
+/* Map frame */
+.map-frame {
+  position:relative;
+  border:3px dashed rgba(74,60,44,0.35);
+  border-radius:3px;
+  padding:.6rem;
+  margin-top:.5rem;
+  overflow:visible;
+}
+
+/* Curved road SVG */
+.road-svg {
+  position:absolute;
   bottom:0;
   left:0;
+  width:100%;
+  height:250px;
+  pointer-events:none;
+}
+.road-path {
+  fill:none;
+  stroke:#5a4a3a;
+  stroke-width:38;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  filter:drop-shadow(2px 2px 3px rgba(0,0,0,0.12));
+}
+.road-path-inner {
+  fill:none;
+  stroke:#6b5848;
+  stroke-width:28;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.road-dashes {
+  fill:none;
+  stroke:#a08060;
+  stroke-width:2;
+  stroke-dasharray:8 18;
+  stroke-linecap:round;
+  opacity:0.65;
+}
+
+/* Mountains */
+.mountains {
+  position:absolute;
+  top:50px;
+  left:0;
   right:0;
-  height:4px;
-  background:rgba(100,80,100,.3);
-  z-index:100;
+  height:75px;
+  display:flex;
+  justify-content:space-around;
+  align-items:flex-end;
+  opacity:0.3;
+}
+.mt {
+  width:0;
+  height:0;
+  border-left:28px solid transparent;
+  border-right:28px solid transparent;
+  border-bottom:55px solid rgba(74,60,44,0.35);
+}
+.mt:nth-child(2) { border-bottom-width:70px; }
+.mt:nth-child(3) { border-bottom-width:40px; }
+.mt:nth-child(4) { border-bottom-width:80px; }
+.mt:nth-child(5) { border-bottom-width:50px; }
+.mt:nth-child(6) { border-bottom-width:65px; }
+
+/* Trees */
+.tree-marks {
+  position:absolute;
+  top:125px;
+  left:0;
+  right:0;
+  height:20px;
+}
+.tree-mark {
+  position:absolute;
+  font-size:1.1rem;
+  opacity:0.4;
 }
 
-.progress-fill {
-  height:100%;
-  background:linear-gradient(90deg,#d4a96a,#d4e8a0);
-  width:33%;
-  transition:width .5s ease;
+/* Waves */
+.waves {
+  position:absolute;
+  bottom:40px;
+  left:5%;
+  width:55px;
+  height:20px;
+  opacity:0.3;
 }
+.wave {
+  position:absolute;
+  width:20px;
+  height:9px;
+  border:2px solid rgba(60,100,140,0.5);
+  border-radius:50% 50% 0 0;
+  border-bottom:none;
+}
+.wave:nth-child(1) { left:0; }
+.wave:nth-child(2) { left:14px; top:3px; }
+.wave:nth-child(3) { left:28px; }
 
-/* Scroll hint */
-.scroll-hint {
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  z-index:100;
-  font-family:'Cormorant Garamond',serif;
+/* Terrain labels */
+.terrain {
+  position:absolute;
+  font-family:'Special Elite', cursive;
+  font-size:.9rem;
+  color:rgba(74,60,44,0.5);
   font-style:italic;
-  color:rgba(180,150,100,.5);
-  animation:bob 2s ease-in-out infinite;
+  letter-spacing:.08em;
 }
 
-@keyframes bob {
-  0%,100%{transform:translateX(0)}
-  50%{transform:translateX(5px)}
+/* Stops container */
+.stops-container {
+  position:relative;
+  height:250px;
+  margin:0 .5rem;
+}
+
+/* Stops */
+.stop {
+  position:absolute;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-decoration:none;
+  cursor:pointer;
+  transition:transform .3s;
+}
+.stop:hover { transform:scale(1.08); }
+
+.stop-marker {
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.1rem;
+  border:3px solid;
+  background:#f5efe4;
+  box-shadow:2px 2px 4px rgba(0,0,0,0.12);
+  position:relative;
+}
+.stop-marker::after {
+  content:'';
+  position:absolute;
+  bottom:-4px;
+  left:50%;
+  transform:translateX(-50%);
+  width:8px;
+  height:4px;
+  background:rgba(0,0,0,0.12);
+  border-radius:50%;
+}
+.stop.revealed .stop-marker { border-color:#8b5a2b; }
+.stop.revealed .stop-marker::before {
+  content:'';
+  position:absolute;
+  inset:-4px;
+  border:2px dashed rgba(139,90,43,0.45);
+  border-radius:50%;
+}
+.stop.coming .stop-marker { border-color:#8a7a6a; background:#d4c4a8; }
+
+/* Stop labels */
+.stop-label {
+  text-align:center;
+  margin-top:.5rem;
+  background:#f5efe4;
+  padding:.3rem .6rem;
+  border:1px solid rgba(74,60,44,0.22);
+  box-shadow:1px 2px 3px rgba(0,0,0,0.08);
+}
+.stop-chapter {
+  font-family:'Special Elite', cursive;
+  font-size:.55rem;
+  color:rgba(74,60,44,0.6);
+  letter-spacing:.1em;
+  margin-bottom:.08rem;
+}
+.stop-title {
+  font-family:'Special Elite', cursive;
+  font-size:.85rem;
+  color:#2a1f15;
+  font-weight:600;
+}
+.stop-desc {
+  font-family:'Special Elite', cursive;
+  font-style:italic;
+  font-size:.65rem;
+  color:rgba(74,60,44,0.55);
+  margin-top:.08rem;
+}
+
+/* Stop positions - aligned with road curve */
+.stop[data-chap="1"] { left:5%; bottom:68px; }
+.stop[data-chap="2"] { left:24%; bottom:98px; }
+.stop[data-chap="3"] { left:44%; bottom:82px; }
+.stop[data-chap="4"] { left:64%; bottom:108px; }
+.stop[data-chap="5"] { left:84%; bottom:72px; }
+
+/* Legend */
+.legend {
+  text-align:center;
+  padding:.7rem;
+  font-family:'Special Elite', cursive;
+  font-style:italic;
+  color:rgba(42,31,21,0.5);
+  font-size:.85rem;
+  border-top:1px solid rgba(74,60,44,0.18);
+  margin-top:.5rem;
+}
+
+/* Corner flourishes */
+.flourish {
+  position:absolute;
+  width:28px;
+  height:28px;
+  opacity:0.45;
+}
+.flourish-tl { top:4px; left:4px; border-top:2px solid rgba(74,60,44,0.5); border-left:2px solid rgba(74,60,44,0.5); }
+.flourish-tr { top:4px; right:4px; border-top:2px solid rgba(74,60,44,0.5); border-right:2px solid rgba(74,60,44,0.5); }
+.flourish-bl { bottom:4px; left:4px; border-bottom:2px solid rgba(74,60,44,0.5); border-left:2px solid rgba(74,60,44,0.5); }
+.flourish-br { bottom:4px; right:4px; border-bottom:2px solid rgba(74,60,44,0.5); border-right:2px solid rgba(74,60,44,0.5); }
+
+/* Scale bar */
+.scale-bar {
+  position:absolute;
+  bottom:1rem;
+  right:1rem;
+  display:flex;
+  align-items:center;
+  gap:.2rem;
+  font-family:'Special Elite', cursive;
+  font-size:.55rem;
+  color:rgba(74,60,44,0.5);
+}
+.scale-line {
+  width:28px;
+  height:2px;
+  background:rgba(74,60,44,0.45);
+  border-top:1px solid rgba(74,60,44,0.45);
 }
 </style>
 </head>
 <body>
 
-<div class="cosmic-bg"></div>
+<div class="cosmic-glow"></div>
 
 <a href="index.html" class="back-btn">← Back</a>
 
-<div class="map-wrapper">
-  <div class="map-container">
-    <!-- Title -->
-    <div class="map-title-section">
-      <h1 class="map-title">🗺️ Your Surprise Journey</h1>
-      <p class="map-subtitle">Scroll along the road to discover your gifts ✨</p>
-    </div>
+<div class="container">
+  <div class="paper-map">
+    <div class="paper-spot"></div>
+    <div class="paper-spot"></div>
+    <div class="paper-stop"></div>
 
-    <!-- Sky elements -->
-    <div class="moon"></div>
-    <div class="sun"></div>
-    <div class="cloud"></div>
-    <div class="cloud"></div>
-    <div class="cloud"></div>
+    <header>
+      <h1>🗺️ Your Journey Awaits</h1>
+      <p>Follow the winding road to discover your treasures...</p>
+    </header>
 
-    <!-- Mountains -->
-    <div class="mountains">
-      <div class="mountain"></div>
-      <div class="mountain"></div>
-      <div class="mountain"></div>
-      <div class="mountain"></div>
-      <div class="mountain"></div>
-      <div class="mountain"></div>
-    </div>
-
-    <!-- Trees -->
-    <div class="trees">
-      <span class="tree" style="left:8%">🌲</span>
-      <span class="tree" style="left:25%">🌳</span>
-      <span class="tree" style="left:45%">🌲</span>
-      <span class="tree" style="left:65%">🌳</span>
-      <span class="tree" style="left:82%">🌲</span>
-    </div>
-
-    <!-- Stops on road -->
-    <div class="stops-container">
-      <!-- Surprise 1: Birthday -->
-      <a href="index.html" class="stop revealed">
-        <div class="stop-marker">🎂</div>
-        <div class="stop-label">
-          <p class="stop-chapter">✦ CHAPTER 01</p>
-          <p class="stop-title">Birthday Surprise</p>
-          <p class="stop-desc">The beginning of your magical journey</p>
-        </div>
-      </a>
-
-      <!-- Surprise 2: PDF -->
-      <a href="surprise2.html" class="stop revealed">
-        <div class="stop-marker">📜</div>
-        <div class="stop-label">
-          <p class="stop-chapter">✦ CHAPTER 02</p>
-          <p class="stop-title">Special Gift</p>
-          <p class="stop-desc">A momento of your achievement</p>
-        </div>
-      </a>
-
-      <!-- Surprise 3: Poem -->
-      <a href="surprise3.html" class="stop revealed">
-        <div class="stop-marker">💜</div>
-        <div class="stop-label">
-          <p class="stop-chapter">✦ CHAPTER 03</p>
-          <p class="stop-title">Poem for You</p>
-          <p class="stop-desc">Words from my heart</p>
-        </div>
-      </a>
-
-      <!-- Coming Soon 1 -->
-      <div class="stop coming">
-        <div class="stop-marker">🎁</div>
-        <div class="stop-label">
-          <p class="stop-chapter">✦ CHAPTER 04</p>
-          <p class="stop-title">Coming Soon</p>
-          <p class="stop-desc">Something magical awaits...</p>
-        </div>
-      </div>
-
-      <!-- Coming Soon 2 -->
-      <div class="stop coming">
-        <div class="stop-marker">🌟</div>
-        <div class="stop-label">
-          <p class="stop-chapter">✦ CHAPTER 05</p>
-          <p class="stop-title">Coming Soon</p>
-          <p class="stop-desc">More love to share...</p>
-        </div>
+    <div class="compass">
+      <div class="compass-ring">
+        <span class="compass-n">N</span>
       </div>
     </div>
 
-    <!-- Road -->
-    <div class="road"></div>
+    <div class="map-frame">
+      <div class="flourish flourish-tl"></div>
+      <div class="flourish flourish-tr"></div>
+      <div class="flourish flourish-bl"></div>
+      <div class="flourish flourish-br"></div>
 
-    <!-- River -->
-    <div class="river">
-      <div class="river-wave"></div>
+      <!-- Curved road -->
+      <svg class="road-svg" viewBox="0 0 800 250" preserveAspectRatio="none">
+        <path class="road-path" d="M 15,200 Q 70,175 110,150 Q 160,115 210,135 Q 270,155 315,120 Q 370,80 420,95 Q 485,110 535,85 Q 585,60 645,75 Q 705,90 750,70 Q 780,58 795,65" />
+        <path class="road-path-inner" d="M 15,200 Q 70,175 110,150 Q 160,115 210,135 Q 270,155 315,120 Q 370,80 420,95 Q 485,110 535,85 Q 585,60 645,75 Q 705,90 750,70 Q 780,58 795,65" />
+        <path class="road-dashes" d="M 15,200 Q 70,175 110,150 Q 160,115 210,135 Q 270,155 315,120 Q 370,80 420,95 Q 485,110 535,85 Q 585,60 645,75 Q 705,90 750,70 Q 780,58 795,65" />
+      </svg>
+
+      <div class="mountains">
+        <div class="mt"></div>
+        <div class="mt"></div>
+        <div class="mt"></div>
+        <div class="mt"></div>
+        <div class="mt"></div>
+        <div class="mt"></div>
+      </div>
+
+      <div class="tree-marks">
+        <span class="tree-mark" style="left:5%">🌲</span>
+        <span class="tree-mark" style="left:18%">🌳</span>
+        <span class="tree-mark" style="left:42%">🌲</span>
+        <span class="tree-mark" style="left:62%">🌳</span>
+        <span class="tree-mark" style="left:82%">🌲</span>
+      </div>
+
+      <div class="waves">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+      </div>
+
+      <div class="terrain" style="top:32px; left:8%;">forest</div>
+      <div class="terrain" style="top:42px; right:8%;">hills</div>
+
+      <div class="stops-container">
+        <a href="index.html" class="stop revealed" data-chap="1">
+          <div class="stop-marker">🎂</div>
+          <div class="stop-label">
+            <p class="stop-chapter">✦ CHAPTER 01</p>
+            <p class="stop-title">Birthday</p>
+            <p class="stop-desc">The beginning</p>
+          </div>
+        </a>
+
+        <a href="surprise2.html" class="stop revealed" data-chap="2">
+          <div class="stop-marker">📜</div>
+          <div class="stop-label">
+            <p class="stop-chapter">✦ CHAPTER 02</p>
+            <p class="stop-title">Gift</p>
+            <p class="stop-desc">Special momento</p>
+          </div>
+        </a>
+
+        <a href="surprise3.html" class="stop revealed" data-chap="3">
+          <div class="stop-marker">💜</div>
+          <div class="stop-label">
+            <p class="stop-chapter">✦ CHAPTER 03</p>
+            <p class="stop-title">Poem</p>
+            <p class="stop-desc">From my heart</p>
+          </div>
+        </a>
+
+        <div class="stop coming" data-chap="4">
+          <div class="stop-marker">🎁</div>
+          <div class="stop-label">
+            <p class="stop-chapter">✦ CHAPTER 04</p>
+            <p class="stop-title">Coming Soon</p>
+            <p class="stop-desc">Magic awaits...</p>
+          </div>
+        </div>
+
+        <div class="stop coming" data-chap="5">
+          <div class="stop-marker">🌟</div>
+          <div class="stop-label">
+            <p class="stop-chapter">✦ CHAPTER 05</p>
+            <p class="stop-title">Coming Soon</p>
+            <p class="stop-desc">More love...</p>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div class="scale-bar">
+      <span>0</span>
+      <div class="scale-line"></div>
+      <span>~1 mile~</span>
+    </div>
+
+    <div class="rolled-corner"></div>
+
+    <p class="legend">"Every winding road leads to something beautiful 🌸"</p>
   </div>
 </div>
 
-<div class="progress-bar">
-  <div class="progress-fill"></div>
-</div>
-
-<p class="scroll-hint">Scroll →</p>
-
 <script>
-// Create twinkling stars
-for(let i=0;i<40;i++){
+// Generate stars
+for(let i=0;i<35;i++){
   const star=document.createElement('div');
   star.className='star';
   star.style.left=Math.random()*100+'vw';
-  star.style.top=Math.random()*60+'vh';
+  star.style.top=Math.random()*55+'vh';
   star.style.animationDelay=Math.random()*3+'s';
-  star.style.width=Math.random()*2+1+'px';
+  star.style.width=(Math.random()*1.5+1)+'px';
   star.style.height=star.style.width;
   document.body.appendChild(star);
 }
-
-// Progress bar scroll
-const wrapper = document.querySelector('.map-wrapper');
-const progressFill = document.querySelector('.progress-fill');
-
-wrapper.addEventListener('scroll', () => {
-  const scrollLeft = wrapper.scrollLeft;
-  const maxScroll = wrapper.scrollWidth - wrapper.clientWidth;
-  const progress = (scrollLeft / maxScroll) * 100;
-  progressFill.style.width = Math.min(progress, 100) + '%';
-});
 </script>
 </body>
 </html>
