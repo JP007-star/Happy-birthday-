@@ -63,7 +63,20 @@ body {
     inset 0 0 80px rgba(139,100,60,0.15),
     inset 0 0 20px rgba(100,70,40,0.1);
   padding:1rem;
-  min-height:480px;
+  min-height:1100px;
+}
+
+.map-quote {
+  font-size:.82rem;
+  color:rgba(42,31,21,0.7);
+  margin:0.5rem auto 0;
+  max-width:78%;
+  line-height:1.5;
+}
+.map-quote.subtle {
+  font-size:.72rem;
+  color:rgba(42,31,21,0.55);
+  margin-top:.3rem;
 }
 
 /* Heavy aging effect */
@@ -685,10 +698,14 @@ header p {
     font-size:.68rem;
   }
 
-  .back-btn {
-    padding:.35rem .65rem;
-    font-size:.68rem;
-  }
+    .map-quote {
+      max-width:100%;
+      font-size:.78rem;
+    }
+    .map-quote.subtle {
+      font-size:.66rem;
+    }
+
 
   .compass {
     width:42px;
@@ -790,7 +807,7 @@ header p {
 @media (max-width: 360px) {
   body { padding:.4rem; }
   .container { padding:2.8rem .3rem .75rem; }
-  .paper-map { padding:.65rem; min-height:360px; }
+  .paper-map { padding:.65rem; min-height:700px; }
   .map-timer { left:.5rem; right:.5rem; bottom:4.3rem; padding:.65rem .7rem; }
   .map-timer .timer-unit { min-width:38px; padding:.36rem .32rem; }
   .map-timer .timer-unit span:first-child { font-size:.9rem; }
@@ -827,6 +844,8 @@ header p {
     <header>
       <h1>Your Surprise Journey</h1>
       <p>Scroll along the road to discover your gifts ✨</p>
+      <p class="map-quote">“Every hidden step is a promise of magic — your adventure begins with a single clue.”</p>
+      <p class="map-quote subtle">“Destiny whispers from Shiva before Navaratri; listen closely as the path unfolds.”</p>
     </header>
 
     <div class="compass">
@@ -1002,7 +1021,7 @@ function updateMapTimer() {
   document.getElementById('mapCdM').textContent = formatTwoDigits(minutes);
   document.getElementById('mapCdS').textContent = formatTwoDigits(remainingSeconds);
 
-  const label = now >= nextMilestone ? 'Milestone reached! 🎉' : 'Clue: "Destiny call from Shiva before Navaratri."';
+  const label = now >= nextMilestone ? 'Milestone reached! 🎉' : 'Clue: "Destiny call from Shiva before Navaratri. 30092023"';
   document.getElementById('mapCdText').textContent = label;
 }
 
