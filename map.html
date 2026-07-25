@@ -632,6 +632,7 @@ header p {
 
 .map-emoji-cloud {
   position:fixed;
+  top:0;
   left:0;
   right:0;
   bottom:0;
@@ -957,7 +958,7 @@ header p {
       <div class="timer-unit"><span id="mapCdM">00</span><span>mins</span></div>
       <div class="timer-unit"><span id="mapCdS">00</span><span>secs</span></div>
     </div>
-    <div class="timer-sub" id="mapCdText">until midnight</div>
+    <div class="timer-sub" id="mapCdText">Clue: 'Navaratri begins the last day before October.'</div>
   </div>
 
 <script>
@@ -973,7 +974,7 @@ for(let i=0;i<25;i++){
   document.body.appendChild(star);
 }
 
-const mapEmojis = ['🎁','🎉','✨','💝','🎈','💖','🎀','🎊','🌟','🧡','💜','🌸'];
+const mapEmojis = ['🎁','🎉','✨','💝','🎈','💖','🎀','🎊','🌟','⭐','🌠','🧡','💜','🌸'];
 const mapEmojiContainer = document.createElement('div');
 mapEmojiContainer.className = 'map-emoji-cloud';
 document.body.appendChild(mapEmojiContainer);
@@ -1001,7 +1002,7 @@ function updateMapTimer() {
   document.getElementById('mapCdM').textContent = formatTwoDigits(minutes);
   document.getElementById('mapCdS').textContent = formatTwoDigits(remainingSeconds);
 
-  const label = now >= nextMilestone ? 'Milestone reached! 🎉' : 'until midnight';
+  const label = now >= nextMilestone ? 'Milestone reached! 🎉' : 'Clue: "Navaratri begins the last day before October."';
   document.getElementById('mapCdText').textContent = label;
 }
 
