@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Treasure Map - Your Journey ✨</title>
+<title>Your Surprise Journey ✨</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=Quicksand:wght@300;400&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -46,7 +46,7 @@ body {
   z-index:1;
   max-width:750px;
   margin:0 auto;
-  padding:4rem 1rem 2rem;
+  padding:4rem .5rem 1.5rem;
 }
 
 /* Treasure map paper */
@@ -56,17 +56,17 @@ body {
     url('https://cdn.texturize.app/textures/paper-old-parchment/paper-old-parchment.png'),
     linear-gradient(135deg, #c9b896 0%, #bfae84 30%, #c4b08c 50%, #d4c4a0 70%, #c9b896 100%);
   background-blend-mode: overlay;
-  background-size: 350px 350px;
+  background-size: 300px 300px;
   border-radius:4px;
   box-shadow:
     0 0 60px rgba(0,0,0,0.5),
     inset 0 0 80px rgba(139,100,60,0.15),
     inset 0 0 20px rgba(100,70,40,0.1);
-  padding:1.2rem;
-  min-height:520px;
+  padding:1rem;
+  min-height:480px;
 }
 
-/* Heavy aging/burn effect */
+/* Heavy aging effect */
 .paper-map::before {
   content:'';
   position:absolute;
@@ -90,26 +90,50 @@ body {
   pointer-events:none;
 }
 
-/* Aged/dark spots */
+/* Aged spots */
 .paper-spot {
   position:absolute;
-  width:90px;
-  height:90px;
+  width:70px;
+  height:70px;
   background:radial-gradient(circle, rgba(90,60,30,0.12) 0%, transparent 70%);
   border-radius:50%;
   pointer-events:none;
 }
-.paper-spot:nth-of-type(1) { top:5%; left:3%; }
-.paper-spot:nth-of-type(2) { top:30%; right:5%; }
-.paper-spot:nth-of-type(3) { bottom:15%; left:18%; }
+.paper-spot:nth-of-type(1) { top:3%; left:2%; }
+.paper-spot:nth-of-type(2) { top:25%; right:3%; }
+.paper-spot:nth-of-type(3) { bottom:12%; left:15%; }
 
-/* Rolled corner - more pronounced */
+/* Ink stains */
+.ink-stain {
+  position:absolute;
+  width:40px;
+  height:35px;
+  background:radial-gradient(ellipse, rgba(60,40,20,0.08) 0%, transparent 70%);
+  border-radius:50% 40% 60% 50%;
+  transform:rotate(15deg);
+  pointer-events:none;
+}
+.ink-stain:nth-of-type(4) { top:40%; left:8%; }
+.ink-stain:nth-of-type(5) { bottom:30%; right:10%; }
+
+/* Water patch */
+.water-patch {
+  position:absolute;
+  width:60px;
+  height:40px;
+  background:radial-gradient(ellipse at center, rgba(100,140,180,0.08) 0%, transparent 70%);
+  border-radius:30% 70% 50% 50%;
+  pointer-events:none;
+}
+.water-patch:nth-of-type(6) { bottom:15%; right:20%; }
+
+/* Rolled corner */
 .rolled-corner {
   position:absolute;
-  bottom:-10px;
-  right:-10px;
-  width:65px;
-  height:65px;
+  bottom:-8px;
+  right:-8px;
+  width:50px;
+  height:50px;
   z-index:10;
 }
 .rolled-corner::before {
@@ -117,75 +141,75 @@ body {
   position:absolute;
   bottom:0;
   right:0;
-  width:52px;
-  height:52px;
+  width:42px;
+  height:42px;
   background:linear-gradient(135deg, transparent 48%, #8a7a5a 48%, #8a7a5a 52%, transparent 52%), linear-gradient(225deg, #a08060 0%, #b8a068 50%, transparent 50%);
-  border-radius:0 0 0 8px;
-  box-shadow:-4px -4px 8px rgba(0,0,0,0.3);
+  border-radius:0 0 0 6px;
+  box-shadow:-3px -3px 6px rgba(0,0,0,0.25);
 }
 .rolled-corner::after {
   content:'';
   position:absolute;
-  bottom:4px;
-  right:4px;
-  width:42px;
-  height:42px;
+  bottom:3px;
+  right:3px;
+  width:34px;
+  height:34px;
   background:linear-gradient(135deg, transparent 46%, #c9b896 46%, #c9b896 54%, transparent 54%), linear-gradient(225deg, #d4c4a0 0%, #d4c4a0 46%, transparent 46%);
-  border-radius:0 0 0 5px;
+  border-radius:0 0 0 4px;
 }
 
 /* Back button */
 .back-btn {
   position:fixed;
-  top:1rem;
-  left:1rem;
+  top:.5rem;
+  left:.5rem;
   z-index:100;
-  padding:.5rem 1rem;
-  background:rgba(74,60,44,0.25);
-  border:2px solid rgba(232,220,196,0.4);
+  padding:.4rem .7rem;
+  background:rgba(74,60,44,0.3);
+  border:2px solid rgba(232,220,196,0.45);
   color:#e8dcc4;
   border-radius:3px;
   text-decoration:none;
-  font-size:.7rem;
+  font-size:.65rem;
   cursor:pointer;
   transition:all .3s;
 }
-.back-btn:hover { background:rgba(232,220,196,0.3); border-color:rgba(232,220,196,0.7); }
+.back-btn:hover { background:rgba(232,220,196,0.35); border-color:rgba(232,220,196,0.75); }
 
-/* Header */
+/* Header - Your Surprise Journey title */
 header {
   text-align:center;
-  padding:.3rem;
+  padding:.25rem;
   position:relative;
   z-index:10;
   border-bottom:2px solid rgba(74,60,44,0.2);
-  margin-bottom:.5rem;
+  margin-bottom:.4rem;
 }
 header h1 {
-  font-size:clamp(1.4rem,4vw,1.8rem);
+  font-size:clamp(1.2rem,3.5vw,1.6rem);
   color:#2a1f15;
-  margin-bottom:.2rem;
-  letter-spacing:.05em;
+  margin-bottom:.15rem;
+  letter-spacing:.04em;
 }
 header p {
-  font-size:.85rem;
+  font-size:.75rem;
   color:rgba(42,31,21,0.7);
   font-style:italic;
 }
 
-/* Large vintage compass rose */
+/* Compass */
 .compass {
   position:absolute;
-  top:.8rem;
-  right:.8rem;
-  width:65px;
-  height:65px;
+  top:.6rem;
+  right:.6rem;
+  width:50px;
+  height:50px;
   opacity:0.75;
 }
 .compass-ring {
   width:100%;
   height:100%;
-  border:3px solid rgba(74,60,44,0.6);
+  border:2px solid rgba(74,60,44,0.6);
   border-radius:50%;
   position:relative;
   background:rgba(201,184,150,0.3);
@@ -196,7 +220,7 @@ header p {
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  border-width:0 6px 22px 6px;
+  border-width:0 5px 18px 5px;
   border-style:solid;
   border-color:transparent transparent rgba(74,60,44,0.85) transparent;
 }
@@ -205,72 +229,62 @@ header p {
   position:absolute;
   top:50%;
   left:50%;
-  transform:translate(-50%,-38%);
-  border-width:22px 6px 0 6px;
+  transform:translate(-50%,-35%);
+  border-width:18px 5px 0 5px;
   border-style:solid;
   border-color:rgba(74,60,44,0.5) transparent transparent transparent;
 }
 .compass-n {
   position:absolute;
-  top:-4px;
+  top:-3px;
   left:50%;
   transform:translateX(-50%);
-  font-size:.7rem;
+  font-size:.6rem;
   font-weight:bold;
   color:#3a2a15;
 }
 .compass-s {
   position:absolute;
-  bottom:-4px;
+  bottom:-3px;
   left:50%;
   transform:translateX(-50%);
-  font-size:.6rem;
+  font-size:.5rem;
   color:#4a3c2a;
 }
-.compass-e, .compass-w {
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:.55rem;
-  color:#4a3c2a;
-}
-.compass-e { right:-5px; }
-.compass-w { left:-5px; }
 
-/* Map frame with inner border */
+/* Map frame */
 .map-frame {
   position:relative;
   border:3px double rgba(74,60,44,0.4);
   border-radius:2px;
-  padding:.5rem;
-  margin-top:.4rem;
+  padding:.4rem;
+  margin-top:.3rem;
 }
 
-/* Decorative corner X marks */
-.x-mark {
+/* Corner decorations */
+.corner-decor {
   position:absolute;
-  font-size:1.2rem;
-  color:rgba(139,90,43,0.5);
-  font-weight:bold;
+  font-size:.9rem;
+  color:rgba(139,90,43,0.4);
 }
-.x-mark-tl { top:5px; left:5px; }
-.x-mark-tr { top:5px; right:5px; }
-.x-mark-bl { bottom:5px; left:5px; }
-.x-mark-br { bottom:5px; right:5px; }
+.corner-decor-tl { top:3px; left:3px; }
+.corner-decor-tr { top:3px; right:3px; }
+.corner-decor-bl { bottom:3px; left:3px; }
+.corner-decor-br { bottom:3px; right:3px; }
 
-/* Curved winding road with more character */
+/* Curved road */
 .road-svg {
   position:absolute;
   bottom:0;
   left:0;
   width:100%;
-  height:220px;
+  height:180px;
   pointer-events:none;
 }
 .road-path {
   fill:none;
   stroke:#6b5a45;
-  stroke-width:32;
+  stroke-width:28;
   stroke-linecap:round;
   stroke-linejoin:round;
   filter:drop-shadow(1px 2px 2px rgba(0,0,0,0.15));
@@ -278,7 +292,7 @@ header p {
 .road-path-inner {
   fill:none;
   stroke:#7d6b55;
-  stroke-width:24;
+  stroke-width:20;
   stroke-linecap:round;
   stroke-linejoin:round;
 }
@@ -286,115 +300,157 @@ header p {
   fill:none;
   stroke:#a08060;
   stroke-width:2;
-  stroke-dasharray:6 14;
+  stroke-dasharray:5 12;
   stroke-linecap:round;
   opacity:0.6;
 }
 
-/* Dotted trail dots */
-.trail-dots {
-  fill:none;
-  stroke:#8b5a2b;
-  stroke-width:3;
-  stroke-dasharray:0 18;
-  stroke-linecap:round;
-}
-
-/* Mountains - more stylized */
-.mountains {
+/* Hills */
+.hills {
   position:absolute;
-  top:40px;
+  top:25px;
   left:0;
   right:0;
-  height:65px;
-  display:flex;
-  justify-content:space-around;
-  align-items:flex-end;
-  opacity:0.35;
+  height:45px;
+  pointer-events:none;
 }
-.mt {
-  width:0;
-  height:0;
-  border-left:25px solid transparent;
-  border-right:25px solid transparent;
-  border-bottom:50px solid rgba(74,60,44,0.4);
-}
-.mt:nth-child(2) { border-bottom-width:60px; }
-.mt:nth-child(3) { border-bottom-width:35px; }
-.mt:nth-child(4) { border-bottom-width:70px; }
-.mt:nth-child(5) { border-bottom-width:45px; }
-.mt:nth-child(6) { border-bottom-width:55px; }
 
-/* Trees - scattered pine */
+/* Trees */
 .tree-marks {
   position:absolute;
-  top:105px;
+  top:82px;
   left:0;
   right:0;
-  height:18px;
+  height:15px;
 }
 .tree-mark {
   position:absolute;
-  font-size:1rem;
+  font-size:.85rem;
   opacity:0.45;
   filter:grayscale(30%);
 }
 
-/* Waves/sea area */
+/* Sea/waves */
 .sea-area {
   position:absolute;
-  bottom:30px;
-  left:3%;
-  width:70px;
-  height:25px;
-  opacity:0.25;
-  background:linear-gradient(180deg, transparent 0%, rgba(60,100,140,0.1) 100%);
+  bottom:25px;
+  left:2%;
+  width:55px;
+  height:20px;
+  opacity:0.2;
 }
 .wave-line {
   position:absolute;
   width:100%;
-  height:8px;
+  height:6px;
   border:1px solid rgba(60,100,140,0.3);
   border-radius:50% 50% 0 0;
   border-bottom:none;
 }
 .wave-line:nth-child(1) { top:0; }
-.wave-line:nth-child(2) { top:8px; left:3px; }
-.wave-line:nth-child(3) { top:16px; left:6px; }
+.wave-line:nth-child(2) { top:6px; left:2px; }
+.wave-line:nth-child(3) { top:12px; left:4px; }
 
-/* Terrain labels - treasure map style */
+/* Decorative elements */
+.ship {
+  position:absolute;
+  bottom:60px;
+  right:8%;
+  font-size:.9rem;
+  opacity:0.35;
+  transform:rotate(15deg);
+}
+.anchor {
+  position:absolute;
+  bottom:30px;
+  left:12%;
+  font-size:.8rem;
+  opacity:0.3;
+  transform:rotate(-10deg);
+}
+.mini-compass {
+  position:absolute;
+  top:55px;
+  left:5%;
+  width:25px;
+  height:25px;
+  opacity:0.4;
+  border:1px solid rgba(74,60,44,0.4);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.5rem;
+  color:rgba(74,60,44,0.5);
+}
+.treasure-icon {
+  position:absolute;
+  top:45px;
+  right:35%;
+  font-size:.8rem;
+  opacity:0.35;
+}
+.skull {
+  position:absolute;
+  bottom:45px;
+  right:35%;
+  font-size:.7rem;
+  opacity:0.3;
+}
+
+/* Terrain labels */
 .terrain {
   position:absolute;
-  font-size:.85rem;
+  font-size:.75rem;
   color:rgba(74,60,44,0.55);
   font-style:italic;
-  letter-spacing:.05em;
+  letter-spacing:.04em;
   transform:rotate(-2deg);
 }
 .terrain::before {
   content:'✦ ';
-  font-size:.7rem;
+  font-size:.6rem;
   opacity:0.6;
 }
 
-/* X marks the spot */
+/* X marks */
 .x-spot {
   position:absolute;
-  font-size:1.4rem;
-  color:rgba(139,60,20,0.6);
+  font-size:1rem;
+  color:rgba(139,60,20,0.5);
   font-weight:bold;
   transform:rotate(-5deg);
-  opacity:0.7;
+  opacity:0.6;
+}
+
+/* Heart decorations - love theme */
+.heart-decor {
+  position:absolute;
+  font-size:.9rem;
+  opacity:0.4;
+  animation:heartBeat 2s ease-in-out infinite;
+}
+.heart-decor:nth-child(odd) { animation-delay:.5s; }
+@keyframes heartBeat {
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.15);}
+}
+
+/* Rose decorations */
+.rose-decor {
+  position:absolute;
+  font-size:.85rem;
+  opacity:0.35;
 }
 
 /* Stops container */
 .stops-container {
   position:relative;
-  height:220px;
-  margin:0 .3rem;
+  height:180px;
+  margin:0 .25rem;
 }
 
-/* Stop markers - treasure chest style */
+/* Stop markers */
 .stop {
   position:absolute;
   display:flex;
@@ -404,38 +460,37 @@ header p {
   cursor:pointer;
   transition:transform .3s;
 }
-.stop:hover { transform:scale(1.1); }
+.stop:hover { transform:scale(1.12); }
 
 .stop-marker {
-  width:42px;
-  height:42px;
+  width:36px;
+  height:36px;
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:1.1rem;
-  border:3px solid;
+  font-size:.95rem;
+  border:2px solid;
   background:#f0e6d2;
-  box-shadow:2px 2px 4px rgba(0,0,0,0.15);
+  box-shadow:1px 2px 3px rgba(0,0,0,0.15);
   position:relative;
 }
 .stop-marker::after {
   content:'';
   position:absolute;
-  bottom:-4px;
+  bottom:-3px;
   left:50%;
   transform:translateX(-50%);
-  width:8px;
-  height:4px;
+  width:6px;
+  height:3px;
   background:rgba(0,0,0,0.15);
   border-radius:50%;
 }
-/* Revealed */
 .stop.revealed .stop-marker { border-color:#8b4513; }
 .stop.revealed .stop-marker::before {
   content:'';
   position:absolute;
-  inset:-5px;
+  inset:-4px;
   border:2px dashed rgba(139,69,19,0.5);
   border-radius:50%;
   animation:rotate-dash 20s linear infinite;
@@ -443,86 +498,313 @@ header p {
 @keyframes rotate-dash {
   to { transform: rotate(360deg); }
 }
-/* Coming soon */
 .stop.coming .stop-marker { border-color:#8a7a6a; background:#d4c4a8; }
 
-/* Stop labels - aged paper style */
+/* Stop labels */
 .stop-label {
   text-align:center;
-  margin-top:.45rem;
+  margin-top:.4rem;
   background:#f5efe4;
-  padding:.25rem .5rem;
+  padding:.2rem .4rem;
   border:1px solid rgba(74,60,44,0.25);
-  box-shadow:1px 2px 3px rgba(0,0,0,0.1);
+  box-shadow:1px 1px 2px rgba(0,0,0,0.1);
   transform:rotate(1deg);
+  min-width:60px;
 }
 .stop-chapter {
-  font-size:.52rem;
+  font-size:.48rem;
   color:rgba(74,60,44,0.65);
-  letter-spacing:.12em;
-  margin-bottom:.05rem;
+  letter-spacing:.1em;
+  margin-bottom:.03rem;
 }
 .stop-title {
-  font-size:.8rem;
+  font-size:.72rem;
   color:#2a1f15;
   font-weight:600;
 }
 .stop-desc {
   font-style:italic;
-  font-size:.6rem;
+  font-size:.52rem;
   color:rgba(74,60,44,0.55);
-  margin-top:.05rem;
+  margin-top:.03rem;
 }
 
-/* Stop positions - following the curve */
-.stop[data-chap="1"] { left:4%; bottom:58px; }
-.stop[data-chap="2"] { left:22%; bottom:82px; }
-.stop[data-chap="3"] { left:42%; bottom:68px; }
-.stop[data-chap="4"] { left:60%; bottom:90px; }
-.stop[data-chap="5"] { left:80%; bottom:60px; }
+/* Stop positions */
+.stop[data-chap="1"] { left:3%; bottom:48px; }
+.stop[data-chap="2"] { left:20%; bottom:68px; }
+.stop[data-chap="3"] { left:38%; bottom:55px; }
+.stop[data-chap="4"] { left:55%; bottom:75px; }
+.stop[data-chap="5"] { left:75%; bottom:48px; }
 
-/* Legend/Key section */
+/* Legend */
 .map-legend {
   position:absolute;
-  bottom:.8rem;
-  left:.8rem;
-  font-size:.55rem;
-  color:rgba(74,60,44,0.55);
-  line-height:1.6;
+  bottom:.6rem;
+  left:.6rem;
+  font-size:.5rem;
+  color:rgba(74,60,44,0.5);
+  line-height:1.5;
 }
 .map-legend-title {
-  font-size:.6rem;
+  font-size:.52rem;
   font-weight:bold;
-  color:rgba(74,60,44,0.7);
-  margin-bottom:.2rem;
-  border-bottom:1px solid rgba(74,60,44,0.3);
+  color:rgba(74,60,44,0.65);
+  margin-bottom:.15rem;
+  border-bottom:1px solid rgba(74,60,44,0.25);
   display:inline-block;
 }
 
 /* Scale bar */
 .scale-bar {
   position:absolute;
-  bottom:.8rem;
-  right:.8rem;
+  bottom:.6rem;
+  right:.6rem;
   display:flex;
   align-items:center;
-  gap:.15rem;
-  font-size:.5rem;
+  gap:.12rem;
+  font-size:.45rem;
   color:rgba(74,60,44,0.5);
 }
 .scale-line {
-  width:25px;
+  width:22px;
   height:2px;
-  background:rgba(74,60,44,0.45);
-  border-top:1px solid rgba(74,60,44,0.45);
+  background:rgba(74,60,44,0.4);
+  border-top:1px solid rgba(74,60,44,0.4);
 }
 
-/* Decorative map border */
+.map-timer {
+  position:absolute;
+  left:.75rem;
+  right:.75rem;
+  bottom:5.5rem;
+  background:rgba(18,12,24,0.85);
+  border:1px solid rgba(233,216,166,0.2);
+  border-radius:16px;
+  padding:.8rem 1rem;
+  box-shadow:0 18px 40px rgba(0,0,0,0.22);
+  backdrop-filter:blur(8px);
+  color:#f7eacc;
+  z-index:5;
+}
+.map-timer .timer-label {
+  font-size:.7rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:rgba(233,216,166,0.8);
+  margin-bottom:.35rem;
+}
+.map-timer .timer-clock {
+  display:flex;
+  justify-content:space-between;
+  gap:.5rem;
+  flex-wrap:wrap;
+}
+.map-timer .timer-unit {
+  flex:1 1 50px;
+  min-width:50px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:10px;
+  padding:.55rem .5rem;
+  text-align:center;
+  box-shadow: inset 0 0 10px rgba(255,255,255,0.04);
+}
+.map-timer .timer-unit span:first-child {
+  display:block;
+  font-size:1.1rem;
+  font-weight:700;
+  color:#fff;
+}
+.map-timer .timer-unit span:last-child {
+  display:block;
+  margin-top:.2rem;
+  font-size:.62rem;
+  color:rgba(255,255,255,0.75);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.map-timer .timer-sub {
+  margin-top:.55rem;
+  font-size:.68rem;
+  color:rgba(233,216,166,0.8);
+  opacity:0.95;
+}
+
+.map-emoji-cloud {
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:2;
+}
+.map-emoji {
+  position:absolute;
+  bottom:10px;
+  font-size:1.2rem;
+  opacity:0;
+  animation:floatUp 5s ease-out forwards;
+  text-shadow:0 2px 10px rgba(0,0,0,0.35);
+}
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(0.9); opacity:0; }
+  10% { opacity:1; }
+  100% { transform: translateY(-120vh) scale(1.1); opacity:0; }
+}
+
+/* Inner border */
 .border-dots {
   position:absolute;
-  top:5px;left:5px;right:5px;bottom:5px;
-  border:1px dotted rgba(74,60,44,0.2);
+  top:3px;left:3px;right:3px;bottom:3px;
+  border:1px dotted rgba(74,60,44,0.15);
   pointer-events:none;
+}
+
+/* Mobile styles */
+@media (max-width: 520px) {
+  body {
+    padding:.6rem;
+  }
+
+  .container {
+    padding:3.2rem .4rem 1rem;
+  }
+
+  .paper-map {
+    padding:.85rem;
+    min-height:430px;
+  }
+
+  header h1 {
+    font-size:1.18rem;
+  }
+
+  header p {
+    font-size:.68rem;
+  }
+
+  .back-btn {
+    padding:.35rem .65rem;
+    font-size:.68rem;
+  }
+
+  .compass {
+    width:42px;
+    height:42px;
+    top:.45rem;
+    right:.45rem;
+  }
+
+  .compass-ring::before {
+    border-width:0 4px 14px 4px;
+  }
+  .compass-ring::after {
+    border-width:14px 4px 0 4px;
+    transform:translate(-50%,-32%);
+  }
+  .compass-n { font-size:.5rem; }
+  .compass-s { font-size:.42rem; }
+
+  .map-frame {
+    padding:.35rem;
+  }
+
+  .road-svg {
+    height:155px;
+  }
+  .road-path { stroke-width:24; }
+  .road-path-inner { stroke-width:18; }
+  .road-dashes { stroke-width:1.5; }
+
+  .hills { top:22px; }
+  .hills span { font-size:1.45rem !important; }
+
+  .tree-marks { top:66px; }
+  .tree-mark { font-size:.7rem; }
+
+  .terrain, .x-spot, .ship, .anchor, .treasure-icon, .skull, .mini-compass, .heart-decor, .rose-decor {
+    display:none;
+  }
+
+  .stops-container { height:150px; }
+
+  .stop[data-chap="1"] { left:2%; bottom:40px; }
+  .stop[data-chap="2"] { left:18%; bottom:55px; }
+  .stop[data-chap="3"] { left:36%; bottom:45px; }
+  .stop[data-chap="4"] { left:52%; bottom:60px; }
+  .stop[data-chap="5"] { left:72%; bottom:38px; }
+
+  .stop-marker {
+    width:33px;
+    height:33px;
+    font-size:.86rem;
+  }
+
+  .stop-label {
+    padding:.14rem .28rem;
+    min-width:50px;
+  }
+  .stop-chapter { font-size:.43rem; }
+  .stop-title { font-size:.67rem; }
+  .stop-desc { font-size:.5rem; }
+
+  .map-timer {
+    left:.75rem;
+    right:.75rem;
+    bottom:5.7rem;
+    padding:.75rem .9rem;
+  }
+  .map-timer .timer-clock { gap:.35rem; }
+  .map-timer .timer-unit { min-width:44px; padding:.45rem .42rem; }
+  .map-timer .timer-unit span:first-child { font-size:1rem; }
+  .map-timer .timer-unit span:last-child { font-size:.62rem; }
+  .map-timer .timer-sub { font-size:.66rem; }
+
+  .map-legend,
+  .scale-bar {
+    display:none;
+  }
+
+  .rolled-corner { width:40px; height:40px; }
+  .rolled-corner::before { width:34px; height:34px; }
+  .rolled-corner::after { width:26px; height:26px; }
+
+  .paper-spot { width:50px; height:50px; }
+}
+
+@media (max-width: 420px) {
+  .container { padding:3rem .35rem .9rem; }
+  .paper-map { min-height:400px; }
+  header h1 { font-size:1.08rem; }
+  .map-timer { bottom:4.9rem; }
+  .map-timer .timer-unit { min-width:40px; padding:.4rem .36rem; }
+  .map-timer .timer-unit span:first-child { font-size:.95rem; }
+  .map-timer .timer-unit span:last-child { font-size:.6rem; }
+  .stop-marker { width:31px; height:31px; font-size:.8rem; }
+  .stop-label { padding:.13rem .26rem; }
+}
+
+/* Extra small mobile */
+@media (max-width: 360px) {
+  body { padding:.4rem; }
+  .container { padding:2.8rem .3rem .75rem; }
+  .paper-map { padding:.65rem; min-height:360px; }
+  .map-timer { left:.5rem; right:.5rem; bottom:4.3rem; padding:.65rem .7rem; }
+  .map-timer .timer-unit { min-width:38px; padding:.36rem .32rem; }
+  .map-timer .timer-unit span:first-child { font-size:.9rem; }
+  .map-timer .timer-unit span:last-child { font-size:.55rem; }
+  .back-btn { top:.3rem; left:.3rem; padding:.28rem .55rem; }
+  .stop[data-chap="1"] { left:1%; bottom:35px; }
+  .stop[data-chap="2"] { left:15%; bottom:48px; }
+  .stop[data-chap="3"] { left:32%; bottom:40px; }
+  .stop[data-chap="4"] { left:48%; bottom:52px; }
+  .stop[data-chap="5"] { left:68%; bottom:32px; }
+  .stop-marker { width:28px; height:28px; font-size:.75rem; }
+  .stop-label { min-width:42px; padding:.1rem .22rem; }
+  .stop-chapter { font-size:.38rem; }
+  .stop-title { font-size:.62rem; }
+  .stop-desc { font-size:.45rem; }
 }
 </style>
 </head>
@@ -537,53 +819,66 @@ header p {
     <div class="paper-spot"></div>
     <div class="paper-spot"></div>
     <div class="paper-stop"></div>
+    <div class="ink-stain"></div>
+    <div class="ink-stain"></div>
+    <div class="water-patch"></div>
 
     <header>
-      <h1>🗺️ Treasure Map</h1>
-      <p>Follow the path to find your treasures...</p>
+      <h1>Your Surprise Journey</h1>
+      <p>Scroll along the road to discover your gifts ✨</p>
     </header>
 
     <div class="compass">
       <div class="compass-ring">
         <span class="compass-n">N</span>
         <span class="compass-s">S</span>
-        <span class="compass-e">E</span>
-        <span class="compass-w">W</span>
       </div>
     </div>
 
     <div class="map-frame">
       <div class="border-dots"></div>
-      <div class="x-mark x-mark-tl">✕</div>
-      <div class="x-mark x-mark-tr">✕</div>
-      <div class="x-mark x-mark-bl">✕</div>
-      <div class="x-mark x-mark-br">✕</div>
+      <div class="corner-decor corner-decor-tl">❧</div>
+      <div class="corner-decor corner-decor-tr">❧</div>
+      <div class="corner-decor corner-decor-bl">❧</div>
+      <div class="corner-decor corner-decor-br">❧</div>
 
-      <!-- Winding trail -->
-      <svg class="road-svg" viewBox="0 0 800 220" preserveAspectRatio="none">
-        <path class="road-path" d="M 10,175 Q 60,155 95,130 Q 140,100 185,115 Q 240,130 280,100 Q 330,65 380,78 Q 440,90 485,65 Q 540,40 595,55 Q 660,70 710,45 Q 760,25 790,40" />
-        <path class="road-path-inner" d="M 10,175 Q 60,155 95,130 Q 140,100 185,115 Q 240,130 280,100 Q 330,65 380,78 Q 440,90 485,65 Q 540,40 595,55 Q 660,70 710,45 Q 760,25 790,40" />
-        <path class="road-dashes" d="M 10,175 Q 60,155 95,130 Q 140,100 185,115 Q 240,130 280,100 Q 330,65 380,78 Q 440,90 485,65 Q 540,40 595,55 Q 660,70 710,45 Q 760,25 790,40" />
-        <!-- Trail dots -->
-        <path class="trail-dots" d="M 10,175 Q 60,155 95,130 Q 140,100 185,115 Q 240,130 280,100 Q 330,65 380,78 Q 440,90 485,65 Q 540,40 595,55 Q 660,70 710,45 Q 760,25 790,40" />
+      <!-- Decorative elements - love theme -->
+      <div class="ship">⛵</div>
+      <div class="anchor">⚓</div>
+      <div class="mini-compass">⬆</div>
+      <div class="treasure-icon">💝</div>
+      <div class="skull">💀</div>
+      <!-- Love hearts -->
+      <div class="heart-decor" style="top:15px; left:15%;">💕</div>
+      <div class="heart-decor" style="top:40px; right:25%;">💖</div>
+      <div class="heart-decor" style="bottom:35px; left:30%;">💗</div>
+      <div class="heart-decor" style="top:70px; left:60%;">💞</div>
+      <!-- Rose -->
+      <div class="rose-decor" style="bottom:25px; right:15%;">🌹</div>
+      <div class="rose-decor" style="top:30px; left:8%;">🌷</div>
+
+      <!-- Road -->
+      <svg class="road-svg" viewBox="0 0 800 180" preserveAspectRatio="none">
+        <path class="road-path" d="M 8,145 Q 50,130 80,108 Q 115,82 155,95 Q 200,108 235,82 Q 280,52 325,62 Q 380,72 420,50 Q 465,28 515,40 Q 575,52 620,32 Q 670,12 720,25 Q 765,35 792,20" />
+        <path class="road-path-inner" d="M 8,145 Q 50,130 80,108 Q 115,82 155,95 Q 200,108 235,82 Q 280,52 325,62 Q 380,72 420,50 Q 465,28 515,40 Q 575,52 620,32 Q 670,12 720,25 Q 765,35 792,20" />
+        <path class="road-dashes" d="M 8,145 Q 50,130 80,108 Q 115,82 155,95 Q 200,108 235,82 Q 280,52 325,62 Q 380,72 420,50 Q 465,28 515,40 Q 575,52 620,32 Q 670,12 720,25 Q 765,35 792,20" />
       </svg>
 
-      <div class="mountains">
-        <div class="mt"></div>
-        <div class="mt"></div>
-        <div class="mt"></div>
-        <div class="mt"></div>
-        <div class="mt"></div>
-        <div class="mt"></div>
+      <!-- Hills instead of mountains -->
+      <div class="hills">
+        <span style="left:5%;font-size:1.8rem;opacity:0.25;">🏔️</span>
+        <span style="left:25%;font-size:1.5rem;opacity:0.2;">🏔️</span>
+        <span style="right:20%;font-size:2rem;opacity:0.22;">🏔️</span>
+        <span style="right:5%;font-size:1.6rem;opacity:0.18;">🏔️</span>
       </div>
 
       <div class="tree-marks">
-        <span class="tree-mark" style="left:4%">🌲</span>
-        <span class="tree-mark" style="left:15%">🌲</span>
-        <span class="tree-mark" style="left:38%">🌲</span>
-        <span class="tree-mark" style="left:55%">🌲</span>
-        <span class="tree-mark" style="left:75%">🌲</span>
-        <span class="tree-mark" style="left:90%">🌲</span>
+        <span class="tree-mark" style="left:3%">🌲</span>
+        <span class="tree-mark" style="left:12%">🌳</span>
+        <span class="tree-mark" style="left:32%">🌲</span>
+        <span class="tree-mark" style="left:48%">🌳</span>
+        <span class="tree-mark" style="left:68%">🌲</span>
+        <span class="tree-mark" style="left:85%">🌳</span>
       </div>
 
       <div class="sea-area">
@@ -592,19 +887,20 @@ header p {
         <div class="wave-line"></div>
       </div>
 
-      <div class="terrain" style="top:25px; left:6%;">Wild Forest</div>
-      <div class="terrain" style="top:35px; right:6%;">Rocky Hills</div>
-      <div class="terrain" style="top:70px; left:45%;">Dark Cave</div>
+      <div class="terrain" style="top:20px; left:5%;">Wild Forest</div>
+      <div class="terrain" style="top:28px; right:5%;">Rocky Hills</div>
+      <div class="terrain" style="top:50px; left:42%;">Dark Cave</div>
 
-      <div class="x-spot" style="top:20px; right:25%;">✕</div>
-      <div class="x-spot" style="bottom:40px; left:15%;">✕</div>
+      <div class="x-spot" style="top:15px; right:20%;">✕</div>
+      <div class="x-spot" style="bottom:30px; left:10%;">✕</div>
+      <div class="x-spot" style="top:65px; left:25%;">✕</div>
 
       <div class="stops-container">
         <a href="index.html" class="stop revealed" data-chap="1">
           <div class="stop-marker">🎂</div>
           <div class="stop-label">
-            <p class="stop-chapter">✦ CHAPTER I</p>
-            <p class="stop-title">Birthday</p>
+            <p class="stop-chapter">✦ CHAPTER 01</p>
+            <p class="stop-title">Birthday Surprise</p>
             <p class="stop-desc">The beginning</p>
           </div>
         </a>
@@ -612,17 +908,17 @@ header p {
         <a href="surprise2.html" class="stop revealed" data-chap="2">
           <div class="stop-marker">📜</div>
           <div class="stop-label">
-            <p class="stop-chapter">✦ CHAPTER II</p>
-            <p class="stop-title">Gift</p>
-            <p class="stop-desc">Special momento</p>
+            <p class="stop-chapter">✦ CHAPTER 02</p>
+            <p class="stop-title">Special Gift</p>
+            <p class="stop-desc">A momento</p>
           </div>
         </a>
 
         <a href="surprise3.html" class="stop revealed" data-chap="3">
           <div class="stop-marker">💜</div>
           <div class="stop-label">
-            <p class="stop-chapter">✦ CHAPTER III</p>
-            <p class="stop-title">Poem</p>
+            <p class="stop-chapter">✦ CHAPTER 03</p>
+            <p class="stop-title">Poem for You</p>
             <p class="stop-desc">From my heart</p>
           </div>
         </a>
@@ -630,7 +926,7 @@ header p {
         <div class="stop coming" data-chap="4">
           <div class="stop-marker">🎁</div>
           <div class="stop-label">
-            <p class="stop-chapter">✦ CHAPTER IV</p>
+            <p class="stop-chapter">✦ CHAPTER 04</p>
             <p class="stop-title">Coming Soon</p>
             <p class="stop-desc">Magic awaits...</p>
           </div>
@@ -639,7 +935,7 @@ header p {
         <div class="stop coming" data-chap="5">
           <div class="stop-marker">🌟</div>
           <div class="stop-label">
-            <p class="stop-chapter">✦ CHAPTER V</p>
+            <p class="stop-chapter">✦ CHAPTER 05</p>
             <p class="stop-title">Coming Soon</p>
             <p class="stop-desc">More love...</p>
           </div>
@@ -647,37 +943,82 @@ header p {
       </div>
 
       <div class="map-legend">
-        <div class="map-legend-title">── Key ──</div><br>
+        <div class="map-legend-title">── KEY ──</div><br>
         ✦ = Your Stops<br>
-        ✕ = Points of Interest<br>
-        ~~~~ = Winding Path
+        ✕ = Discoveries
       </div>
     </div>
 
-    <div class="scale-bar">
-      <span>0</span>
-      <div class="scale-line"></div>
-      <span>~1 league~</span>
+  <div class="map-timer" id="mapTimer">
+    <div class="timer-label">Next milestone</div>
+    <div class="timer-clock">
+      <div class="timer-unit"><span id="mapCdD">00</span><span>days</span></div>
+      <div class="timer-unit"><span id="mapCdH">00</span><span>hrs</span></div>
+      <div class="timer-unit"><span id="mapCdM">00</span><span>mins</span></div>
+      <div class="timer-unit"><span id="mapCdS">00</span><span>secs</span></div>
     </div>
-
-    <div class="rolled-corner"></div>
-
-    <p style="text-align:center; padding:.6rem; font-style:italic; font-size:.8rem; color:rgba(42,31,21,0.5); border-top:1px solid rgba(74,60,44,0.15); margin-top:.4rem;">"The treasure is along the journey, not at the end ✨"</p>
+    <div class="timer-sub" id="mapCdText">until midnight</div>
   </div>
-</div>
 
 <script>
 // Generate stars
-for(let i=0;i<30;i++){
+for(let i=0;i<25;i++){
   const star=document.createElement('div');
   star.className='star';
   star.style.left=Math.random()*100+'vw';
-  star.style.top=Math.random()*50+'vh';
+  star.style.top=Math.random()*45+'vh';
   star.style.animationDelay=Math.random()*3+'s';
   star.style.width=(Math.random()*1.5+1)+'px';
   star.style.height=star.style.width;
   document.body.appendChild(star);
 }
+
+const mapEmojis = ['🎁','🎉','✨','💝','🎈','💖','🎀','🎊','🌟','🧡','💜','🌸'];
+const mapEmojiContainer = document.createElement('div');
+mapEmojiContainer.className = 'map-emoji-cloud';
+document.body.appendChild(mapEmojiContainer);
+
+function getNextMilestone(now) {
+  return new Date(2026, 8, 30, 0, 0, 0); // September 30 2026 midnight
+}
+
+function formatTwoDigits(value) {
+  return String(value).padStart(2, '0');
+}
+
+function updateMapTimer() {
+  const now = new Date();
+  const nextMilestone = getNextMilestone(now);
+  const diff = nextMilestone - now;
+  const seconds = Math.floor(diff / 1000);
+  const days = Math.floor(seconds / 86400);
+  const hours = Math.floor((seconds % 86400) / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const remainingSeconds = seconds % 60;
+
+  document.getElementById('mapCdD').textContent = formatTwoDigits(days);
+  document.getElementById('mapCdH').textContent = formatTwoDigits(hours);
+  document.getElementById('mapCdM').textContent = formatTwoDigits(minutes);
+  document.getElementById('mapCdS').textContent = formatTwoDigits(remainingSeconds);
+
+  const label = now >= nextMilestone ? 'Milestone reached! 🎉' : 'until midnight';
+  document.getElementById('mapCdText').textContent = label;
+}
+
+function spawnMapEmoji() {
+  const emoji = mapEmojis[Math.floor(Math.random() * mapEmojis.length)];
+  const bubble = document.createElement('div');
+  bubble.className = 'map-emoji';
+  bubble.textContent = emoji;
+  bubble.style.left = Math.random() * 90 + 'vw';
+  bubble.style.animationDuration = (3 + Math.random() * 2) + 's';
+  mapEmojiContainer.appendChild(bubble);
+  setTimeout(() => bubble.remove(), 5000);
+}
+
+setInterval(updateMapTimer, 1000);
+updateMapTimer();
+setInterval(spawnMapEmoji, 700);
 </script>
 </body>
 </html>

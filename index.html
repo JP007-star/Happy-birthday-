@@ -32,6 +32,51 @@ body { background:#0a0612; font-family:'Quicksand',sans-serif; color:#f5e6d0; ov
   background: radial-gradient(ellipse at 50% 0%, #1a0a2e 0%, #0a0612 60%);
 }
 
+/* Moon in hero */
+.hero-moon {
+  position:absolute;
+  top:6%;
+  right:8%;
+  width:180px;
+  height:180px;
+  opacity:0.35;
+  animation:moonFloat 5s ease-in-out infinite;
+}
+.hero-moon img {
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  filter:drop-shadow(0 0 20px rgba(255,220,100,0.3));
+}
+@keyframes moonFloat {
+  0%,100%{transform:translateY(0) rotate(-2deg);}
+  50%{transform:translateY(-10px) rotate(2deg);}
+}
+
+/* Emoji shower - love hearts */
+.emoji-shower {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:5;
+}
+.love-emoji {
+  position:absolute;
+  font-size:1.2rem;
+  animation:fallLove linear forwards;
+  opacity:0;
+}
+@keyframes fallLove {
+  0% { transform:translateY(-20px) rotate(0deg); opacity:0; }
+  10% { opacity:0.8; }
+  90% { opacity:0.6; }
+  100% { transform:translateY(105vh) rotate(360deg); opacity:0; }
+}
+
 /* star field */
 #starCanvas { position:absolute; inset:0; width:100%; height:100%; }
 
@@ -62,8 +107,8 @@ body { background:#0a0612; font-family:'Quicksand',sans-serif; color:#f5e6d0; ov
   50%     { transform:translateY(-18px) rotate(2deg); }
 }
 .moon-glow {
-  position:absolute; inset:-30px; border-radius:50%;
-  background:radial-gradient(circle, rgba(255,210,100,.22) 0%, transparent 70%);
+  position:absolute; inset:-30px; border-radius:40%;
+  background:radial-gradient(circle, #ededed38 0%, transparent 80%);
   animation:glowPulse 3s ease-in-out infinite;
 }
 @keyframes glowPulse {
@@ -71,18 +116,36 @@ body { background:#0a0612; font-family:'Quicksand',sans-serif; color:#f5e6d0; ov
   50%     { transform:scale(1.15); opacity:1; }
 }
 .moon-body {
-  width:180px; height:180px; border-radius:50%;
-  background:linear-gradient(135deg,#ffe9a0 0%,#f5c96a 45%,#e0a040 100%);
-  box-shadow:0 0 50px rgba(255,200,80,.35), 0 0 100px rgba(255,180,60,.12),
-             inset -10px -10px 28px rgba(0,0,0,.18);
-  display:flex; align-items:center; justify-content:center;
-  font-size:5rem; position:relative; overflow:hidden;
+    height: 180px;
+    border-radius: 50%;
+    background:linear-gradient(135deg,#fbfbfb 0%,#fffefd 45%,#e6e2dd 100%);
+    box-shadow:0 0 50px rgba(255,200,80,.35), 0 0 100px rgba(236, 234, 230, 0.12),
+               inset -10px -10px 28px rgba(249, 244, 244, 0.18);
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    position: relative;
+    font-size:5rem; position:relative; overflow:hidden;
 }
+
+/* Remove any visible border from the moon image and mask outer rim */
+.moon-body img {
+  width:110%;
+  height:110%;
+  object-fit:cover;
+  display:block;
+  position:relative;
+  left:-5%;
+  top:-5%;
+  border-radius:50%;
+  clip-path:circle(48% at 50% 50%);
+  border:none;
+  box-shadow:none;
+  background:none;
+}
+
 .moon-body::after {
-  content:''; position:absolute;
-  top:10%; left:14%; width:36%; height:30%;
-  background:rgba(255,255,255,.18); border-radius:50%;
-  transform:rotate(-30deg);
+  content:none;
 }
 
 .name-tag {
@@ -325,6 +388,443 @@ body { background:#0a0612; font-family:'Quicksand',sans-serif; color:#f5e6d0; ov
   background:linear-gradient(160deg,#1a0e26 0%,#2a0e1a 100%);
   padding:5rem 1rem; text-align:center;
 }
+
+/* ══════════════════════════════
+   SECTION 5 — MAP (Treasure Hunt)
+══════════════════════════════ */
+#map-section {
+  background: linear-gradient(180deg, #0a0612 0%, #1a0a2e 50%, #120818 100%);
+  padding:4rem 1rem;
+  position:relative;
+}
+#map-section::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(100,60,150,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(80,40,120,0.15) 0%, transparent 50%);
+  pointer-events:none;
+}
+.map-star {
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:#fff;
+  border-radius:50%;
+  animation:twinkle 3s ease-in-out infinite;
+}
+@keyframes twinkle { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+.map-container {
+  position:relative;
+  z-index:1;
+  max-width:750px;
+  margin:0 auto;
+}
+
+.map-paper {
+  position:relative;
+  background:
+    url('https://cdn.texturize.app/textures/paper-old-parchment/paper-old-parchment.png'),
+    linear-gradient(135deg, #c9b896 0%, #bfae84 30%, #c4b08c 50%, #d4c4a0 70%, #c9b896 100%);
+  background-blend-mode: overlay;
+  background-size: 300px 300px;
+  border-radius:4px;
+  box-shadow:0 0 60px rgba(0,0,0,0.5), inset 0 0 80px rgba(139,100,60,0.15);
+  padding:1rem;
+  min-height:450px;
+}
+.map-paper::before {
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;bottom:0;
+  background:
+    radial-gradient(ellipse at 10% 15%, rgba(255,248,230,0.25) 0%, transparent 30%),
+    radial-gradient(ellipse at 85% 25%, rgba(180,150,100,0.2) 0%, transparent 25%),
+    radial-gradient(ellipse at 70% 70%, rgba(160,130,90,0.15) 0%, transparent 30%);
+  pointer-events:none;
+  border-radius:4px;
+}
+.map-paper::after {
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;bottom:0;
+  box-shadow:inset 0 0 25px rgba(80,50,20,0.15);
+  border-radius:4px;
+  pointer-events:none;
+}
+
+.map-spot {
+  position:absolute;
+  width:60px;
+  height:60px;
+  background:radial-gradient(circle, rgba(90,60,30,0.1) 0%, transparent 70%);
+  border-radius:50%;
+  pointer-events:none;
+}
+.map-spot:nth-of-type(1) { top:5%; left:3%; }
+.map-spot:nth-of-type(2) { top:30%; right:5%; }
+.map-spot:nth-of-type(3) { bottom:15%; left:18%; }
+
+.map-header {
+  text-align:center;
+  padding:.2rem;
+  position:relative;
+  z-index:10;
+  border-bottom:2px solid rgba(74,60,44,0.18);
+  margin-bottom:.3rem;
+}
+.map-header h2 {
+  font-family:'Special Elite', cursive;
+  font-size:clamp(1.1rem,3vw,1.4rem);
+  color:#2a1f15;
+  margin-bottom:.1rem;
+}
+.map-header p {
+  font-family:'Special Elite', cursive;
+  font-size:.7rem;
+  color:rgba(42,31,21,0.7);
+  font-style:italic;
+}
+
+.map-compass {
+  position:absolute;
+  top:.5rem;
+  right:.5rem;
+  width:45px;
+  height:45px;
+  opacity:0.7;
+}
+.map-compass-ring {
+  width:100%;
+  height:100%;
+  border:2px solid rgba(74,60,44,0.55);
+  border-radius:50%;
+  position:relative;
+  background:rgba(201,184,150,0.25);
+}
+.map-compass-ring::before {
+  content:'';
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  border-width:0 4px 15px 4px;
+  border-style:solid;
+  border-color:transparent transparent rgba(74,60,44,0.8) transparent;
+}
+.map-compass-ring::after {
+  content:'';
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-32%);
+  border-width:15px 4px 0 4px;
+  border-style:solid;
+  border-color:rgba(74,60,44,0.45) transparent transparent transparent;
+}
+.map-compass-n {
+  position:absolute;
+  top:-2px;
+  left:50%;
+  transform:translateX(-50%);
+  font-family:'Special Elite', cursive;
+  font-size:.5rem;
+  color:#3a2a15;
+}
+
+.map-frame {
+  position:relative;
+  border:3px double rgba(74,60,44,0.35);
+  border-radius:2px;
+  padding:.35rem;
+  margin-top:.25rem;
+}
+
+.map-road-svg {
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:160px;
+  pointer-events:none;
+}
+.map-road-path {
+  fill:none;
+  stroke:#6b5a45;
+  stroke-width:24;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.map-road-inner {
+  fill:none;
+  stroke:#7d6b55;
+  stroke-width:18;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.map-road-dash {
+  fill:none;
+  stroke:#a08060;
+  stroke-width:2;
+  stroke-dasharray:4 10;
+  stroke-linecap:round;
+  opacity:0.55;
+}
+
+.map-hills {
+  position:absolute;
+  top:22px;
+  left:0;
+  right:0;
+  height:40px;
+  pointer-events:none;
+}
+.map-hills span {
+  position:absolute;
+  font-size:1.4rem;
+  opacity:0.2;
+}
+
+.map-trees {
+  position:absolute;
+  top:62px;
+  left:0;
+  right:0;
+  height:14px;
+}
+.map-tree {
+  position:absolute;
+  font-size:.75rem;
+  opacity:0.4;
+}
+
+.map-sea {
+  position:absolute;
+  bottom:22px;
+  left:2%;
+  width:45px;
+  height:16px;
+  opacity:0.18;
+}
+.map-wave {
+  position:absolute;
+  width:100%;
+  height:5px;
+  border:1px solid rgba(60,100,140,0.25);
+  border-radius:50% 50% 0 0;
+  border-bottom:none;
+}
+.map-wave:nth-child(1) { top:0; }
+.map-wave:nth-child(2) { top:5px; left:2px; }
+.map-wave:nth-child(3) { top:10px; left:4px; }
+
+.map-terrain {
+  position:absolute;
+  font-family:'Special Elite', cursive;
+  font-size:.65rem;
+  color:rgba(74,60,44,0.5);
+  font-style:italic;
+}
+.map-terrain::before {
+  content:'✦ ';
+  font-size:.5rem;
+  opacity:0.5;
+}
+
+.map-x {
+  position:absolute;
+  font-size:.85rem;
+  color:rgba(139,60,20,0.45);
+  font-weight:bold;
+}
+
+.map-heart {
+  position:absolute;
+  font-size:.75rem;
+  opacity:0.35;
+  animation:heartBeat 2s ease-in-out infinite;
+}
+@keyframes heartBeat { 0%,100%{transform:scale(1);} 50%{transform:scale(1.1);} }
+
+.map-rose {
+  position:absolute;
+  font-size:.7rem;
+  opacity:0.3;
+}
+
+.map-stops {
+  position:relative;
+  height:160px;
+  margin:0 .2rem;
+}
+
+.map-stop {
+  position:absolute;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-decoration:none;
+  cursor:pointer;
+  transition:transform .3s;
+}
+.map-stop:hover { transform:scale(1.1); }
+
+.map-stop-marker {
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.9rem;
+  border:2px solid;
+  background:#f0e6d2;
+  box-shadow:1px 2px 3px rgba(0,0,0,0.12);
+  position:relative;
+}
+.map-stop-marker::after {
+  content:'';
+  position:absolute;
+  bottom:-3px;
+  left:50%;
+  transform:translateX(-50%);
+  width:5px;
+  height:2px;
+  background:rgba(0,0,0,0.12);
+  border-radius:50%;
+}
+.map-stop.revealed .map-stop-marker { border-color:#8b4513; }
+.map-stop.coming .map-stop-marker { border-color:#8a7a6a; background:#d4c4a8; }
+
+.map-stop-label {
+  text-align:center;
+  margin-top:.35rem;
+  background:#f5efe4;
+  padding:.15rem .35rem;
+  border:1px solid rgba(74,60,44,0.22);
+  box-shadow:1px 1px 2px rgba(0,0,0,.08);
+  transform:rotate(1deg);
+  min-width:52px;
+}
+.map-stop-ch {
+  font-family:'Special Elite', cursive;
+  font-size:.42rem;
+  color:rgba(74,60,44,0.6);
+  letter-spacing:.08em;
+  margin-bottom:.02rem;
+}
+.map-stop-title {
+  font-family:'Special Elite', cursive;
+  font-size:.65rem;
+  color:#2a1f15;
+  font-weight:600;
+}
+.map-stop-desc {
+  font-family:'Special Elite', cursive;
+  font-style:italic;
+  font-size:.48rem;
+  color:rgba(74,60,44,0.5);
+  margin-top:.02rem;
+}
+
+.map-stop[data-c="1"] { left:3%; bottom:42px; }
+.map-stop[data-c="2"] { left:20%; bottom:58px; }
+.map-stop[data-c="3"] { left:38%; bottom:48px; }
+.map-stop[data-c="4"] { left:55%; bottom:65px; }
+.map-stop[data-c="5"] { left:74%; bottom:42px; }
+
+.map-legend {
+  position:absolute;
+  bottom:.5rem;
+  left:.5rem;
+  font-size:.45rem;
+  color:rgba(74,60,44,0.45);
+  line-height:1.4;
+}
+.map-legend-title {
+  font-size:.48rem;
+  font-weight:bold;
+  color:rgba(74,60,44,0.6);
+  margin-bottom:.1rem;
+}
+
+.map-scale {
+  position:absolute;
+  bottom:.5rem;
+  right:.5rem;
+  display:flex;
+  align-items:center;
+  gap:.1rem;
+  font-size:.4rem;
+  color:rgba(74,60,44,0.45);
+}
+.map-scale-line {
+  width:20px;
+  height:2px;
+  background:rgba(74,60,44,0.4);
+}
+
+.map-rolled {
+  position:absolute;
+  bottom:-6px;
+  right:-6px;
+  width:40px;
+  height:40px;
+  z-index:10;
+}
+.map-rolled::before {
+  content:'';
+  position:absolute;
+  bottom:0;
+  right:0;
+  width:34px;
+  height:34px;
+  background:linear-gradient(135deg, transparent 48%, #8a7a5a 48%, #8a7a5a 52%, transparent 52%), linear-gradient(225deg, #a08060 0%, #b8a068 50%, transparent 50%);
+  border-radius:0 0 0 5px;
+  box-shadow:-2px -2px 4px rgba(0,0,0,0.2);
+}
+
+.map-quote {
+  text-align:center;
+  padding:.4rem;
+  font-family:'Special Elite', cursive;
+  font-style:italic;
+  font-size:.65rem;
+  color:rgba(42,31,21,0.45);
+  border-top:1px solid rgba(74,60,44,0.1);
+  margin-top:.25rem;
+}
+
+/* Map mobile */
+@media (max-width: 480px) {
+  .map-paper { padding:.6rem; min-height:380px; }
+  .map-header h2 { font-size:.95rem; }
+  .map-header p { font-size:.6rem; }
+  .map-compass { width:35px; height:35px; top:.35rem; right:.35rem; }
+  .map-road-svg { height:130px; }
+  .map-road-path { stroke-width:18; }
+  .map-road-inner { stroke-width:12; }
+  .map-hills { top:18px; height:32px; }
+  .map-hills span { font-size:1.1rem; }
+  .map-trees { top:50px; }
+  .map-tree { font-size:.6rem; }
+  .map-terrain, .map-x, .map-heart, .map-rose { display:none; }
+  .map-stops { height:130px; }
+  .map-stop[data-c="1"] { left:1%; bottom:35px; }
+  .map-stop[data-c="2"] { left:16%; bottom:48px; }
+  .map-stop[data-c="3"] { left:34%; bottom:40px; }
+  .map-stop[data-c="4"] { left:50%; bottom:52px; }
+  .map-stop[data-c="5"] { left:68%; bottom:35px; }
+  .map-stop-marker { width:28px; height:28px; font-size:.75rem; }
+  .map-stop-label { padding:.1rem .25rem; min-width:44px; }
+  .map-stop-ch { font-size:.38rem; }
+  .map-stop-title { font-size:.58rem; }
+  .map-stop-desc { font-size:.42rem; }
+  .map-legend { display:none; }
+  .map-scale { bottom:.35rem; right:.35rem; }
+}
 .n-label { font-size:.68rem; letter-spacing:.4em; text-transform:uppercase; color:#8a5a7a; margin-bottom:.8rem; }
 .n-title {
   font-family:'Cormorant Garamond',serif; font-weight:300;
@@ -542,10 +1042,12 @@ footer p { font-size:.72rem; letter-spacing:.18em; color:rgba(245,230,200,.3); }
 <!-- ══ HERO ══ -->
 <section id="hero">
   <canvas id="starCanvas"></canvas>
+  <div class="emoji-shower" id="emojiShower"></div>
+  <div class="hero-moon"></div>
 
   <div class="moon-ring" style="opacity:0;animation:fadeUp .9s ease forwards .1s">
     <div class="moon-glow"></div>
-    <div class="moon-body">🌙</div>
+    <div class="moon-body"><img src="full-moon.webp" alt="Full Moon"></div>
   </div>
 
   <p class="name-tag">✦ &nbsp; &nbsp; ✦</p>
@@ -554,26 +1056,136 @@ footer p { font-size:.72rem; letter-spacing:.18em; color:rgba(245,230,200,.3); }
   <p class="scroll-hint">↓ &nbsp; scroll &nbsp; ↓</p>
 </section>
 
-<!-- ══ NOTE ══ -->
-<section id="note" class="reveal">
-  <p class="n-label">✦ from the heart ✦</p>
-  <h2 class="n-title">A quiet little note 🌙</h2>
-  <div class="note-card">
-    <p class="note-body">
-      Nandini — there's something quietly special about you.
+<!-- ══ MAP - TREASURE HUNT ══ -->
+<section id="map-section" class="reveal">
+  <!-- Stars for map section -->
+  <div id="mapStars"></div>
+  <div class="map-container">
+    <div class="map-paper">
+      <div class="map-spot"></div>
+      <div class="map-spot"></div>
+      <div class="map-spot"></div>
 
-The way you notice the little things… moonlight, soft skies, moments most people miss — it makes everything feel a bit more alive.
+      <div class="map-header">
+        <h2>Your Surprise Journey</h2>
+        <p>Scroll along the road to discover your gifts ✨</p>
+      </div>
 
-If I'm being honest, somewhere in between all that… I think I started wishing I could be part of your world too.
+      <div class="map-compass">
+        <div class="map-compass-ring">
+          <span class="map-compass-n">N</span>
+        </div>
+      </div>
 
-No noise, no rush — just something real, like the way you see things.
+      <div class="map-frame">
+        <!-- Road -->
+        <svg class="map-road-svg" viewBox="0 0 800 160" preserveAspectRatio="none">
+          <path class="map-road-path" d="M 8,130 Q 45,115 72,95 Q 105,72 142,82 Q 185,95 215,72 Q 255,48 295,55 Q 345,62 380,42 Q 420,22 465,32 Q 515,42 555,25 Q 600,8 650,18 Q 705,28 745,15 Q 770,8 792,12" />
+          <path class="map-road-inner" d="M 8,130 Q 45,115 72,95 Q 105,72 142,82 Q 185,95 215,72 Q 255,48 295,55 Q 345,62 380,42 Q 420,22 465,32 Q 515,42 555,25 Q 600,8 650,18 Q 705,28 745,15 Q 770,8 792,12" />
+          <path class="map-road-dash" d="M 8,130 Q 45,115 72,95 Q 105,72 142,82 Q 185,95 215,72 Q 255,48 295,55 Q 345,62 380,42 Q 420,22 465,32 Q 515,42 555,25 Q 600,8 650,18 Q 705,28 745,15 Q 770,8 792,12" />
+        </svg>
 
-And today… feels like the perfect day to say that.
+        <div class="map-hills">
+          <span style="left:5%;">🏔️</span>
+          <span style="left:25%;">🏔️</span>
+          <span style="right:20%;">🏔️</span>
+          <span style="right:5%;">🏔️</span>
+        </div>
 
-Happy Birthday ✦
-      Today the universe celebrates <em>you.</em>
-    </p>
-    <p class="note-sign">— with warmth &amp; a little starlight ✦</p>
+        <div class="map-trees">
+          <span class="map-tree" style="left:3%;">🌲</span>
+          <span class="map-tree" style="left:15%;">🌳</span>
+          <span class="map-tree" style="left:35%;">🌲</span>
+          <span class="map-tree" style="left:52%;">🌳</span>
+          <span class="map-tree" style="left:72%;">🌲</span>
+          <span class="map-tree" style="left:88%;">🌳</span>
+        </div>
+
+        <div class="map-sea">
+          <div class="map-wave"></div>
+          <div class="map-wave"></div>
+          <div class="map-wave"></div>
+        </div>
+
+        <div class="map-terrain" style="top:18px; left:5%;">Wild Forest</div>
+        <div class="map-terrain" style="top:25px; right:5%;">Rocky Hills</div>
+        <div class="map-terrain" style="top:42px; left:40%;">Dark Cave</div>
+
+        <div class="map-x" style="top:12px; right:18%;">✕</div>
+        <div class="map-x" style="bottom:25px; left:8%;">✕</div>
+
+        <div class="map-heart" style="top:12px; left:12%;">💕</div>
+        <div class="map-heart" style="top:35px; right:28%;">💖</div>
+        <div class="map-heart" style="bottom:30px; left:25%;">💗</div>
+        <div class="map-heart" style="top:58px; left:55%;">💞</div>
+
+        <div class="map-rose" style="bottom:20px; right:12%;">🌹</div>
+        <div class="map-rose" style="top:25px; left:6%;">🌷</div>
+
+        <div class="map-stops">
+          <a href="#" class="map-stop revealed" data-c="1" onclick="goToChapter(1);return false;">
+            <div class="map-stop-marker">🎂</div>
+            <div class="map-stop-label">
+              <p class="map-stop-ch">✦ CHAPTER 01</p>
+              <p class="map-stop-title">Birthday Surprise</p>
+              <p class="map-stop-desc">The beginning</p>
+            </div>
+          </a>
+
+          <a href="#" class="map-stop revealed" data-c="2" onclick="goToChapter(2);return false;">
+            <div class="map-stop-marker">📜</div>
+            <div class="map-stop-label">
+              <p class="map-stop-ch">✦ CHAPTER 02</p>
+              <p class="map-stop-title">Special Gift</p>
+              <p class="map-stop-desc">A momento</p>
+            </div>
+          </a>
+
+          <a href="#" class="map-stop revealed" data-c="3" onclick="goToChapter(3);return false;">
+            <div class="map-stop-marker">💜</div>
+            <div class="map-stop-label">
+              <p class="map-stop-ch">✦ CHAPTER 03</p>
+              <p class="map-stop-title">Poem for You</p>
+              <p class="map-stop-desc">From my heart</p>
+            </div>
+          </a>
+
+          <div class="map-stop coming" data-c="4">
+            <div class="map-stop-marker">🎁</div>
+            <div class="map-stop-label">
+              <p class="map-stop-ch">✦ CHAPTER 04</p>
+              <p class="map-stop-title">Coming Soon</p>
+              <p class="map-stop-desc">Magic awaits...</p>
+            </div>
+          </div>
+
+          <div class="map-stop coming" data-c="5">
+            <div class="map-stop-marker">🌟</div>
+            <div class="map-stop-label">
+              <p class="map-stop-ch">✦ CHAPTER 05</p>
+              <p class="map-stop-title">Coming Soon</p>
+              <p class="map-stop-desc">More love...</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="map-legend">
+          <div class="map-legend-title">── KEY ──</div><br>
+          ✦ = Your Stops<br>
+          ✕ = Discoveries
+        </div>
+      </div>
+
+      <div class="map-scale">
+        <span>0</span>
+        <div class="map-scale-line"></div>
+        <span>~1 league~</span>
+      </div>
+
+      <div class="map-rolled"></div>
+
+      <p class="map-quote">"The treasure is along the journey ✨"</p>
+    </div>
   </div>
 </section>
 
@@ -593,7 +1205,7 @@ Happy Birthday ✦
       <span class="cd-colon">:</span>
       <div class="cd-unit"><span class="cd-val" id="cdS">00</span><span class="cd-lbl">secs</span></div>
     </div>
-    <p class="cd-sub" id="cdSubText">until midnight · May 18, 2027 🌸</p>
+    <p class="cd-sub" id="cdSubText">until midnight · May 18, 2026 🌸</p>
   </div>
 </section>
 
@@ -645,6 +1257,29 @@ Happy Birthday ✦
   </button>
 </section>
 
+<!-- ══ NOTE ══ -->
+<section id="note" class="reveal">
+  <p class="n-label">✦ from the heart ✦</p>
+  <h2 class="n-title">A quiet little note 🌙</h2>
+  <div class="note-card">
+    <p class="note-body">
+      Nandini — there's something quietly special about you.
+
+The way you notice the little things… moonlight, soft skies, moments most people miss — it makes everything feel a bit more alive.
+
+If I'm being honest, somewhere in between all that… I think I started wishing I could be part of your world too.
+
+No noise, no rush — just something real, like the way you see things.
+
+And today… feels like the perfect day to say that.
+
+Happy Birthday ✦
+      Today the universe celebrates <em>you.</em>
+    </p>
+    <p class="note-sign">— with warmth &amp; a little starlight ✦</p>
+  </div>
+</section>
+
 <!-- ══ BIRTHDAY FINALE ══ -->
 <section id="finale" style="display:none;">
   <canvas id="confettiCanvas"></canvas>
@@ -660,13 +1295,13 @@ Happy Birthday ✦
     <p class="fin-tag">✦ &nbsp; May 18, 2000 &nbsp; ✦</p>
     <h1 class="fin-hb">Happy<br><em>Birthday</em></h1>
     <h2 class="fin-name">Nandini</h2>
-    <p class="fin-sub">26 years of magic &nbsp;·&nbsp; may this one be the most beautiful yet 🌙</p>
+    <p class="fin-sub">26 years of magic &nbsp;·&nbsp; this one is extra special 🌙</p>
     <div class="fin-divider"></div>
     <p class="fin-quote">"The moon shines a little brighter<br>on the day you were born."</p>
     <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
-      <a href="surprise2.html" style="background:linear-gradient(135deg,#ffe9a0,#f5b96a,#e87060); border:none; padding:1rem 2rem; border-radius:50px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.1rem; color:#0a0612; box-shadow:0 8px30px rgba(245,185,106,.3); text-decoration:none; display:inline-block;">Surprise 2</a>
-      <a href="surprise3.html" style="background:linear-gradient(135deg,#d4a0e8,#b080d0,#9070c0); border:none; padding:1rem 2rem; border-radius:50px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.1rem; color:#fff; box-shadow:0 8px30px rgba(180,100,220,.3); text-decoration:none; display:inline-block;">Surprise 3</a>
-      <a href="map.html" style="background:linear-gradient(135deg,#5a4a3a,#3a2a1a); border:none; padding:1rem 2rem; border-radius:50px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.1rem; color:#d4b896; box-shadow:0 8px30px rgba(0,0,0,.3); text-decoration:none; display:inline-block;">🗺️ Map</a>
+      <a href="#" onclick="goToChapter(1);return false;" style="background:linear-gradient(135deg,#ffe9a0,#f5b96a,#e87060); border:none; padding:1rem 2rem; border-radius:50px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.1rem; color:#0a0612; box-shadow:0 8px30px rgba(245,185,106,.3); text-decoration:none; display:inline-block;">🎂 Surprise 1</a>
+      <a href="#" onclick="goToChapter(2);return false;" style="background:linear-gradient(135deg,#d4a0e8,#b080d0,#9070c0); border:none; padding:1rem 2rem; border-radius:50px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.1rem; color:#fff; box-shadow:0 8px30px rgba(180,100,220,.3); text-decoration:none; display:inline-block;">📜 Surprise 2</a>
+      <a href="#" onclick="goToChapter(3);return false;" style="background:linear-gradient(135deg,#5a4a3a,#3a2a1a); border:none; padding:1rem 2rem; border-radius:50px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.1rem; color:#d4b896; box-shadow:0 8px30px rgba(0,0,0,.3); text-decoration:none; display:inline-block;">💜 Surprise 3</a>
     </div>
   </div>
 </section>
@@ -679,6 +1314,27 @@ Happy Birthday ✦
     <iframe src="Promotion_Letter_Nandini-1.pdf" style="width:100%; height:600px; border:none;"></iframe>
   </div>
   <p style="font-family:'Cormorant Garamond',serif; font-style:italic; color:rgba(212,169,106,.7); margin-top:1.5rem; font-size:1.1rem;">Click the download icon in the viewer to save it 📥</p>
+  <button onclick="goBackFromSurprise()" style="margin-top:2rem; background:none; border:1px solid rgba(212,160,240,.3); color:#d4a0e8; padding:0.8rem 2rem; border-radius:30px; cursor:pointer; font-family:'Quicksand',sans-serif; font-size:0.9rem; letter-spacing:0.1em;">← Back to Birthday</button>
+</section>
+
+<!-- ══ SURPRISE 3 - POEM ══ -->
+<section id="surprise3" style="display:none; background:linear-gradient(160deg,#1a0e26 0%,#0d0818 100%); padding:4rem 1rem; min-height:100vh; text-align:center;">
+  <p class="rg-label" style="opacity:1; animation:none;">✦ from the heart ✦</p>
+  <h2 class="rg-title" style="opacity:1; animation:none; margin-bottom:1.5rem;">A Poem<br><em>For You</em></h2>
+  <div style="max-width:600px; margin:0 auto; padding:2rem; background:rgba(255,255,255,.03); border:1px solid rgba(212,160,240,.2); border-radius:16px;">
+    <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.15rem; color:rgba(240,216,248,.85); line-height:2.1;">
+      Under the moon's soft silver glow,<br>
+      A special soul I come to know.<br><br>
+      Your smile lights up the darkest night,<br>
+      Your presence makes everything right.<br><br>
+      Like stars that dance across the sky,<br>
+      Your spirit soars, so free, so high.<br><br>
+      Today we celebrate the day you came,<br>
+      And thank the heavens for your beautiful name.<br><br>
+      Happy Birthday, Nandini dear,<br>
+      May all your dreams burn bright and clear! ✨
+    </p>
+  </div>
   <button onclick="goBackFromSurprise()" style="margin-top:2rem; background:none; border:1px solid rgba(212,160,240,.3); color:#d4a0e8; padding:0.8rem 2rem; border-radius:30px; cursor:pointer; font-family:'Quicksand',sans-serif; font-size:0.9rem; letter-spacing:0.1em;">← Back to Birthday</button>
 </section>
 
@@ -742,6 +1398,35 @@ function mkShoot(){
 for(let i=0;i<8;i++) mkShoot();
 setInterval(mkShoot,5000);
 
+/* ── EMOJI SHOWER - LOVE HEARTS & GIFTS ── */
+const loveEmojis = ['💕','💖','💗','💘','💝','💞','💟','❤️','💜','🧡','💌','🌸','✨','🌟','🎁','🎉','🎀','🎈','🛍️','📦','🎊'];
+function spawnLoveEmoji(){
+  const el = document.createElement('div');
+  el.className = 'love-emoji';
+  el.textContent = loveEmojis[Math.floor(Math.random() * loveEmojis.length)];
+  el.style.left = Math.random() * 100 + 'vw';
+  el.style.fontSize = (Math.random() * 0.8 + 0.8) + 'rem';
+  el.style.animationDuration = (Math.random() * 4 + 5) + 's';
+  el.style.animationDelay = Math.random() * 2 + 's';
+  document.getElementById('emojiShower').appendChild(el);
+  setTimeout(() => el.remove(), 10000);
+}
+setInterval(spawnLoveEmoji, 800);
+for(let i=0; i<8; i++) setTimeout(spawnLoveEmoji, i * 400);
+
+/* ── MAP STARS ── */
+function spawnMapStar(){
+  const el = document.createElement('div');
+  el.className = 'map-star';
+  el.style.left = Math.random() * 100 + 'vw';
+  el.style.top = Math.random() * 60 + 'vh';
+  el.style.animationDelay = Math.random() * 3 + 's';
+  el.style.width = (Math.random() * 1.5 + 1) + 'px';
+  el.style.height = el.style.width;
+  document.getElementById('mapStars').appendChild(el);
+}
+for(let i=0; i<20; i++) spawnMapStar();
+
 /* ── PETALS ── */
 const petals=['🌸','🌺','🌼','🌷','💮'];
 function spawnPetal(){
@@ -803,9 +1488,11 @@ function showSurprise2(){
 
 function goBackFromSurprise(){
   const surprise2 = document.getElementById('surprise2');
+  const surprise3 = document.getElementById('surprise3');
   const finale = document.getElementById('finale');
 
-  surprise2.style.display = 'none';
+  if(surprise2) surprise2.style.display = 'none';
+  if(surprise3) surprise3.style.display = 'none';
   finale.style.display = 'flex';
   finale.scrollIntoView({behavior:'smooth'});
 }
@@ -925,9 +1612,11 @@ function startConfetti(){
   });
 })();
 
-/* ── LIVE COUNTDOWN TIMER to May 18 2027 midnight ── */
+/* ── LIVE COUNTDOWN TIMER to next May 18 midnight ── */
 (function(){
-  const target = new Date('2027-05-18T00:00:00');
+  const birthdayMonth = 4; // May (0-indexed)
+  const birthdayDay = 18;
+
   const hEl = document.getElementById('cdH');
   const mEl = document.getElementById('cdM');
   const sEl = document.getElementById('cdS');
@@ -935,36 +1624,48 @@ function startConfetti(){
 
   function pad(n){ return String(n).padStart(2,'0'); }
 
+  function getNextBirthday(now){
+    const year = now.getFullYear();
+    let target = new Date(year, birthdayMonth, birthdayDay);
+    if(now >= target){
+      target = new Date(year + 1, birthdayMonth, birthdayDay);
+    }
+    target.setHours(0, 0, 0, 0);
+    return target;
+  }
+
   function tick(){
     const now = new Date();
+    const target = getNextBirthday(now);
     const diff = target - now;
 
     if(diff <= 0){
-      // It's her birthday!
-      hEl.textContent = '00'; mEl.textContent = '00'; sEl.textContent = '00';
-      subEl.innerHTML = '🎉 It\'s Nandini\'s Birthday! 🌙🎂';
+      hEl.textContent = '00';
+      mEl.textContent = '00';
+      sEl.textContent = '00';
+      subEl.textContent = '🎉 It\'s Nandini\'s Birthday! 🌙🎂';
       subEl.style.color = '#d4a0e8';
       subEl.style.fontSize = '1rem';
       return;
     }
 
     const totalSecs = Math.floor(diff / 1000);
-    const h = Math.floor(totalSecs / 3600);
-    const m = Math.floor((totalSecs % 3600) / 60);
-    const s = totalSecs % 60;
+    const days = Math.floor(totalSecs / 86400);
+    const hours = Math.floor((totalSecs % 86400) / 3600);
+    const mins = Math.floor((totalSecs % 3600) / 60);
+    const secs = totalSecs % 60;
 
-    // show days too if > 24h
-    if(h >= 24){
-      const days = Math.floor(h / 24);
-      const remH = h % 24;
-      hEl.textContent = pad(remH);
-      mEl.textContent = pad(m);
-      sEl.textContent = pad(s);
-      subEl.textContent = `${days} day${days>1?'s':''} + hours · until midnight May 18 2027 🌸`;
+    hEl.textContent = pad(hours);
+    mEl.textContent = pad(mins);
+    sEl.textContent = pad(secs);
+
+    const targetLabel = `May 18, ${target.getFullYear()}`;
+    if(days > 0){
+      subEl.textContent = `${days} day${days !== 1 ? 's' : ''} ${hours} hr${hours !== 1 ? 's' : ''} · until midnight · ${targetLabel} 🌸`;
     } else {
-      hEl.textContent = pad(h);
-      mEl.textContent = pad(m);
-      sEl.textContent = pad(s);
+      subEl.textContent = `until midnight · ${targetLabel} 🌸`;
+      subEl.style.color = '';
+      subEl.style.fontSize = '';
     }
   }
 
@@ -973,6 +1674,39 @@ function startConfetti(){
 })();
 
 
+/* ── MAP CHAPTER NAVIGATION ── */
+function goToChapter(num) {
+  const finale = document.getElementById('finale');
+  const surprise2 = document.getElementById('surprise2');
+  const surprise3 = document.getElementById('surprise3');
+
+  // Hide other sections
+  if(finale) finale.style.display = 'none';
+  if(surprise2) surprise2.style.display = 'none';
+  if(surprise3) surprise3.style.display = 'none';
+
+  if(num === 1) {
+    // Chapter 1 - Birthday (finale)
+    if(finale) {
+      finale.style.display = 'flex';
+      finale.scrollIntoView({behavior:'smooth'});
+    }
+  } else if(num === 2) {
+    // Chapter 2 - Gift (PDF)
+    if(surprise2) {
+      surprise2.style.display = 'block';
+      surprise2.scrollIntoView({behavior:'smooth'});
+    }
+  } else if(num === 3) {
+    // Chapter 3 - Poem
+    if(surprise3) {
+      surprise3.style.display = 'block';
+      surprise3.scrollIntoView({behavior:'smooth'});
+    }
+  }
+}
+
+/* ── SCROLL OBSERVER ── */
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
 },{threshold:.12});
