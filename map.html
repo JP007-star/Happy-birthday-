@@ -46,7 +46,7 @@ body {
   z-index:1;
   max-width:750px;
   margin:0 auto;
-  padding:4rem .5rem 1.5rem;
+  padding:4rem .5rem .5rem;
 }
 
 /* Treasure map paper */
@@ -63,22 +63,26 @@ body {
     inset 0 0 80px rgba(139,100,60,0.15),
     inset 0 0 20px rgba(100,70,40,0.1);
   padding:1rem;
-  min-height:1100px;
+  min-height:900px;
 }
 
 .map-quote {
+  display:block;
+  width:100%;
   font-size:.82rem;
-  color:rgba(42,31,21,0.7);
+  color:rgba(42,31,21,0.85);
   margin:0.5rem auto 0;
-  max-width:78%;
+  max-width:100%;
   line-height:1.5;
+  padding:.45rem .65rem;
+  background:rgba(255,255,255,0.55);
+  border-radius:12px;
 }
 .map-quote.subtle {
   font-size:.72rem;
-  color:rgba(42,31,21,0.55);
+  color:rgba(42,31,21,0.65);
   margin-top:.3rem;
 }
-
 /* Heavy aging effect */
 .paper-map::before {
   content:'';
@@ -586,10 +590,12 @@ header p {
 }
 
 .map-timer {
-  position:absolute;
-  left:.75rem;
-  right:.75rem;
-  bottom:5.5rem;
+  position:relative;
+  left:auto;
+  right:auto;
+  bottom:auto;
+  margin:calc(1.5rem + 80px) auto 0;
+  max-width:100%;
   background:rgba(18,12,24,0.85);
   border:1px solid rgba(233,216,166,0.2);
   border-radius:16px;
@@ -687,7 +693,7 @@ header p {
 
   .paper-map {
     padding:.85rem;
-    min-height:430px;
+    min-height:600px;
   }
 
   header h1 {
@@ -967,18 +973,20 @@ header p {
       </div>
     </div>
 
-    <p class="map-quote">“Every hidden step is a promise of magic — your adventure begins with a single clue.”</p>
-    <p class="map-quote subtle">“Destiny whispers from Shiva before Navaratri; listen closely as the path unfolds.”</p>
+    <p class="map-quote">“I could not find where you are, so I started creating this map to find you.”</p>
+    <p class="map-quote">“If you send a clue to find your address, I’ll send more gifts along the way.”</p>
+    <p class="map-quote subtle">“Every hint brings me closer — keep the surprises coming and the map will lead the way.”</p>
 
-  <div class="map-timer" id="mapTimer">
-    <div class="timer-label">Next milestone</div>
-    <div class="timer-clock">
-      <div class="timer-unit"><span id="mapCdD">00</span><span>days</span></div>
-      <div class="timer-unit"><span id="mapCdH">00</span><span>hrs</span></div>
-      <div class="timer-unit"><span id="mapCdM">00</span><span>mins</span></div>
-      <div class="timer-unit"><span id="mapCdS">00</span><span>secs</span></div>
+    <div class="map-timer" id="mapTimer">
+      <div class="timer-label">Next milestone</div>
+      <div class="timer-clock">
+        <div class="timer-unit"><span id="mapCdD">00</span><span>days</span></div>
+        <div class="timer-unit"><span id="mapCdH">00</span><span>hrs</span></div>
+        <div class="timer-unit"><span id="mapCdM">00</span><span>mins</span></div>
+        <div class="timer-unit"><span id="mapCdS">00</span><span>secs</span></div>
+      </div>
+      <div class="timer-sub" id="mapCdText">Clue: 'Destiny call from Shiva before Navaratri.'</div>
     </div>
-    <div class="timer-sub" id="mapCdText">Clue: 'Destiny call from Shiva before Navaratri.'</div>
   </div>
 
 <script>
