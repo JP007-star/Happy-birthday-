@@ -1041,7 +1041,7 @@ footer p { font-size:.72rem; letter-spacing:.18em; color:rgba(245,230,200,.3); }
 </head>
 <body>
 <!-- Background Music -->
-<audio id="bgMusic" loop>
+<audio id="bgMusic" loop preload="auto">
   <source src="aigiri-nandini.mp3" type="audio/mpeg">
 </audio>
 
@@ -1059,23 +1059,36 @@ function toggleMusic() {
     musicBtn.textContent = '🔇';
     musicBtn.style.opacity = '0.6';
   } else {
-    bgMusic.play().catch(e => console.log('Click to enable audio'));
+    bgMusic.play().catch(e => console.log('Audio play failed'));
     musicBtn.textContent = '🔊';
     musicBtn.style.opacity = '1';
   }
   musicPlaying = !musicPlaying;
 }
 
-// Try to autoplay on page load (may need user interaction)
-document.addEventListener('click', function() {
-  if(!musicPlaying) {
-    bgMusic.play().then(() => {
-      musicPlaying = true;
-      musicBtn.textContent = '🔊';
-      musicBtn.style.opacity = '1';
-    }).catch(e => {});
+// Try to autoplay on page load
+window.addEventListener('load', function() {
+  bgMusic.volume = 0.5;
+  bgMusic.play().then(() => {
+    musicPlaying = true;
+    musicBtn.textContent = '🔊';
+    musicBtn.style.opacity = '1';
+  }).catch(e => {
+    // If autoplay blocked, show hint
+    musicBtn.style.animation = 'pulse 1.5s infinite';
+    console.log('Autoplay blocked - user interaction needed');
+  });
+});
+
+// Add pulse animation for music button hint
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
   }
-}, {once: true});
+`;
+document.head.appendChild(style);
 </script>
 
 <!-- petals container -->
