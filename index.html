@@ -1062,7 +1062,9 @@ function startMusic() {
       musicStarted = true;
       musicBtn.textContent = '🔊';
       musicBtn.style.opacity = '1';
-    }).catch(e => {});
+    }).catch(e => {
+      console.log('Audio autoplay blocked');
+    });
   }
 }
 
@@ -1079,13 +1081,11 @@ function toggleMusic() {
   musicPlaying = !musicPlaying;
 }
 
-// Play on page load - autoplay
-window.addEventListener('load', function() {
-  setTimeout(startMusic, 500);
-});
+// Try to play immediately on page load
+window.addEventListener('DOMContentLoaded', startMusic);
+window.addEventListener('load', startMusic);
 document.addEventListener('click', startMusic, {once: true});
 document.addEventListener('touchstart', startMusic, {once: true});
-window.addEventListener('scroll', startMusic, {once: true});
 
 // Add pulse animation for music button hint
 const style = document.createElement('style');
